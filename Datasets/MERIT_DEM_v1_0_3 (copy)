@@ -39,26 +39,39 @@ var slope_classes = slope
       .where(slope.gt(25).and(slope.lte(35)), 4)
       .where(slope.gt(35).and(slope.lte(90)), 5);
      
-// Flat areas (-1 in ArcGis) were not classified as there were not such value in earth engine
+// It seems Earth engine does not calculate -1 values for flat areas as ArcGis does
 
 var aspect_classes = aspect
-      .where(aspect.gt(0).and(aspect.lte(0.02)), 2)
-      .where(aspect.gt(0.02).and(aspect.lte(0.06)), 2)
-      .where(aspect.gt(0.06).and(aspect.lte(25)), 3)
-      .where(aspect.gt(25).and(aspect.lte(35)), 4)
-      .where(aspect.gt(35).and(aspect.lte(90)), 5);
+      .where(aspect.gt(-1).and(aspect.lte(-1)), 0)
+      .where(aspect.gt(0).and(aspect.lte(90)), 2)
+      .where(aspect.gt(90).and(aspect.lte(270)), 1)
+      .where(aspect.gt(270).and(aspect.lte(360)), 2);
+      
+// LPI test, it needs to be checked with the original code
+
+var LPI_classes = LPI
+      .where(LPI.gt(-4).and(LPI.lte(-2)), 1)
+      .where(LPI.gt(-2).and(LPI.lte(0)), 2)
+      .where(LPI.gt(0).and(LPI.lte(1)), 3)
+      .where(LPI.gt(1).and(LPI.lte(3)), 4);
+
+var moisture_classes = LPI
+      .where(LPI.gt(-4).and(LPI.lte(-2)), 1)
+      .where(LPI.gt(-2).and(LPI.lte(0)), 2)
+      .where(LPI.gt(0).and(LPI.lte(1)), 3)
+      .where(LPI.gt(1).and(LPI.lte(3)), 4);
 
 // Visualization
-
+/*
 var visualization = {
-  bands: ['aspect'],
-  min: 1,
-  max: 5,
+  bands: ['mean'],
+  min: 0,
+  max: 100,
   palette: ['000000', '478FCD', '86C58E', 'AFC35E', '8F7131',
            'B78D4F', 'E2B8A6', 'FFFFFF']
 };
-
+*/
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(aspect);
+Map.addLayer(LPI_classes);
