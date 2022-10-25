@@ -16,6 +16,8 @@ var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Num
 
 var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
 
+//preciso dividir as subtracoes pela distancia de cada celula
+
 var LPI = dataset.subtract(neigh).reduce(ee.Reducer.mean());
 
 var visualization = {
