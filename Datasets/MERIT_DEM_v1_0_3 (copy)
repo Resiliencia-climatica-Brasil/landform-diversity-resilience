@@ -30,18 +30,26 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
 
 var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 
+// Reclassifying landform values into classes
+
+var slopereclass = ee.Image(1)
+      .where(slopesmrt.gt(10).and(slopesmrt.lte(20)), 1)
+      .where(slopesmrt.gt(20).and(slopesmrt.lte(30)), 2)
+      .where(slopesmrt.gt(30).and(slopesmrt.lte(40)), 3)
+      .where(slopesmrt.gt(40).and(slopesmrt.lte(50)), 4)
+      .where(slopesmrt.gt(50).and(slopesmrt.lte(90)), 5)
+
 // LPI visualization
-/*
+
 var visualization = {
-  bands: ['mean'],
-  min: -100,
-  max: 100,
+  bands: ['dem'],
+  min: 100,
+  max: 1500,
   palette: ['000000', '478FCD', '86C58E', 'AFC35E', '8F7131',
            'B78D4F', 'E2B8A6', 'FFFFFF']
 };
 
+
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(LPI, visualization);
-*/
-
+Map.addLayer(dataset, visualization);
