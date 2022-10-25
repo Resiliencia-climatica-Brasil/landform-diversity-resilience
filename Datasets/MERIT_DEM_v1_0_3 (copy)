@@ -61,6 +61,7 @@ var moisture_classes = moisture_index
       
 
 // Combining classes
+// Need to check it is not working 
 
 var classes_collection = ee.ImageCollection([moisture_classes.multiply(ee.Number(1000)), 
                                              aspect_classes.multiply(ee.Number(100)), 
