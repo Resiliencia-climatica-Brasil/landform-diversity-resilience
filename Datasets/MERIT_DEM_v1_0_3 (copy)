@@ -69,6 +69,8 @@ var classes_collection = ee.ImageCollection([moisture_classes.multiply(ee.Number
                                              
 var landform_combination = classes_collection.sum(); 
 
+print(landform_combination)
+
 /*      
 
 // Visualization
