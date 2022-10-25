@@ -32,19 +32,28 @@ var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 
 // Reclassifying landform values into classes
 
-var slopereclass = ee.Image(1)
-      .where(slopesmrt.gt(10).and(slopesmrt.lte(20)), 1)
-      .where(slopesmrt.gt(20).and(slopesmrt.lte(30)), 2)
-      .where(slopesmrt.gt(30).and(slopesmrt.lte(40)), 3)
-      .where(slopesmrt.gt(40).and(slopesmrt.lte(50)), 4)
-      .where(slopesmrt.gt(50).and(slopesmrt.lte(90)), 5)
+var slope_classes = slope
+      .where(slope.gt(0).and(slope.lte(0.02)), 1)
+      .where(slope.gt(0.02).and(slope.lte(0.06)), 2)
+      .where(slope.gt(0.06).and(slope.lte(25)), 3)
+      .where(slope.gt(25).and(slope.lte(35)), 4)
+      .where(slope.gt(35).and(slope.lte(90)), 5);
+     
+// Flat areas (-1 in ArcGis) were not classified as there were not such value in earth engine
 
-// LPI visualization
+var aspect_classes = aspect
+      .where(aspect.gt(0).and(aspect.lte(0.02)), 2)
+      .where(aspect.gt(0.02).and(aspect.lte(0.06)), 2)
+      .where(aspect.gt(0.06).and(aspect.lte(25)), 3)
+      .where(aspect.gt(25).and(aspect.lte(35)), 4)
+      .where(aspect.gt(35).and(aspect.lte(90)), 5);
+
+// Visualization
 
 var visualization = {
-  bands: ['dem'],
-  min: 100,
-  max: 1500,
+  bands: ['aspect'],
+  min: 1,
+  max: 5,
   palette: ['000000', '478FCD', '86C58E', 'AFC35E', '8F7131',
            'B78D4F', 'E2B8A6', 'FFFFFF']
 };
@@ -52,4 +61,4 @@ var visualization = {
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(dataset, visualization);
+Map.addLayer(aspect);
