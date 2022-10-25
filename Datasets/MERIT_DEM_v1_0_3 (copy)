@@ -55,14 +55,24 @@ var LPI_classes = LPI
       .where(LPI.gt(0).and(LPI.lte(1)), 3)
       .where(LPI.gt(1).and(LPI.lte(3)), 4);
 
-var moisture_classes = LPI
-      .where(LPI.gt(-4).and(LPI.lte(-2)), 1)
-      .where(LPI.gt(-2).and(LPI.lte(0)), 2)
-      .where(LPI.gt(0).and(LPI.lte(1)), 3)
-      .where(LPI.gt(1).and(LPI.lte(3)), 4);
+var moisture_classes = moisture_index
+      .where(moisture_index.lte(1.4), 0)
+      .where(moisture_index.gt(1.4), 1);
+      
+
+// Combining classes
+
+var classes_collection = ee.ImageCollection([moisture_classes.multiply(ee.Number(1000)), 
+                                             aspect_classes.multiply(ee.Number(100)), 
+                                             LPI_classes.multiply(ee.Number(10)), 
+                                             slope_classes]);
+                                             
+var landform_combination = classes_collection.sum(); 
+
+/*      
 
 // Visualization
-/*
+
 var visualization = {
   bands: ['mean'],
   min: 0,
@@ -70,8 +80,9 @@ var visualization = {
   palette: ['000000', '478FCD', '86C58E', 'AFC35E', '8F7131',
            'B78D4F', 'E2B8A6', 'FFFFFF']
 };
-*/
+
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(LPI_classes);
+Map.addLayer(landform_combination);
+*/
