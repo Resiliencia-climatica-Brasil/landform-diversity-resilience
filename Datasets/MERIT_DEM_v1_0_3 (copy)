@@ -1,5 +1,8 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = /* color: #d63000 */ee.Geometry.MultiPoint();
+var geometry = 
+    /* color: #d63000 */
+    /* shown: false */
+    ee.Geometry.MultiPoint();
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
 
@@ -62,33 +65,39 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
       
-/*
+
 // Combining classes
 // Need to check it is not working 
 
-var classes_collection = ee.ImageCollection([moisture_classes.multiply(ee.Number(1000)), 
+var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)), 
                                              aspect_classes.multiply(ee.Number(100)), 
                                              LPI_classes.multiply(ee.Number(10)), 
                                              slope_classes]);
-                                             
-var landform_combination = classes_collection.sum(); 
 
-print(landform_combination)
+
+var landform_combination = classes_collection.reduce(ee.Reducer.sum()); 
+
+/*
+Export.image.toAsset({
+  image: landform_combination,
+  description: 'landform_unique_index',
+  scale: 30,
+  region: cerrado,
+  maxPixels: 892228241530
+  
+});
 */
-/*      
-
 // Visualization
-
+/*
 var visualization = {
-  bands: ['mean'],
+  bands: ['sum'],
   min: 0,
-  max: 100,
-  palette: ['000000', '478FCD', '86C58E', 'AFC35E', '8F7131',
-           'B78D4F', 'E2B8A6', 'FFFFFF']
+  max: 1300,
+  palette: ['#ff370a', '#ffc216', '#fcff27', '#7cff39', '#3bffae',
+           '#43b9ff', '#2723ff']
 };
-
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_combination);
+Map.addLayer(landform_combination, visualization);
 */
