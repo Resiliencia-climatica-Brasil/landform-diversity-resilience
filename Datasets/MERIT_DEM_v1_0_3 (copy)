@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = /* color: #d63000 */ee.Geometry.MultiPoint();
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
@@ -59,7 +62,7 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
       
-
+/*
 // Combining classes
 // Need to check it is not working 
 
@@ -71,7 +74,7 @@ var classes_collection = ee.ImageCollection([moisture_classes.multiply(ee.Number
 var landform_combination = classes_collection.sum(); 
 
 print(landform_combination)
-
+*/
 /*      
 
 // Visualization
