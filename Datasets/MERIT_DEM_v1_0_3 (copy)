@@ -34,6 +34,8 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
    dividing them by their distances and calculating their average
 */
 
+/* We must calculate multiple windown size and take the average value*/
+
 var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 
 // Reclassifying landform values into classes
