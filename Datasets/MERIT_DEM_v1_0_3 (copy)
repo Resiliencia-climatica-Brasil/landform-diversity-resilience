@@ -37,7 +37,7 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
 /* We must calculate multiple windown size and take the average value*/
 
 var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
-
+/*
 // Reclassifying landform values into classes
 
 var slope_classes = slope
@@ -66,19 +66,22 @@ var LPI_classes = LPI
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
-      
+*/
+
 var index_collection = ee.Image([moisture_index, 
                                  aspect, 
                                  LPI, 
                                  slope]);
-                                             
-var index_collection = index.collection.rename(["Moisture",
+
+// Renaming bands                                             
+var index_collection = index_collection.rename(["Moisture",
                                                 "Aspect",
                                                 "LPI",
                                                 "Slope"]);
                                                 
-print(index_collection)
-                                             
+var landform_types = 
+                                                
+
 
       
 /*
