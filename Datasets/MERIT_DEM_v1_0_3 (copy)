@@ -67,7 +67,19 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
       
-      
+var index_collection = ee.Image([moisture_index, 
+                                 aspect, 
+                                 LPI, 
+                                 slope]);
+                                             
+var index_collection = index.collection.rename(["Moisture",
+                                                "Aspect",
+                                                "LPI",
+                                                "Slope"]);
+                                                
+print(index_collection)
+                                             
+
       
 /*
 // Combining classes
@@ -91,7 +103,7 @@ Export.image.toAsset({
 });
 */
 // Visualization
-
+/*
 var visualization = {
   bands: ['sum'],
   min: 0,
@@ -104,3 +116,4 @@ Map.setCenter(-50, -15, 7);
 
 Map.addLayer(landform_combination, visualization);
 
+*/
