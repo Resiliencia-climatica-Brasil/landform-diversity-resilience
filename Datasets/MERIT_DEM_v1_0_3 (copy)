@@ -58,7 +58,7 @@ var aspect_classes = aspect
 // LPI test, it needs to be checked with the original code
 
 var LPI_classes = LPI
-      .where(LPI.gt(-4).and(LPI.lte(-2)), 1)
+      .where(LPI.gt(-5).and(LPI.lte(-2)), 1)
       .where(LPI.gt(-2).and(LPI.lte(0)), 2)
       .where(LPI.gt(0).and(LPI.lte(1)), 3)
       .where(LPI.gt(1).and(LPI.lte(3)), 4);
@@ -67,10 +67,10 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
 
-
-
+//var landform = moisture_classes
+//                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(LPI_classes.eq(1)).and(slope_classes.eq(1)), )
+                 
       
-/*
 // Combining classes
 
 var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)), 
@@ -79,7 +79,50 @@ var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)),
                                              slope_classes]);
 
 var landform_combination = classes_collection.reduce(ee.Reducer.sum());
-*/
+
+var landform_types = landform_combination
+                      .where(landform_combination.eq(11), 11)
+                      .where(landform_combination.eq(12), 12)
+                      .where(landform_combination.eq(13), 13)
+                      .where(landform_combination.eq(14), 99)
+                      .where(landform_combination.eq(15), 5)
+                      .where(landform_combination.eq(21), 21)
+                      .where(landform_combination.eq(22), 22)
+                      .where(landform_combination.eq(23), 99)
+                      .where(landform_combination.eq(24), 99)
+                      .where(landform_combination.eq(25), 5)
+                      .where(landform_combination.eq(31), 30)
+                      .where(landform_combination.eq(32), 32)
+                      .where(landform_combination.eq(33), 23)
+                      .where(landform_combination.eq(34), 99)
+                      .where(landform_combination.eq(35), 5)
+                      .where(landform_combination.eq(41), 41)
+                      .where(landform_combination.eq(42), 41)
+                      .where(landform_combination.eq(43), 99)
+                      .where(landform_combination.eq(44), 99)
+                      .where(landform_combination.eq(45), 5)
+                      .where(landform_combination.eq(111), 11)
+                      .where(landform_combination.eq(112), 11)
+                      .where(landform_combination.eq(113), 13)
+                      .where(landform_combination.eq(114), 3)
+                      .where(landform_combination.eq(115), 5)
+                      .where(landform_combination.eq(121), 21)
+                      .where(landform_combination.eq(122), 22)
+                      .where(landform_combination.eq(123), 23)
+                      .where(landform_combination.eq(124), 3)
+                      .where(landform_combination.eq(125), 5)
+                      .where(landform_combination.eq(131), 30)
+                      .where(landform_combination.eq(132), 32)
+                      .where(landform_combination.eq(133), 23)
+                      .where(landform_combination.eq(134), 3)
+                      .where(landform_combination.eq(135), 5)
+                      .where(landform_combination.eq(141), 41)
+                      .where(landform_combination.eq(142), 41)
+                      .where(landform_combination.eq(143), 43)
+                      .where(landform_combination.eq(144), 3)
+                      .where(landform_combination.eq(145), 5)
+                      .where(landform_combination.eq
+
 
 /*
 Export.image.toAsset({
@@ -100,9 +143,9 @@ var visualization = {
   palette: ['#ff370a', '#ffc216', '#fcff27', '#7cff39', '#3bffae',
            '#43b9ff', '#2723ff']
 };
+*/
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_combination, visualization);
+Map.addLayer(landform_combination);
 
-*/
