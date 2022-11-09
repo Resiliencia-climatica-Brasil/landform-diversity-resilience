@@ -192,17 +192,18 @@ var visualization = {
 
 */
 
-/*
+var landform_30 = landform_combination.mask(landform_combination.eq(20))
+
 Map.setCenter(-50, -15, 7);
 
 
+Map.addLayer(landform_30);
 
-Map.addLayer(landform_types.where(landform_types.eq(20), 1).where(landform_types.neq(20), 0));
-*/
 
-var landform_20 = landform_combination.updateMask(landform_combination.eq(20)).pixelLonLat();
 
-print(landform_20)
+
+//print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
+
 
 /*
 Export.image.toDrive({
