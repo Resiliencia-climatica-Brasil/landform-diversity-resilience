@@ -141,19 +141,26 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(243), 44)
                       .where(landform_combination.eq(244), 4)
                       .where(landform_combination.eq(245), 5)
-                      .where(landform_combination.gt(1000), 39)
-
-
+                      .where(landform_combination.gt(1000), 39);
+                      
 /*
-Export.image.toAsset({
-  image: landform_combination,
-  description: 'landform_unique_index',
-  scale: 30,
-  region: cerrado,
-  maxPixels: 892228241530
-  
-});
+Calculating landform richness within a circular kernel
+The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
+
+r = (A/pi)^1/2
+
+100 acre equal to 404686 squared meters
+
+r = (404686/3.14)^1/2
+
 */
+
+var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+
+var radius_pixels = r.divide(ee.Number(90)).round()
+
+var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(10)).reduce(ee.Reducer.countDistinct())
+
 // Visualization
 /*
 var visualization = {
@@ -168,5 +175,14 @@ var visualization = {
 /*
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_combination);
+Map.addLayer(landform_richness);
+*/
+
+/*
+Export.image.toDrive({
+  image: landform_richness,
+  description: 'landform_richness',
+  scale: 92.76624,
+  region: geome
+});
 */
