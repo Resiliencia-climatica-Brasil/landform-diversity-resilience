@@ -167,30 +167,25 @@ var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 var radius_pixels = r.divide(ee.Number(90)).round()
 
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
-
-
-var freq = landform_richness.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
-
-print(freq)
-
-
+// 9 values
 // Visualization
-/*
+
 var visualization = {
   bands: ['sum'],
-  min: 0,
-  max: 1300,
-  palette: ['#ff370a', '#ffc216', '#fcff27', '#7cff39', '#3bffae',
-           '#43b9ff', '#2723ff']
+  min: 3,
+  max: 99,
+  palette: ["#ff200a", "#ff972b", "#ffec64", "#decd57", "#b4ff62", "#9bdc55", "#71dc83", "#90dcd8",
+            "#6ca5a2", "#9e84dc", "#edabf1", "#f17a90", "#ef5ff1", "#f12c5a"]
 };
-*/
-/*
+
 
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_richness);
-*/
+Map.addLayer(landform_types, visualization);
 
+var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+
+print(freq);
 /*
 Export.image.toDrive({
   image: landform_richness,
