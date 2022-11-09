@@ -41,7 +41,7 @@ var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 // Reclassifying landform values into classes
 
 var slope_classes = slope
-      .where(slope.gt(0).and(slope.lte(0.02)), 1)
+      .where(slope.gt(-1).and(slope.lte(0.02)), 1)
       .where(slope.gt(0.02).and(slope.lte(0.06)), 2)
       .where(slope.gt(0.06).and(slope.lte(25)), 3)
       .where(slope.gt(25).and(slope.lte(35)), 4)
@@ -74,9 +74,9 @@ var moisture_classes = moisture_index
 // Combining classes
 
 var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)), 
-                                             aspect_classes.multiply(ee.Number(100)), 
-                                             LPI_classes.multiply(ee.Number(10)), 
-                                             slope_classes]);
+                                   aspect_classes.multiply(ee.Number(100)), 
+                                   LPI_classes.multiply(ee.Number(10)), 
+                                   slope_classes]);
 
 var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 
@@ -191,13 +191,19 @@ var visualization = {
 };
 
 */
+
+/*
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_types, visualization);
 
-var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+
+Map.addLayer(landform_types.where(landform_types.eq(20), 1).where(landform_types.neq(20), 0));
+*/
+
+var freq = landform_combination.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
 print(freq.get("sum"));
+
 /*
 Export.image.toDrive({
   image: landform_richness,
