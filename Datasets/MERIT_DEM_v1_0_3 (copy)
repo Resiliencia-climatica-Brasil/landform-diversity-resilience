@@ -143,6 +143,14 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(245), 5)
                       .where(landform_combination.gt(1000), 39);
                       
+
+/*
+Checking values
+var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+
+print(freq)
+*/
+
 /*
 Calculating landform richness within a circular kernel
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
@@ -154,20 +162,6 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
-/*
-Checking values
-var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
-
-print(freq)
-*/
-
-/*
-var values = ee.Dictionary(reduction.get(image.bandNames().get(0)))
-    .keys()
-    .map(ee.Number.parse);
-print(values);
-*/
-/*
 var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
