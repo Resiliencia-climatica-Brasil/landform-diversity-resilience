@@ -155,12 +155,23 @@ r = (404686/3.14)^1/2
 
 */
 
+var freq = landform_types.reduceRegion({reducer: ee.Reducer.max(), geometry: cerrado, maxPixels: 232845367});
+
+print(freq)
+
+/*
+var values = ee.Dictionary(reduction.get(image.bandNames().get(0)))
+    .keys()
+    .map(ee.Number.parse);
+print(values);
+*/
+/*
 var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
 
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(10)).reduce(ee.Reducer.countDistinct())
-
+*/
 // Visualization
 /*
 var visualization = {
@@ -171,11 +182,11 @@ var visualization = {
            '#43b9ff', '#2723ff']
 };
 */
-
 /*
+
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(landform_richness);
+Map.addLayer(landform_types);
 */
 
 /*
