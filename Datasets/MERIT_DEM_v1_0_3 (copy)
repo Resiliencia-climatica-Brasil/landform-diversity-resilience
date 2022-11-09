@@ -200,9 +200,9 @@ Map.setCenter(-50, -15, 7);
 Map.addLayer(landform_types.where(landform_types.eq(20), 1).where(landform_types.neq(20), 0));
 */
 
-var freq = landform_combination.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+var landform_20 = landform_combination.updateMask(landform_combination.eq(20)).pixelLonLat();
 
-print(freq.get("sum"));
+print(landform_20)
 
 /*
 Export.image.toDrive({
