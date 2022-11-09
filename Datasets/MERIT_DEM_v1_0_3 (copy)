@@ -169,23 +169,35 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 // 9 values
 // Visualization
-
+/*
 var visualization = {
   bands: ['sum'],
   min: 3,
   max: 99,
-  palette: ["#ff200a", "#ff972b", "#ffec64", "#decd57", "#b4ff62", "#9bdc55", "#71dc83", "#90dcd8",
-            "#6ca5a2", "#9e84dc", "#edabf1", "#f17a90", "#ef5ff1", "#f12c5a"]
+  palette: ["#ff200a", // 3 
+            "#f3ff35", // 4
+            "#78ff82", // 5
+            "#decd57", // 20
+            "#b4ff62", // 21
+            "#9bdc55", // 22
+            "#71dc83", // 23
+            "#90dcd8", // 24  
+            "#6ca5a2", // 30
+            "#9e84dc", // 32
+            "#edabf1", // 39
+            "#f17a90", // 43
+            "#ef5ff1", // 44
+            "#f12c5a"] // 99
 };
 
-
+*/
 Map.setCenter(-50, -15, 7);
 
 Map.addLayer(landform_types, visualization);
 
 var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
-print(freq);
+print(freq.get("sum"));
 /*
 Export.image.toDrive({
   image: landform_richness,
