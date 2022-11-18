@@ -200,11 +200,11 @@ var sld_intervals =
     '<ColorMapEntry color="#ffffff" quantity="20" label="Deciduous Needleleaf Forest"/>' +
     '<ColorMapEntry color="#997f7f" quantity="21" label="Deciduous Broadleaf Forest"/>' +
     '<ColorMapEntry color="#dcbfbf" quantity="22" label="Mixed Deciduous Forest"/>' +
-    '<ColorMapEntry color="#6a2325" quantity="6" label="Closed Shrubland"/>' +
-    '<ColorMapEntry color="#c3aa69" quantity="7" label="Open Shrubland"/>' +
-    '<ColorMapEntry color="#b76031" quantity="8" label="Woody Savanna"/>' +
-    '<ColorMapEntry color="#d9903d" quantity="9" label="Savanna"/>' +
-    '<ColorMapEntry color="#91af40" quantity="10" label="Grassland"/>' +
+    '<ColorMapEntry color="#62dc82" quantity="23" label="Closed Shrubland"/>' +
+    '<ColorMapEntry color="#cbd267" quantity="24" label="Open Shrubland"/>' +
+    '<ColorMapEntry color="#6ca5a2" quantity="30" label="Woody Savanna"/>' +
+    '<ColorMapEntry color="#c49a3c" quantity="32" label="Savanna"/>' +
+    '<ColorMapEntry color="#8437ff" quantity="39" label="Grassland"/>' +
     '<ColorMapEntry color="#111149" quantity="11" label="Permanent Wetland"/>' +
     '<ColorMapEntry color="#cdb33b" quantity="12" label="Cropland"/>' +
     '<ColorMapEntry color="#cc0013" quantity="13" label="Urban"/>' +
