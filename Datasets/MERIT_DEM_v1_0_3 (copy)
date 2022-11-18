@@ -191,6 +191,7 @@ var visualization = {
 };
 
 
+// Valores de slopes nulos
 
 var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
