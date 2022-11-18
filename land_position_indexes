@@ -1,0 +1,17 @@
+var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
+
+var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(cerrado);
+
+// Split neighbor cells within a kernel of 1 pixel in bands
+
+var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
+
+// Calculate a mean difference weighted by the distance (Land position Index(LPI))
+/*
+ It is calculated by subtracting each neighbor cell by the focal cell, 
+   dividing them by their distances and calculating their average
+*/
+
+/* We must calculate multiple window size and take the average value*/
+
+var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
