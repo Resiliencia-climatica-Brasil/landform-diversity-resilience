@@ -169,7 +169,7 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 // 9 values
 // Visualization
-/*
+
 var visualization = {
   bands: ['sum'],
   min: 3,
@@ -190,7 +190,7 @@ var visualization = {
             "#f12c5a"] // 99
 };
 
-*/
+
 
 var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
