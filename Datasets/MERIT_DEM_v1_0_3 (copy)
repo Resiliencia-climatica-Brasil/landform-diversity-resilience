@@ -144,12 +144,12 @@ var landform_types = landform_combination
                       .where(landform_combination.gt(1000), 39);
                       
 
-/*
-Checking values
+
+//Checking values
 var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
 print(freq)
-*/
+
 
 /*
 Calculating landform richness within a circular kernel
@@ -169,36 +169,62 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 // 9 values
 // Visualization
-
+/*
 var visualization = {
   bands: ['sum'],
   min: 3,
-  max: 99,
-  palette: ["#ff200a", // 3 
-            "#f3ff35", // 4
-            "#78ff82", // 5
-            "#decd57", // 20
-            "#b4ff62", // 21
-            "#9bdc55", // 22
-            "#71dc83", // 23
-            "#90dcd8", // 24  
+  max: 39,
+  palette: ["#ffc82d", // 3 
+            "#997921", // 4
+            "#ff3110", // 5
+            "#ffffff", // 20
+            "#997f7f", // 21
+            "#dcbfbf", // 22
+            "#62dc82", // 23
+            "#cbd267", // 24  
             "#6ca5a2", // 30
-            "#9e84dc", // 32
-            "#edabf1", // 39
-            "#f17a90", // 43
-            "#ef5ff1", // 44
-            "#f12c5a"] // 99
+            "#c49a3c", // 32
+            "#8437ff", // 39
+            "#40d43e", // 43
+            "#209534", // 44
+            "#000000"] // 99
 };
-
-
+*/
+/*
+var sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#ffc82d" quantity="3" label="Water"/>' +
+    '<ColorMapEntry color="#997921"" quantity="4" label="Evergreen Needleleaf Forest"/>' +
+    '<ColorMapEntry color="#ff3110" quantity="5" label="Evergreen Broadleaf Forest"/>' +
+    '<ColorMapEntry color="#ffffff" quantity="20" label="Deciduous Needleleaf Forest"/>' +
+    '<ColorMapEntry color="#997f7f" quantity="21" label="Deciduous Broadleaf Forest"/>' +
+    '<ColorMapEntry color="#dcbfbf" quantity="22" label="Mixed Deciduous Forest"/>' +
+    '<ColorMapEntry color="#6a2325" quantity="6" label="Closed Shrubland"/>' +
+    '<ColorMapEntry color="#c3aa69" quantity="7" label="Open Shrubland"/>' +
+    '<ColorMapEntry color="#b76031" quantity="8" label="Woody Savanna"/>' +
+    '<ColorMapEntry color="#d9903d" quantity="9" label="Savanna"/>' +
+    '<ColorMapEntry color="#91af40" quantity="10" label="Grassland"/>' +
+    '<ColorMapEntry color="#111149" quantity="11" label="Permanent Wetland"/>' +
+    '<ColorMapEntry color="#cdb33b" quantity="12" label="Cropland"/>' +
+    '<ColorMapEntry color="#cc0013" quantity="13" label="Urban"/>' +
+    '<ColorMapEntry color="#33280d" quantity="14" label="Crop, Natural Veg. Mosaic"/>' +
+    '<ColorMapEntry color="#d7cdcc" quantity="15" label="Permanent Snow, Ice"/>' +
+    '<ColorMapEntry color="#f7e084" quantity="16" label="Barren, Desert"/>' +
+    '<ColorMapEntry color="#6f6f6f" quantity="17" label="Tundra"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+*/
+/*
 // Valores de slopes nulos
 
 var landform_30 = landform_combination.mask(landform_combination.eq(20))
+*/
 
 Map.setCenter(-50, -15, 7);
 
 
-Map.addLayer(landform_30);
+Map.addLayer(landform_types, visualization);
 
 
 
@@ -211,6 +237,7 @@ Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
   scale: 92.76624,
-  region: geome
+  region: cerrado,
+  maxPixels: 631694567
 });
 */
