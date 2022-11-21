@@ -200,8 +200,8 @@ var sld_intervals =
     '<ColorMapEntry color="#ffffff" quantity="20" label="Null"/>' +
     '<ColorMapEntry color="#997f7f" quantity="21" label="Flat Hilltop"/>' +
     '<ColorMapEntry color="#dcbfbf" quantity="22" label="Gentle Slope Hilltop"/>' +
-    '<ColorMapEntry color="#62dc82" quantity="23" label="Sideslope"/>' +
-    '<ColorMapEntry color="#cbd267" quantity="24" label="Sideslope"/>' +
+    '<ColorMapEntry color="#62dc82" quantity="23" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#cbd267" quantity="24" label="Warm Sideslope"/>' +
     '<ColorMapEntry color="#6ca5a2" quantity="30" label="Dry Flats"/>' +
     '<ColorMapEntry color="#c49a3c" quantity="32" label="Valley/Toeslope"/>' +
     '<ColorMapEntry color="#8437ff" quantity="39" label="Moist Flats"/>' +
@@ -221,8 +221,6 @@ Map.setCenter(-50, -15, 7);
 
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-
-
 
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
