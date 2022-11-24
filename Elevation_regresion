@@ -10,14 +10,18 @@ var elevation_min = dataset.reduce(ee.Reducer.min());
 
 var elevation_range = elevation_max.subtract(elevation_min).abs()
 
-var elevation = ee.ImageCollection(dataset.addBands(elevation_range).rename(["elevation", "elevation_range"]));
-
+var elevation = dataset.addBands(elevation_range).rename(["elevation", "elevation_range"]);
+                  
 var elevation_regression = elevation.select(["elevation", "elevation_range"])
-                                      .reduce(ee.Reducer.robustLinearRegression({
+                                      .reduceRegion({
+                                        reducer: ee.Reducer.robustLinearRegression({
                                         numX:1,
                                         numY:1
-                                      }));
+                                      }), 
+                                      geometry: cerrado,
+                                      maxPixels: 463690744
+                                      });
                                       
                                     
-var residuals = elevation_regression.select(["residuals"])                        
-//Map.addLayer(residuals);                                            
+print(elevation_regression.get("coefficients"));
+                                          
