@@ -24,11 +24,11 @@ var land_position = ee.Image([LPI, MTPI])
      .rename(["LPI", "MTPI"]);
      
 var sample_points = land_position
-                     .sample({region:cerrado, numPixels:2000});
-                 
-//var correlation = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), ["LPI", "MTPI"]);
+                     .sample({region:cerrado, numPixels:500});
+                     
+var correlation = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), ["LPI", "MTPI"]);
 
-//print(correlation);
+print(correlation);
   
 //Scatterplot
 
@@ -37,7 +37,7 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'LPI', ['MTPI'])
   
   print(chart);
   
- 
+
 /*
 
 Map.setCenter(-50, -15, 7);
