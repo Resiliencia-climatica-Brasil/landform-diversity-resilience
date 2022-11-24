@@ -4,19 +4,24 @@ var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(cerrado);
 
 // Split neighbor cells within a kernel of 1 pixel in bands
 
-var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
+var neigh1 = dataset.neighborhoodToBands(ee.Kernel.square(3));
+//var LPI1 = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
+var LPI1 = neigh1.subtract(dataset).reduce(ee.Reducer.mean());
 
-// Calculate a mean difference weighted by the distance (Land position Index(LPI))
+var neigh2 = dataset.neighborhoodToBands(ee.Kernel.square(9));
+//var LPI1 = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
+var LPI2 = neigh2.subtract(dataset).reduce(ee.Reducer.mean());
+
+var neigh3 = dataset.neighborhoodToBands(ee.Kernel.square(27));
+//var LPI1 = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
+var LPI3 = neigh3.subtract(dataset).reduce(ee.Reducer.mean());
+
+var LPI = LPI1.sum(LPI2).sum(LPI3).divide(3);
+
 /*
- It is calculated by subtracting each neighbor cell by the focal cell, 
-   dividing them by their distances and calculating their average
-*/
-
-/* We must calculate multiple window size and take the average value*/
-
-var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
-
 var MTPI = ee.Image("CSP/ERGo/1_0/Global/ALOS_mTPI").clip(cerrado);
+
+
 
 var land_position = ee.Image([LPI, MTPI])
      .rename(["LPI", "MTPI"]);
@@ -35,7 +40,7 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'LPI', ['MTPI'])
   
   print(chart);
   
- 
+ */
 /*
 
 Map.setCenter(-50, -15, 7);
