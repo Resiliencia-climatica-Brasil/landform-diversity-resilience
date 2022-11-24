@@ -16,12 +16,9 @@ var neigh3 = dataset.neighborhoodToBands(ee.Kernel.square(27));
 //var LPI1 = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 var LPI3 = neigh3.subtract(dataset).reduce(ee.Reducer.mean());
 
-var LPI = LPI1.sum(LPI2).sum(LPI3).divide(3);
+var LPI = LPI1.add(LPI2).add(LPI3).divide(3);
 
-/*
 var MTPI = ee.Image("CSP/ERGo/1_0/Global/ALOS_mTPI").clip(cerrado);
-
-
 
 var land_position = ee.Image([LPI, MTPI])
      .rename(["LPI", "MTPI"]);
@@ -29,9 +26,9 @@ var land_position = ee.Image([LPI, MTPI])
 var sample_points = land_position
                      .sample({region:cerrado, numPixels:2000});
                  
-var correlation = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), ["LPI", "MTPI"]);
+//var correlation = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), ["LPI", "MTPI"]);
 
-print(correlation);
+//print(correlation);
   
 //Scatterplot
 
@@ -40,7 +37,7 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'LPI', ['MTPI'])
   
   print(chart);
   
- */
+ 
 /*
 
 Map.setCenter(-50, -15, 7);
