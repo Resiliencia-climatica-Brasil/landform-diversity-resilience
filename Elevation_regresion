@@ -17,8 +17,7 @@ var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                         numX:1,
                                         numY:1
                                       }));
-                                            
-                                            
-
-                                            
-                                            
+                                      
+                                    
+var residuals = elevation_regression.select(["residuals"])                        
+//Map.addLayer(residuals);                                            
