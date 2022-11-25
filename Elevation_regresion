@@ -23,5 +23,5 @@ var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       });
                                       
                                     
-print(elevation_regression);
+
                                           
