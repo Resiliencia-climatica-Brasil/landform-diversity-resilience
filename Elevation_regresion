@@ -11,7 +11,15 @@ var elevation_min = dataset.reduce(ee.Reducer.min());
 var elevation_range = elevation_max.subtract(elevation_min).abs()
 
 var elevation = dataset.addBands(elevation_range).rename(["elevation", "elevation_range"]);
-                  
+
+var sample_points = land_position
+                     .sample({region:cerrado, numPixels:500});
+                     
+var regression = sample_points.reduceColumns(ee.Reducer.robustLinearRegression())
+
+print(regression)
+
+/*                 
 var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       .reduceRegion({
                                         reducer: ee.Reducer.robustLinearRegression({
@@ -22,6 +30,8 @@ var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       maxPixels: 463690744
                                       });
                                       
+print(elevation_regression.get("coefficients"))                                      
+*/                                      
                                     
 
                                           
