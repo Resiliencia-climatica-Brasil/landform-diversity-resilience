@@ -25,6 +25,14 @@ var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
+Export.image.toDrive({
+  image: residuals,
+  description: 'elevation_range_residual',
+  scale: 92.76624,
+  region: cerrado,
+  maxPixels: 463690740});
+
+/*
 var sample = ee.FeatureCollection.randomPoints({
                region: cerrado,
                points: 5000
@@ -39,3 +47,4 @@ var chart = ui.Chart.feature.byFeature(plot_image, 'elevation', ['residuals'])
   
   print(chart);
 
+*/
