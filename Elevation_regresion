@@ -22,7 +22,18 @@ var elevation_samp = elevation.sampleRegions({
                      collection: sample_points
                      });
                      
-                     
+var res = elevation_samp.reduceColumns({
+           reducer: ee.Reducer.linearRegression({
+           numX: 1,
+           numY: 1
+           }),
+  selectors: ['constant', 'elevation_range']
+});
+
+print(res)
+           
+           
+           
                      
                      
                      
