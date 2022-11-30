@@ -24,6 +24,11 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_r
 var regression = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), 
                                              ["elevation", "elevation_range"]);
 
+
+
+
+
+/*
 var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       .reduceRegion({
                                         reducer: ee.Reducer.robustLinearRegression({
@@ -36,6 +41,6 @@ var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       
 print(elevation_regression)                                      
                                      
-                                    
+*/                                    
 
                                           
