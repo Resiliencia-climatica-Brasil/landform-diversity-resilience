@@ -66,6 +66,10 @@ var regression = elevation.reduceRegion({
      maxPixels: 463690740
     });
     
-    print(regression);
+var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scale')));
 
+var predict = pred.add(ee.Number(regression.get('offset')));
 
+var residuals =  elevation.select('elevation').subtract(predict);
+
+print(residuals)
