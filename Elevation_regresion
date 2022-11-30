@@ -30,7 +30,7 @@ Export.image.toDrive({
   description: 'elevation_range_residual',
   scale: 92.76624,
   region: cerrado,
-  maxPixels: 463690740});
+  maxPixels: 631694547 });
 
 /*
 var sample = ee.FeatureCollection.randomPoints({
