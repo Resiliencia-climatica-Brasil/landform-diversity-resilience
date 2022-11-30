@@ -14,12 +14,15 @@ var elevation = dataset.addBands(elevation_range).rename(["elevation", "elevatio
 
 var sample_points = elevation
                      .sample({region:cerrado, numPixels:100});
-                     
+/*                     
 var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_range'])
   .setChartType('ScatterChart');
   
   print(chart);
-  
+*/
+
+var regression = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), 
+                                             ["elevation", "elevation_range"]);
 
 var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       .reduceRegion({
