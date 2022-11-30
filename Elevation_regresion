@@ -27,44 +27,15 @@ var residuals = elevation.select('elevation_range').subtract(predict).rename(['r
 
 var sample = ee.FeatureCollection.randomPoints({
                region: cerrado,
-               points: 1000
+               points: 5000
              });
              
 var plot_image = ee.Image.cat(residuals, elevation.select('elevation'))
                  .sampleRegions({collection: sample});  
 
 
- /*            
-var residual_samp = residuals.sampleRegions({collection: sample});
-
-var elevation_samp = elevation.select('elevation').sampleRegions({collection: sample})
-*/
-
 var chart = ui.Chart.feature.byFeature(plot_image, 'elevation', ['residuals'])
   .setChartType('ScatterChart');
   
   print(chart);
-
-/*
-var y = residual_samp.reduceRegion(
-    {reducer: ee.Reducer.toList(), 
-     geometry: cerrado
-     })
-    .get('residuals');
-    
-var x = elevation_samp.reduceRegion(
-    {reducer: ee.Reducer.toList(), 
-     geometry: cerrado
-    })
-    .get('elevation');
-    
-var chart = ui.Chart.array.values({array: y, axis: 0, xLabels: x});
-print(chart);
-*/                        
-
-//Map.setCenter(-50, -15, 7);
-
-//Map.addLayer();
-
-
 
