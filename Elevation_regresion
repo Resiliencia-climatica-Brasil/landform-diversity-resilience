@@ -21,8 +21,14 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_r
   print(chart);
 */
 
-var regression = sample_points.reduceColumns(ee.Reducer.pearsonsCorrelation(), 
+
+var regression = sample_points.reduceColumns(ee.Reducer.linearRegression({
+                                             numX: 1,
+                                             numY: 1
+                                             }), 
                                              ["elevation", "elevation_range"]);
+                                             
+print(regression.get("coefficients"));
 
 
 
