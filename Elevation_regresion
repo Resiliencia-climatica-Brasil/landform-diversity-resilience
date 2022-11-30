@@ -23,7 +23,7 @@ var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scal
 
 var predict = pred.add(ee.Number(regression.get('offset')));
 
-var residuals =  elevation.select('elevation').subtract(predict);
+var residuals = elevation.select('elevation').subtract(predict);
 
 Map.setCenter(-50, -15, 7);
 
