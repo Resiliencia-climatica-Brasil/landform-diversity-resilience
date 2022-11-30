@@ -21,7 +21,6 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_r
   print(chart);
   
 
-/*                 
 var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       .reduceRegion({
                                         reducer: ee.Reducer.robustLinearRegression({
@@ -32,8 +31,8 @@ var elevation_regression = elevation.select(["elevation", "elevation_range"])
                                       maxPixels: 463690744
                                       });
                                       
-print(elevation_regression.get("coefficients"))                                      
-*/                                      
+print(elevation_regression)                                      
+                                     
                                     
 
                                           
