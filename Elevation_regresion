@@ -69,20 +69,3 @@ var regression = elevation.reduceRegion({
     print(regression);
 
 
-
-/*
-var elevation_regression = elevation.select(["elevation", "elevation_range"])
-                                      .reduceRegion({
-                                        reducer: ee.Reducer.robustLinearRegression({
-                                        numX:1,
-                                        numY:1
-                                      }), 
-                                      geometry: cerrado,
-                                      maxPixels: 463690744
-                                      });
-                                      
-print(elevation_regression)                                      
-                                     
-*/                                    
-
-                                          
