@@ -12,8 +12,24 @@ var elevation_range = elevation_max.subtract(elevation_min).abs()
 
 var elevation = dataset.addBands(elevation_range).rename(["elevation", "elevation_range"]);
 
-var sample_points = elevation
-                     .sample({region:cerrado, numPixels:100});
+var sample_points = ee.FeatureCollection.randomPoints({
+  region: cerrado,
+  points: 100
+  
+});
+
+var elevation_samp = elevation.sampleRegions({
+                     collection: sample_points
+                     });
+                     
+                     
+                     
+                     
+                     
+
+
+
+
 /*                     
 var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_range'])
   .setChartType('ScatterChart');
@@ -21,7 +37,7 @@ var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_r
   print(chart);
 */
 
-
+/*
 var regression = sample_points.reduceColumns(ee.Reducer.linearRegression({
                                              numX: 1,
                                              numY: 1
@@ -29,7 +45,7 @@ var regression = sample_points.reduceColumns(ee.Reducer.linearRegression({
                                              ["elevation", "elevation_range"]);
                                              
 print(regression.get("coefficients"));
-
+*/
 
 
 
