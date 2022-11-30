@@ -25,4 +25,10 @@ var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals =  elevation.select('elevation').subtract(predict);
 
-print(residuals)
+Map.setCenter(-50, -15, 7);
+
+Map.addLayer(predict);
+
+
+
+
