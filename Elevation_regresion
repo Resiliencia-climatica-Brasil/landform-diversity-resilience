@@ -13,53 +13,6 @@ var elevation_range = elevation_max.subtract(elevation_min).abs();
 var elevation = ee.Image.cat(dataset, elevation_range)
                  .rename(['elevation', 'elevation_range']);
                  
-
-
-/*
-var sample_points = ee.FeatureCollection.randomPoints({
-  region: cerrado,
-  points: 10
-  
-});
-
-var elevation_samp = elevation.sampleRegions({
-                     collection: sample_points
-                     });
-                     
-                     print(sample_points)
-                     
-var res = elevation_samp.reduceColumns({
-           reducer: ee.Reducer.linearRegression({
-           numX: 1,
-           numY: 1
-           }),
-  selectors: ['constant', 'elevation', 'elevation_range']
-});
-
-print(res.get('coefficients'))
-
-*/
-           
-/*                     
-var chart = ui.Chart.feature.byFeature(sample_points, 'elevation', ['elevation_range'])
-  .setChartType('ScatterChart');
-  
-  print(chart);
-*/
-
-/*
-var regression = elevation.reduceRegion({
-      reducer: ee.Reducer.linearRegression({
-                 numX: 1,
-                 numY: 1
-      }),
-      geometry: cerrado,
-      maxPixels: 463690740
-    });
-    
-print(regression);
-*/
-
 var regression = elevation.reduceRegion({
      reducer: ee.Reducer.linearFit(),
      geometry: cerrado,
