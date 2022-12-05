@@ -9,15 +9,21 @@ var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
 
 var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
 
+//Wetland patchness
+
 var wetlands_count = wetlands_binary.neighborhoodToBands(ee.Kernel.square(1))
                      .reduce(ee.Reducer.sum());
                      
-var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+// Wetland density
+
+var wetlands_density = wetlands_count.divide(9);
+
+
+var freq = wetlands_density.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
 print(freq)
             
-/*
-Map.setCenter(-50, -15, 7);
 
-Map.addLayer(wetlands_count);
-*/
+//Map.setCenter(-50, -15, 7);
+
+//Map.addLayer(wetlands_count);
