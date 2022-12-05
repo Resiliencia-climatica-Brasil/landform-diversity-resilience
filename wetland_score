@@ -11,6 +11,8 @@ var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
 
 //Wetland patchness
 
+
+
 var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.square(1));
 
 var wetlands_count = neighbors.reduce(ee.Reducer.sum());
