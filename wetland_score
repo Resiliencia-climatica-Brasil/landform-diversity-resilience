@@ -28,7 +28,6 @@ var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(r
 
 var wetlands_count = neighbors.reduce(ee.Reducer.sum());
 
-
 // Wetland density
 
 var neighbors_amount = neighbors.bandNames().length();
