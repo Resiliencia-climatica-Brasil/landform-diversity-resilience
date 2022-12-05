@@ -11,17 +11,19 @@ var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
 
 //Wetland patchness
 
-var wetlands_count = wetlands_binary.neighborhoodToBands(ee.Kernel.square(1))
-                     .reduce(ee.Reducer.sum());
+var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.square(1));
+
+var wetlands_count = neighbors.reduce(ee.Reducer.sum());
                      
 // Wetland density
 
-var wetlands_density = wetlands_count.divide(9);
+var neighbors_amount = neighbors.bandNames().length();
 
+var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
-var freq = wetlands_density.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+//var freq = wetlands_density.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
-print(freq)
+//print(freq)
             
 
 //Map.setCenter(-50, -15, 7);
