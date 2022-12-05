@@ -1,10 +1,23 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var image = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands");
+var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
 
-print(wetlands.projection().crs());
+var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
+               .reproject({crs: "EPSG:4326",
+                           scale: 92.76624});
 
+var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
+
+var wetlands_count = wetlands_binary.neighborhoodToBands(ee.Kernel.square(1))
+                     .reduce(ee.Reducer.sum());
+                     
+var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+
+print(freq)
+            
+/*
 Map.setCenter(-50, -15, 7);
 
-Map.addLayer(wetlands);
+Map.addLayer(wetlands_count);
+*/
