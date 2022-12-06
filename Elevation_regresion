@@ -25,12 +25,19 @@ var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
+Map.setCenter(-50, -15, 7);
+
+Map.addLayer(residuals);
+
+
+/*
 Export.image.toDrive({
   image: residuals,
   description: 'elevation_range_residual',
   scale: 92.76624,
   region: cerrado,
   maxPixels: 631694547 });
+*/
 
 /*
 var sample = ee.FeatureCollection.randomPoints({
