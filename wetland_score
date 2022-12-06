@@ -35,8 +35,24 @@ var neighbors_amount = neighbors.bandNames().length();
 
 var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
-// Exporting wetlands patchness
+// Wetland density 1000 acre
 
+var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+
+var radius_pixels = r.divide(ee.Number(90)).round()
+
+var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
+
+var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
+
+var neighbors_amount = neighbors.bandNames().length();
+
+var wetlands_density_1000 = wetlands_count.divide(ee.Number(neighbors_amount));
+
+
+
+// Exporting wetlands patchness
+/*
 Export.image.toDrive({
   image: wetlands_count,
   description: 'wetlands_patchness',
@@ -50,6 +66,15 @@ Export.image.toDrive({
 Export.image.toDrive({
   image: wetlands_density,
   description: 'wetlands_density',
+  scale: 92.76624,
+  region: cerrado,
+  maxPixels: 631694567
+});
+*/
+
+Export.image.toDrive({
+  image: wetlands_density_1000,
+  description: 'wetlands_density_1000',
   scale: 92.76624,
   region: cerrado,
   maxPixels: 631694567
