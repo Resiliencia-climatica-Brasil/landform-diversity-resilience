@@ -26,7 +26,7 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 
 var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
-var wetlands_count = neighbors.reduce(ee.Reducer.sum());
+var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
 
 // Wetland density
 
@@ -34,11 +34,32 @@ var neighbors_amount = neighbors.bandNames().length();
 
 var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
-//var freq = wetlands_density.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+// Exporting wetlands patchness
+
+Export.image.toDrive({
+  image: wetlands_count,
+  description: 'wetlands_patchness',
+  scale: 92.76624,
+  region: cerrado,
+  maxPixels: 631694567
+});
+
+// Wetlands density
+
+Export.image.toDrive({
+  image: wetlands_density,
+  description: 'wetlands_density',
+  scale: 92.76624,
+  region: cerrado,
+  maxPixels: 631694567
+});
+
+
+//var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
 //print(freq)
             
 
-Map.setCenter(-50, -15, 7);
+//Map.setCenter(-50, -15, 7);
 
-Map.addLayer(wetlands_count);
+//Map.addLayer(wetlands_count);
