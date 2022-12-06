@@ -10,7 +10,7 @@ var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
 
 var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
 
-//Wetland patchness
+//Wetland density 100 acres
 /*
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
 
@@ -28,8 +28,6 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
 var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
-
-// Wetland density
 
 var neighbors_amount = neighbors.bandNames().length();
 
@@ -52,7 +50,7 @@ var wetlands_density_1000 = wetlands_count.divide(ee.Number(neighbors_amount));
 
 
 // Exporting wetlands patchness
-/*
+
 Export.image.toDrive({
   image: wetlands_count,
   description: 'wetlands_patchness',
@@ -62,7 +60,7 @@ Export.image.toDrive({
 });
 
 // Wetlands density
-
+/*
 Export.image.toDrive({
   image: wetlands_density,
   description: 'wetlands_density',
