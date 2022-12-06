@@ -36,7 +36,7 @@ var neighbors_amount = neighbors.bandNames().length();
 var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
 // Exporting wetlands patchness
-/*
+
 Export.image.toDrive({
   image: wetlands_count,
   description: 'wetlands_patchness',
@@ -54,7 +54,6 @@ Export.image.toDrive({
   region: cerrado,
   maxPixels: 631694567
 });
-*/
 
 //var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
 
