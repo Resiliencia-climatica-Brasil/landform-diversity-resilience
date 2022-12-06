@@ -4,6 +4,7 @@ var image = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands");
 var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
 
 var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
+               .clip(cerrado)
                .reproject({crs: "EPSG:4326",
                            scale: 92.76624});
 
@@ -60,6 +61,6 @@ Export.image.toDrive({
 //print(freq)
             
 
-//Map.setCenter(-50, -15, 7);
+Map.setCenter(-50, -15, 7);
 
-//Map.addLayer(wetlands_count);
+Map.addLayer(wetlands_count);
