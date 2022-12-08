@@ -4,15 +4,15 @@ var geometry =
     /* shown: false */
     ee.Geometry.MultiPoint();
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
+var bioma = ee.FeatureCollection("users/lucasljardim9/Caatinga");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
 
-var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(cerrado);
+var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
   .select("upg")
-  .clip(cerrado);
+  .clip(bioma);
   
 // Calculate slope and aspect
 
@@ -146,7 +146,7 @@ var landform_types = landform_combination
 
 
 //Checking values
-//var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+//var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: bioma, maxPixels: 232845367});
 
 //print(freq)
 
@@ -231,7 +231,7 @@ Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
   scale: 92.76624,
-  region: cerrado,
+  region: bioma,
   maxPixels: 631694567
 });
 */
