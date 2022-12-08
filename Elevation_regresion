@@ -14,12 +14,11 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
-var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt(); // radius in meters
 
-var radius_pixels = r.divide(ee.Number(90)).round()
+var radius_pixels = r.divide(ee.Number(90)).round();
 
-
-var neighbor = dataset.neighborhoodToBands(ee.Kernel.square(1));
+var neighbor = dataset.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
 var elevation_max = neighbor.reduce(ee.Reducer.max());
 
@@ -35,17 +34,18 @@ var regression = elevation.reduceRegion({
      geometry: bioma,
      maxPixels: 463690740
     });
-    
+
 var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scale')));
 
 var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
+/*
 Map.setCenter(-40, -8, 7);
 
 Map.addLayer(residuals);
-
+*/
 
 /*
 Export.image.toDrive({
