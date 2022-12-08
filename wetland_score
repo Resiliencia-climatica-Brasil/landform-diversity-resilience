@@ -81,7 +81,8 @@ Export.image.toDrive({
 
 //print(freq)
             
-
+/*
 Map.setCenter(-50, -15, 7);
 
 Map.addLayer(wetlands_count);
+*/
