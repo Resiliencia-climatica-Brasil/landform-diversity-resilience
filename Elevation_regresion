@@ -1,6 +1,6 @@
-var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 
-var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(cerrado);
+var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
 
 var neighbor = dataset.neighborhoodToBands(ee.Kernel.square(1));
 
@@ -15,7 +15,7 @@ var elevation = ee.Image.cat(dataset, elevation_range)
                  
 var regression = elevation.reduceRegion({
      reducer: ee.Reducer.linearFit(),
-     geometry: cerrado,
+     geometry: bioma,
      maxPixels: 463690740
     });
     
@@ -25,7 +25,7 @@ var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
-Map.setCenter(-50, -15, 7);
+Map.setCenter(-40, -8, 7);
 
 Map.addLayer(residuals);
 
@@ -35,13 +35,13 @@ Export.image.toDrive({
   image: residuals,
   description: 'elevation_range_residual',
   scale: 92.76624,
-  region: cerrado,
+  region: bioma,
   maxPixels: 631694547 });
 */
 
 /*
 var sample = ee.FeatureCollection.randomPoints({
-               region: cerrado,
+               region: bioma,
                points: 5000
              });
              
