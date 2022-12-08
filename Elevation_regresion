@@ -2,6 +2,23 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 
 var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
 
+/*
+Elevation range
+
+The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
+
+r = (A/pi)^1/2
+
+100 acre equal to 404686 squared meters
+
+r = (404686/3.14)^1/2
+*/
+
+var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+
+var radius_pixels = r.divide(ee.Number(90)).round()
+
+
 var neighbor = dataset.neighborhoodToBands(ee.Kernel.square(1));
 
 var elevation_max = neighbor.reduce(ee.Reducer.max());
