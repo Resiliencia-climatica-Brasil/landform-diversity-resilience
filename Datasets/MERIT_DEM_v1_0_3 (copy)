@@ -4,7 +4,7 @@ var geometry =
     /* shown: false */
     ee.Geometry.MultiPoint();
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var bioma = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
 
@@ -217,7 +217,7 @@ var sld_intervals =
 var landform_30 = landform_combination.mask(landform_combination.eq(20))
 */
 
-Map.setCenter(-50, -15, 7);
+Map.setCenter(-40, -8, 7);
 
 Map.addLayer(landform_richness)
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
