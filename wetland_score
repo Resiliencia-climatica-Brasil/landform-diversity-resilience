@@ -60,7 +60,7 @@ Export.image.toDrive({
 });
 
 // Wetlands density
-/*
+
 Export.image.toDrive({
   image: wetlands_density,
   description: 'wetlands_density',
@@ -68,7 +68,6 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
-*/
 
 Export.image.toDrive({
   image: wetlands_density_1000,
