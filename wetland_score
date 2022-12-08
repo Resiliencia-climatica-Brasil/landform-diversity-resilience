@@ -1,10 +1,10 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var image = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var cerrado = ee.FeatureCollection("users/lucasljardim9/wwf_cerrado");
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 
 var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
-               .clip(cerrado)
+               .clip(bioma)
                .reproject({crs: "EPSG:4326",
                            scale: 92.76624});
 
@@ -55,7 +55,7 @@ Export.image.toDrive({
   image: wetlands_count,
   description: 'wetlands_patchness',
   scale: 92.76624,
-  region: cerrado,
+  region: bioma,
   maxPixels: 631694567
 });
 
@@ -65,7 +65,7 @@ Export.image.toDrive({
   image: wetlands_density,
   description: 'wetlands_density',
   scale: 92.76624,
-  region: cerrado,
+  region: bioma,
   maxPixels: 631694567
 });
 */
@@ -74,11 +74,11 @@ Export.image.toDrive({
   image: wetlands_density_1000,
   description: 'wetlands_density_1000',
   scale: 92.76624,
-  region: cerrado,
+  region: bioma,
   maxPixels: 631694567
 });
 
-//var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: cerrado, maxPixels: 232845367});
+//var freq = wetlands_count.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: bioma, maxPixels: 232845367});
 
 //print(freq)
             
