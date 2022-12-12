@@ -27,7 +27,8 @@ var soil_presence = soil_count.where(soil_count.gt(0), 1);
 
 var soil_codes = soil.reduceColumns(ee.Reducer.frequencyHistogram(), ["cod_simbol"])
                  
-                              
+
+//Map over soil codes to generate raster of soil presence                     
 
 
 
