@@ -23,7 +23,7 @@ Export.image.toDrive({
   scale: 92.76624,
   region: bioma,
   maxPixels: 631694567
-
+  })
 /*
 Map.setCenter(-40, -8, 7)
 
