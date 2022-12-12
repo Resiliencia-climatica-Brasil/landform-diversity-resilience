@@ -7,22 +7,29 @@ var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
 var type = soil.filter(ee.Filter.eq("cod_simbol", "AR"))
-           .set("cod_simbol", 1);
-           
-type.get("cod_simbol")
-
-/*
+           .map(
+             function(feature){
+             return feature.set("cod_simbol", 1)
+             });
+             
 var soil_raster = type.reduceToImage({
              properties: ["cod_simbol"],
              reducer: ee.Reducer.first()
            });
+           
+var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
-*/
-/*
+var radius_pixels = r.divide(ee.Number(90)).round()
+
+var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
+                    
+var soil_presence = soil_count.where(soil_count.gt(0), 1);                   
+
+
 Map.setCenter(-40, -8, 7)
 
-Map.addLayer(type)
-*/
+Map.addLayer(soil_presence)
+
 
 /*   
 Export.image.toDrive({
