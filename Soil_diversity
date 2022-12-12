@@ -6,17 +6,25 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
-var type = soil.filter(ee.Filter.eq("cod_simbol", "AR"));
+var type = soil.filter(ee.Filter.eq("cod_simbol", "AR"))
+           .set("cod_simbol", 1);
+           
+type.get("cod_simbol")
 
-
-
-
+/*
 var soil_raster = type.reduceToImage({
              properties: ["cod_simbol"],
              reducer: ee.Reducer.first()
            });
-   
-   
+
+*/
+/*
+Map.setCenter(-40, -8, 7)
+
+Map.addLayer(type)
+*/
+
+/*   
 Export.image.toDrive({
   image: soil_raster,
   description: 'soil_test',
@@ -24,8 +32,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
   })
-/*
-Map.setCenter(-40, -8, 7)
-
-Map.addLayer(type)
 */
