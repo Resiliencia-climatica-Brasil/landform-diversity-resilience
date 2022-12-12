@@ -1,0 +1,17 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var table = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
+           .select("cod_simbol");
+           
+var type = soil.filter(ee.Filter.eq("cod_simbol", "AR"));
+
+
+/*
+var soil_raster = type.reduceToImage({
+             property: ["cod_simbol"],
+             reducer: ee.Reducer.first()
+           });
+*/           
+
+Map.addLayer(type)
