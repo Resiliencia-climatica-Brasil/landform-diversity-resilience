@@ -25,6 +25,11 @@ var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)
                     
 var soil_presence = soil_count.where(soil_count.gt(0), 1);                   
 
+var freq = soil.reduceColumns(ee.Reducer.frequencyHistogram(), 
+                              ["cod_simbol"]);
+                              
+
+print(freq)
 
 Map.setCenter(-40, -8, 7)
 
