@@ -6,7 +6,9 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
-var type = soil.filter(ee.Filter.eq("cod_simbol", "AR"))
+soil_presence = function(code, feature){           
+           
+var type = soil.filter(ee.Filter.eq("cod_simbol", code))
            .map(
              function(feature){
              return feature.set("cod_simbol", 1)
@@ -23,9 +25,13 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 
 var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
                     
-var soil_presence = soil_count.where(soil_count.gt(0), 1);                   
+return soil_count.where(soil_count.gt(0), 1);        
 
-var soil_codes = soil.reduceColumns(ee.Reducer.frequencyHistogram(), ["cod_simbol"])
+}
+
+var soil_codes = soil.reduceColumns(ee.Reducer.frequencyHistogram(), ["cod_simbol"]);
+
+var test = soil_codes.map()
                  
 
 //Map over soil codes to generate raster of soil presence                     
