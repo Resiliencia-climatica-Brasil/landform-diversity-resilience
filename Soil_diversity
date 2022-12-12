@@ -25,9 +25,10 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 
 var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
                     
-return soil_count.where(soil_count.gt(0), 1);        
+    return soil_count.where(soil_count.gt(0), 1);        
 
 }
+
 
 var soil_codes = soil.reduceColumns(ee.Reducer.frequencyHistogram(), ["cod_simbol"]);
 
