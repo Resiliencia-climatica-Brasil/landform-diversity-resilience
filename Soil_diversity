@@ -60,7 +60,7 @@ var soil_diversity = ee.ImageCollection.fromImages(soil_list)
                      .toBands()
                      .reduce("sum")
                      .toDouble()
-                     
+/*                     
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
@@ -68,4 +68,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
   })
-
+*/
