@@ -225,7 +225,6 @@ Map.addLayer(landform_richness)
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
 
-
 /*
 Export.image.toDrive({
   image: landform_richness,
