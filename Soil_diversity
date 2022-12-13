@@ -55,18 +55,12 @@ var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
 
 var soil_list = soil_codes.map(soil_presence);
 
+
 var soil_diversity = ee.ImageCollection.fromImages(soil_list)
-                     .sum()
-                     .toDouble();
-                  
-             
-
-/*   
-Map.setCenter(-40, -8, 7)                 
-Map.addLayer(soil_diversity)
-*/
-
-
+                     .toBands()
+                     .reduce("sum")
+                     .toDouble()
+                     
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
