@@ -6,7 +6,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
-var soil_presence = function(code){           
+//var soil_presence = function(code){           
            
     var type = soil.filter(ee.Filter.eq("cod_simbol", code))
               .map(
@@ -18,6 +18,7 @@ var soil_presence = function(code){
                         properties: ["cod_simbol"],
                         reducer: ee.Reducer.first()
                       });
+                      
            
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
@@ -27,8 +28,9 @@ var soil_presence = function(code){
                     
     return soil_count.where(soil_count.gt(0), 1);        
 
-}
+//}
 
+/*
 var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
                   "RYbd", "RLd", "RYve", "GXve", "GXa", "GXbe", "ESKg", "FFc",
                   "FTd", "LAw", "GJo", "SXd", "TCp", "PAa", "RQg", "FXd",
@@ -45,9 +47,6 @@ var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
                   "NBd", "NBa", "NBaf", "NBdf", "NVa", "CYve", "MEk", "MEo", "PVva", "SXk", "ESo",
                   "MTf"];
                   
-//var soil_codes = soil.reduceColumns(ee.Reducer.frequencyHistogram(), ["cod_simbol"])
-//                 .get("histogram");
-
 
 var soil_list = soil_codes.map(soil_presence);
 
@@ -55,12 +54,14 @@ var soil_diversity = ee.ImageCollection.fromImages(soil_list)
                      .sum()
                      .toDouble();
                   
-                  
-   
-//Map.setCenter(-40, -8, 7)                 
-//Map.addLayer(soil_layers, visualization)
+*/                  
+  
+/*   
+Map.setCenter(-40, -8, 7)                 
+Map.addLayer(soil_diversity)
+*/
 
-
+/*
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
@@ -68,4 +69,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
   })
-
+*/
