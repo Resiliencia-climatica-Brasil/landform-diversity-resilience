@@ -51,24 +51,21 @@ var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
 
 var soil_list = soil_codes.map(soil_presence);
 
-var soil_layers = ee.ImageCollection.fromImages(soil_list)
-                  .sum();
+var soil_diversity = ee.ImageCollection.fromImages(soil_list)
+                     .sum()
+                     .toDouble();
                   
                   
-  print(soil_layers)               
-                
+   
 //Map.setCenter(-40, -8, 7)                 
 //Map.addLayer(soil_layers, visualization)
 
-//Map over soil codes to generate raster of soil presence                     
 
-
-/*   
 Export.image.toDrive({
-  image: soil_raster,
-  description: 'soil_test',
+  image: soil_diversity,
+  description: 'soil_diversity',
   scale: 92.76624,
   region: bioma,
   maxPixels: 631694567
   })
-*/
+
