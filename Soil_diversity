@@ -6,7 +6,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
-//var soil_presence = function(code){           
+var soil_presence = function(code){           
            
     var type = soil.filter(ee.Filter.eq("cod_simbol", code))
               .map(
@@ -19,18 +19,23 @@ var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
                         reducer: ee.Reducer.first()
                       });
                       
-           
+    var soil_raster = soil_raster
+                      .clip(bioma)
+                      .reproject({crs: "EPSG:4326",
+                                  scale: 92.76624});   
+                                  
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
     var radius_pixels = r.divide(ee.Number(90)).round()
 
     var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
                     
-    return soil_count.where(soil_count.gt(0), 1);        
+    var soil_diversity = soil_count.where(soil_count.gt(0), 1);    
+    
+    return soil_diversity;
 
-//}
+}
 
-/*
 var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
                   "RYbd", "RLd", "RYve", "GXve", "GXa", "GXbe", "ESKg", "FFc",
                   "FTd", "LAw", "GJo", "SXd", "TCp", "PAa", "RQg", "FXd",
@@ -54,14 +59,14 @@ var soil_diversity = ee.ImageCollection.fromImages(soil_list)
                      .sum()
                      .toDouble();
                   
-*/                  
-  
+             
+
 /*   
 Map.setCenter(-40, -8, 7)                 
 Map.addLayer(soil_diversity)
 */
 
-/*
+
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
@@ -69,4 +74,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
   })
-*/
+
