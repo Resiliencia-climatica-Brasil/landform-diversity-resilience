@@ -8,11 +8,10 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
 
-var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
+var dataset = ee.Image("MERIT/DEM/v1_0_3");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
-  .select("upg")
-  .clip(bioma);
+  .select("upg");
   
 // Calculate slope and aspect
 
