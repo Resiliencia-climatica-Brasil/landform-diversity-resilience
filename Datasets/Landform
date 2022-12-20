@@ -74,8 +74,8 @@ var aspect_classes = aspect
 var LPI_classes = LPI
       .where(LPI.lte(-976), 1)
       .where(LPI.gt(-975).and(LPI.lte(-1)), 2)
-      .where(LPI.gt(0).and(LPI.lte(1)), 3)
-      .where(LPI.gt(1).and(LPI.lte(3)), 4);
+      .where(LPI.gt(0).and(LPI.lte(975)), 3)
+      .where(LPI.gt(975), 4);
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
