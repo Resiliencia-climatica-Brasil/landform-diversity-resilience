@@ -36,8 +36,9 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
 */
 
 /* We must calculate multiple windown size and take the average value*/
+var weight = pixel_size.multiply(90);
 
-var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
+var LPI = neigh.subtract(dataset).divide(weight).reduce(ee.Reducer.mean());
 
 return LPI;
 }
