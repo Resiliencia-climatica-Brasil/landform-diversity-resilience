@@ -23,7 +23,8 @@ var aspect = ee.Terrain.aspect(dataset);
 
 var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Number(1))).log();
 
-var neighbor_diff = function(pixel_size){
+var calculate_LPI = function(pixel_size){
+
 // Split neighbor cells within a kernel of 1 pixel in bands
 
 var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
@@ -42,9 +43,14 @@ return LPI;
 }
 
 var window_size = [1, 2, 3, 4, 5, 6]; 
-neighbor_diff(1)
 
-/*
+var LPI_windows = window_size.map(calculate_LPI);
+
+var LPI = ee.ImageCollection
+          .fromImages(LPI_windows)
+          .toBands()
+          .reduce("mean");
+                     
 // Reclassifying landform values into classes
 
 var slope_classes = slope
@@ -157,7 +163,6 @@ var landform_types = landform_combination
 
 //print(freq)
 
-*/
 /*
 Calculating landform richness within a circular kernel
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
@@ -169,7 +174,6 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
-/*
 var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
@@ -177,9 +181,7 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 // 9 values
 // Visualization
-*/
 
-/*
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -200,16 +202,15 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-/*
 // Valores de slopes nulos
 
-var landform_30 = landform_combination.mask(landform_combination.eq(20))
-*/
+//var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
-//Map.setCenter(-40, -8, 7);
 
-//Map.addLayer(landform_richness)
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.setCenter(-40, -8, 7);
+
+//Map.addLayer(LPI)
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
