@@ -51,7 +51,10 @@ var LPI = ee.ImageCollection
           .fromImages(LPI_windows)
           .toBands()
           .reduce("mean")
-          .;
+          .multiply(10000)
+          .add(0.5);
+          
+
                      
 // Reclassifying landform values into classes
 
@@ -213,7 +216,7 @@ Map.setCenter(-40, -8, 7);
 
 //Map.addLayer(LPI)
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types);
+//Map.addLayer(landform_types);
 
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
