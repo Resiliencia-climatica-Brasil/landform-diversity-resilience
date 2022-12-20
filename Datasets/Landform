@@ -38,10 +38,11 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
 
 var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 
-return LPI
+return LPI;
 }
 
-print(neighbor_diff(1))
+var window_size = [1, 2, 3, 4, 5, 6]; 
+neighbor_diff(1)
 
 /*
 // Reclassifying landform values into classes
