@@ -50,7 +50,8 @@ var LPI_windows = window_size.map(calculate_LPI);
 var LPI = ee.ImageCollection
           .fromImages(LPI_windows)
           .toBands()
-          .reduce("mean");
+          .reduce("mean")
+          .;
                      
 // Reclassifying landform values into classes
 
