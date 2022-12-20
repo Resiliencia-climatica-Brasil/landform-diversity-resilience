@@ -23,9 +23,10 @@ var aspect = ee.Terrain.aspect(dataset);
 
 var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Number(1))).log();
 
+var neighbor_diff = function(pixel_size){
 // Split neighbor cells within a kernel of 1 pixel in bands
 
-var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
+var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
 
 // Calculate a mean difference weighted by the distance (Land position Index(LPI))
 /*
@@ -37,6 +38,12 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(1));
 
 var LPI = neigh.subtract(dataset).divide(90).reduce(ee.Reducer.mean());
 
+return LPI
+}
+
+print(neighbor_diff(1))
+
+/*
 // Reclassifying landform values into classes
 
 var slope_classes = slope
@@ -232,4 +239,5 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
+*/
 */
