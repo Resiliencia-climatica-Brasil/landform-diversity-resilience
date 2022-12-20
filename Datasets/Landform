@@ -156,7 +156,7 @@ var landform_types = landform_combination
 
 //print(freq)
 
-
+*/
 /*
 Calculating landform richness within a circular kernel
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
@@ -168,6 +168,7 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
+/*
 var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
@@ -175,28 +176,9 @@ var radius_pixels = r.divide(ee.Number(90)).round()
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 // 9 values
 // Visualization
-/*
-var visualization = {
-  bands: ['sum'],
-  min: 3,
-  max: 39,
-  palette: ["#ffc82d", // 3 
-            "#997921", // 4
-            "#ff3110", // 5
-            "#ffffff", // 20
-            "#997f7f", // 21
-            "#dcbfbf", // 22
-            "#62dc82", // 23
-            "#cbd267", // 24  
-            "#6ca5a2", // 30
-            "#c49a3c", // 32
-            "#8437ff", // 39
-            "#40d43e", // 43
-            "#209534", // 44
-            "#000000"] // 99
-};
 */
 
+/*
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
