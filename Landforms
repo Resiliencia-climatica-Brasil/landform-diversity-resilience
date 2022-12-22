@@ -214,7 +214,7 @@ var sld_intervals =
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
 
-Map.setCenter(-47.4017, -13.9614, 10);
+Map.setCenter(-47.4017, -13.9614);
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
