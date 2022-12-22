@@ -2,11 +2,12 @@ var bioma_collection = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Bi
 
 var bioma = bioma_collection
     .select("Bioma")
-    .filter(ee.Filter.eq("Bioma", "Cerrado");
+    .filter(ee.Filter.eq("Bioma", "Cerrado"));
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
 
-var dataset = ee.Image("MERIT/DEM/v1_0_3");
+var dataset = ee.Image("MERIT/DEM/v1_0_3")
+    .clip(bioma);
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
     .select("upg");
