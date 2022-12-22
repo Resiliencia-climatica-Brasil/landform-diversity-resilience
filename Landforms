@@ -1,6 +1,4 @@
 
-
-
 var bioma_collection = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
 
 var bioma = bioma_collection
