@@ -1,3 +1,6 @@
+
+
+
 var bioma_collection = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
 
 var bioma = bioma_collection
@@ -211,7 +214,7 @@ var sld_intervals =
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
 
-Map.setCenter(-40, -8, 7);
+Map.setCenter(-48, -16, 7);
 
 //Map.addLayer(LPI)
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
