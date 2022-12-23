@@ -73,10 +73,13 @@ var moisture_index = flow_accumulation.
                        kernelType: "circle",
                        units: "pixels"
                      });
-
-
-
-
+                     
+/* Here we calculate a Land Position Index (LPI) (..) for the cells.
+We created a function to calculate LPI for kernels of different sizes. Then we took the 
+average LPI to compose a index considering the landscape influence at multiple scale (Theobald..).
+The original TNC script used a Annulus kernel, we used a square kernel. Annulus kernel calculates 
+LPI only for cells far from multiples of the focal cell size (e.g. 1, 2, 3, 4). Squared kernel
+take into account all cells within a square around the focal cell.
 
 var calculate_LPI = function(pixel_size){
 
