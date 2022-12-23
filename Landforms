@@ -57,11 +57,23 @@ var aspect = ee.Terrain.aspect(DEM);
 
 /*
 Here we calculate a moisture index (..) based on the flow accumulation and slopes.
+A focal mean is calculated around the cells to smooth the index. The focal mean 
+is calculated around a neighborhood of 3 cells with a circle kernel.
 
 Moisture index = log((flow_accumulation + 1) / (slope + 1)) * 1000
 */
 
-var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Number(1))).log().multiply(1000);
+var moisture_index = flow_accumulation.
+                     add(ee.Number(1))
+                     .divide(slope.add(ee.Number(1)))
+                     .log()
+                     .multiply(1000)
+                     .focalMean({
+                       radius: 3,
+                       kernelType: "circle",
+                       units: "pixels"
+                     });
+
 
 
 
