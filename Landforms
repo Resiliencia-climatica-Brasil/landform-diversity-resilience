@@ -35,7 +35,7 @@ We clip the raster by the biome mask.
 */
 
 var DEM = ee.Image("MERIT/DEM/v1_0_3")
-    .clip(bioma);
+          .clip(bioma);
 
 /*
 Also, we import Merit-Hydro raster (..), which has a layer of flow accumulation derived from the above cited Merit-DEM. 
@@ -96,13 +96,14 @@ dividing them by their distances and calculating their average
  * @results An image of LPI values.
 */
 
-var calculate_LPI = function(pixel_size){
-
+var calculate_LPI = function(inner_size, outer_size){
+  
+ 
 // Split neighborhood cells within a squared kernel of a pixel size into bands
 
 var neigh = DEM.neighborhoodToBands(ee.Kernel.square(pixel_size));
 
-
+// Calculate weight values based on the 
 
 var weight = ee.Number(pixel_size).multiply(90);
 
