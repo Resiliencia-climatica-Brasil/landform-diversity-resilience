@@ -96,13 +96,13 @@ dividing them by their distances and calculating their average
  * @results An image of LPI values.
 */
 
-var calculate_LPI = function(inner_size, outer_size){
+var calculate_LPI = function(pixel_size){
   
-var outer_kernel = ee.Kernel.circle(outer_size,'pixels',false, 1);
+//var outer_kernel = ee.Kernel.circle(outer_size,'pixels',false, 1);
 
-var inner_kernel = ee.Kernel.circle(inner_size,'pixels',false, -1);
+//var inner_kernel = ee.Kernel.circle(inner_size,'pixels',false, -1);
 
-var annulus_kernel = outer_kernel.add(inner_kernel);
+//var annulus_kernel = outer_kernel.add(inner_kernel);
 
 // Split neighborhood cells within a squared kernel of a pixel size into bands
 
