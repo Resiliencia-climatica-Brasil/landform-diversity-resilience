@@ -98,19 +98,13 @@ dividing them by their distances and calculating their average
 
 var calculate_LPI = function(pixel_size){
   
-//var outer_kernel = ee.Kernel.circle(outer_size,'pixels',false, 1);
-
-//var inner_kernel = ee.Kernel.circle(inner_size,'pixels',false, -1);
-
-//var annulus_kernel = outer_kernel.add(inner_kernel);
-
 // Split neighborhood cells within a squared kernel of a pixel size into bands
 
-var neigh = DEM.neighborhoodToBands(ee.Kernel.square(pixel_size));
+var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
 
 // Calculate weight values based on the 
 
-var weight = ee.Number(pixel_size).multiply(90);
+//var weight = ee.Number(pixel_size).multiply(90);
 
 var LPI = neigh.subtract(DEM).divide(weight);
 
