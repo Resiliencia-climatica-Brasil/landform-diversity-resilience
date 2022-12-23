@@ -285,8 +285,10 @@ var sld_intervals =
 
 Map.setCenter(-47.4017, -13.9614, 12);
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types)
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types)
+
+Map.addLayer(TPI)
 
 var legend = ui.Panel({
              style: {
