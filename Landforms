@@ -4,13 +4,13 @@
 
 /* Steps to calculate landform variety
 
-1- Calculate relief slopes, aspects and Land Position Index (LPI) from a Digital Elevation Model.
+1- Calculate relief slopes, aspects and Topographic Position Index (TPI) from a Digital Elevation Model.
 
 2- Calculate a moisture index from a flow accumulation raster and slopes.
 
-3- Transform slopes, aspect, LPI and moisture index into classes
+3- Transform slopes, aspect, TPI and moisture index into classes
 
-4- Combine slopes, aspect, LPI and moisture classes into a code string
+4- Combine slopes, aspect, TPI and moisture classes into a code string
 
 5- Re-classify landform string into landform types
 
@@ -88,7 +88,7 @@ Annulus kernel may be implemented in the future to calculate LPI.
 /**
  * Function to calculate Topographic Position Index (TPI) within a circle kernel of a specific size. 
  * @param Kernel size in pixel units.
- * @results An image of LPI values.
+ * @results An image of TPI values.
 */
 
 var calculate_TPI = function(pixel_size){
@@ -112,14 +112,14 @@ return LPI;
 
 var window_size = [1, 2, 3, 4, 5, 6]; 
 
-var LPI_windows = window_size.map(calculate_LPI);
+var TPI_windows = window_size.map(calculate_TPI);
 
-var LPI = ee.ImageCollection
-          .fromImages(LPI_windows)
+var TPI = ee.ImageCollection
+          .fromImages(TPI_windows)
           .toBands()
           .reduce("mean")
-          .multiply(10000)
-          .add(0.5);
+          //.multiply(10000)
+          //.add(0.5);
           
 
                      
@@ -140,27 +140,27 @@ var aspect_classes = aspect
       .where(aspect.gt(90).and(aspect.lte(270)), 2)
       .where(aspect.gt(270).and(aspect.lte(360)), 1);
       
-// LPI test, it needs to be checked with the original code
+// TPI test, it needs to be checked with the original code
 
-var LPI_classes = LPI
-      .where(LPI.lte(-976), 1)
-      .where(LPI.gt(-975).and(LPI.lte(-1)), 2)
-      .where(LPI.gt(0).and(LPI.lte(975)), 3)
-      .where(LPI.gt(975), 4);
+var TPI_classes = TPI
+      .where(TPI.lte(-976), 1)
+      .where(TPI.gt(-975).and(TPI.lte(-1)), 2)
+      .where(TPI.gt(0).and(TPI.lte(975)), 3)
+      .where(TPI.gt(975), 4);
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1.4), 0)
       .where(moisture_index.gt(1.4), 1);
 
 //var landform = moisture_classes
-//                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(LPI_classes.eq(1)).and(slope_classes.eq(1)), )
+//                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(TPI_classes.eq(1)).and(slope_classes.eq(1)), )
                  
       
 // Combining classes
 
 var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)), 
                                    aspect_classes.multiply(ee.Number(100)), 
-                                   LPI_classes.multiply(ee.Number(10)), 
+                                   TPI_classes.multiply(ee.Number(10)), 
                                    slope_classes]);
 
 var landform_combination = classes_collection.reduce(ee.Reducer.sum());
@@ -280,7 +280,7 @@ var sld_intervals =
 
 
 Map.setCenter(-47.4017, -13.9614, 7);
-Map.addLayer(LPI);
+Map.addLayer(TPI);
 
 /*
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
