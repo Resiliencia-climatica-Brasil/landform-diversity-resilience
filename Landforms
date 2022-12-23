@@ -227,11 +227,11 @@ var landform_types = landform_combination
 
 
 //Checking values
-var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
+//var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
                                         geometry: bioma, 
                                         maxPixels: 242845367});
 
-print(freq)
+//print(freq)
 
 /*
 Calculating landform richness within a circular kernel
