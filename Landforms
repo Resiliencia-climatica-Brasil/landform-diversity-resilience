@@ -227,7 +227,9 @@ var landform_types = landform_combination
 
 
 //Checking values
-var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: bioma, maxPixels: 242845367});
+var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
+                                        geometry: bioma, 
+                                        maxPixels: 242845367});
 
 print(freq)
 
@@ -278,7 +280,7 @@ var sld_intervals =
 Map.setCenter(-47.4017, -13.9614, 12);
 
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-//Map.addLayer(landform_types)
+//Map.addLayer(landform_combination)
 
 var legend = ui.Panel({
              style: {
