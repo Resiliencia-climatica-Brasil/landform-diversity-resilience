@@ -97,11 +97,7 @@ var calculate_TPI = function(pixel_size){
 
 var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
 
-// Calculate weight values based on the 
 
-//var weight = ee.Number(pixel_size).multiply(90);
-
-//var LPI = neigh.subtract(DEM).divide(weight);
 
 TPI = neigh
       .subtract(DEM)
