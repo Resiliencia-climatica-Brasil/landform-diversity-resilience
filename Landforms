@@ -145,8 +145,8 @@ var TPI_classes = TPI
       .where(TPI.gt(975), 4);
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1.4), 0)
-      .where(moisture_index.gt(1.4), 1);
+      .where(moisture_index.lte(1400), 0)
+      .where(moisture_index.gt(1400), 1);
 
 //var landform = moisture_classes
 //                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(TPI_classes.eq(1)).and(slope_classes.eq(1)), )
@@ -227,9 +227,9 @@ var landform_types = landform_combination
 
 
 //Checking values
-//var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: bioma, maxPixels: 232845367});
+var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), geometry: bioma, maxPixels: 242845367});
 
-//print(freq)
+print(freq)
 
 /*
 Calculating landform richness within a circular kernel
@@ -275,10 +275,10 @@ var sld_intervals =
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
 
-Map.setCenter(-47.4017, -13.9614, 7);
+Map.setCenter(-47.4017, -13.9614, 12);
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types)
 
 var legend = ui.Panel({
              style: {
