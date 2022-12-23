@@ -74,10 +74,10 @@ var moisture_index = flow_accumulation.
                        units: "pixels"
                      });
                      
-/* Here we calculate a Topographic Position Index (TPI) (..) for the cells.
-We created a function to calculate TPI for a circular kernels of different sizes. Then we took the 
-average TPI to compose an index considering the landscape influence at multiple scale (Theobald..).
-The original TNC script used a Annulus kernel to calculate LPI. Annulus kernel calculates 
+/* Here we calculate a Topographic Position Index (TPI) (..). We create a function to calculate TPI 
+for a circular kernels of different sizes. Then, we took the average TPI to compose an index 
+that considers the landscape influence at multiple scale (Theobald..).
+The original TNC script used a Annulus kernel to calculate Land Position Index (TPI). Annulus kernel calculates 
 LPI only for cells within a ring with radius as multiples of the focal cell size (e.g. 1, 2, 3, 4). Circular kernel
 take into account all cells within a circle around the focal cell.
 
