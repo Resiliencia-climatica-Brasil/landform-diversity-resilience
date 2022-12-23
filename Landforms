@@ -2,8 +2,7 @@
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
 
-/*
-We followed .. step to calculate landform variety index.
+/* Steps to calculate landform variety
 
 1- Calculate relief slopes, aspects and Land Position Index (LPI) from a Digital Elevation Model.
 
@@ -21,11 +20,18 @@ We followed .. step to calculate landform variety index.
 
 */
 
-
+/*
+First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a biome to mask the rasters.
+*/
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"));
+                       
+/*
+Then, we import a Digital Elevation Model from Merit (...) at a scale of ~ 90 meters. 
+This raster solves problems of elevation estimates in flat regions and places with high density of wetlands.
+*/
 
 var DEM = ee.Image("MERIT/DEM/v1_0_3")
     .clip(bioma);
