@@ -93,7 +93,7 @@ Annulus kernel may be implemented in the future to calculate LPI.
 
 var calculate_TPI = function(pixel_size){
   
-// Split neighborhood cells within a squared kernel of a pixel size into bands
+// Split neighborhood cells within a circles kernel into bands
 
 var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
 
