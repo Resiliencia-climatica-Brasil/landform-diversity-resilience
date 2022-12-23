@@ -21,6 +21,8 @@ We followed .. step to calculate landform variety index.
 
 */
 
+
+
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"));
