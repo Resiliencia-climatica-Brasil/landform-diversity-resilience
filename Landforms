@@ -101,21 +101,19 @@ var calculate_TPI = function(pixel_size){
   
 // Split neighborhood cells within a circles kernel into bands
 
-var neigh = DEM.focalMean({
+var focal_mean = DEM.focalMean({
                        radius: pixel_size,
                        kernelType: "circle",
                        units: "pixels"
                      });
 
 // Calculate neighborhood differences to the focal cells and take the mean
-TPI = neigh
-      .subtract(DEM)
-      .reduce("mean")
+TPI = focal_mean.subtract(DEM)
 
 return TPI;
 }
 
-var TPI = calculate_TPI(1);
+var TPI = calculate_TPI(20);
 /*
 var window_size = [1, 2]; 
 
@@ -294,7 +292,7 @@ Map.setCenter(-47.4017, -13.9614, 12);
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 
-Map.addLayer(TPI)
+Map.addLayer(TPI.multiply(ee.Number(-1)))
 
 var legend = ui.Panel({
              style: {
