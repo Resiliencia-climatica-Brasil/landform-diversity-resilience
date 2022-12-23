@@ -1,3 +1,17 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = 
+    /* color: #d63000 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-47.18609379882812, -14.073424596661212],
+          [-47.18609379882812, -14.092072837313145],
+          [-47.16103123779296, -14.092072837313145],
+          [-47.16103123779296, -14.073424596661212]]], null, false);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
@@ -113,9 +127,8 @@ TPI = focal_mean.subtract(DEM)
 return TPI;
 }
 
-var TPI = calculate_TPI(20);
-/*
-var window_size = [1, 2]; 
+
+var window_size = [1, 5, 10, 15, 20, 25, 30]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -125,7 +138,7 @@ var TPI = ee.ImageCollection
           .reduce("mean")
           //.multiply(10000)
           //.add(0.5);
-*/          
+          
 
                      
 // Reclassifying landform values into classes
@@ -140,7 +153,7 @@ var slope_classes = slope
 // It seems Earth engine does not calculate -1 values for flat areas as ArcGis does
 
 var aspect_classes = aspect
-      .where(aspect.gt(-1).and(aspect.lte(-1)), 0)
+      .where(aspect.lte(0)), 0)
       .where(aspect.gt(0).and(aspect.lte(90)), 1)
       .where(aspect.gt(90).and(aspect.lte(270)), 2)
       .where(aspect.gt(270).and(aspect.lte(360)), 1);
@@ -150,7 +163,7 @@ var aspect_classes = aspect
 var TPI_classes = TPI
       .where(TPI.lte(-976), 1)
       .where(TPI.gt(-975).and(TPI.lte(-1)), 2)
-      .where(TPI.gt(0).and(TPI.lte(975)), 3)
+      .where(TPI.gt(-1).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
 var moisture_classes = moisture_index
@@ -236,12 +249,12 @@ var landform_types = landform_combination
 
 
 //Checking values
-/*
-var freq = landform_types.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
-                                        geometry: bioma, 
+
+var freq = slope_classes.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
+                                        geometry: geometry, 
                                         maxPixels: 242845367});
-*/
-//print(freq)
+
+print(freq)
 
 /*
 Calculating landform richness within a circular kernel
@@ -286,13 +299,23 @@ var sld_intervals =
 
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
+var TPI_sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#ffc82d" quantity="1" label="Cool Steep Slope"/>' +
+    '<ColorMapEntry color="#997921" quantity="2" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#ff3110" quantity="3" label="Cliff"/>' +
+    '<ColorMapEntry color="#ffffff" quantity="4" label="Null"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
 
-Map.setCenter(-47.4017, -13.9614, 12);
+
+Map.setCenter(-47.2012, -14.0447, 12);
 
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
-
-Map.addLayer(TPI.multiply(ee.Number(-1)))
+//Map.addLayer(TPI_classes.sldStyle(TPI_sld_intervals), {})
+//Map.addLayer(TPI_classes)
 
 var legend = ui.Panel({
              style: {
