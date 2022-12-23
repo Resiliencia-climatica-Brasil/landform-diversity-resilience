@@ -57,9 +57,14 @@ var aspect = ee.Terrain.aspect(DEM);
 
 /*
 Here we calculate a moisture index (..) based on the flow accumulation and slopes.
+
+Moisture index = log((flow_accumulation + 1) / (slope + 1)) * 1000
 */
 
-var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Number(1))).log();
+var moisture_index = flow_accumulation.add(ee.Number(1)).divide(slope.add(ee.Number(1))).log().multiply(1000);
+
+
+
 
 var calculate_LPI = function(pixel_size){
 
