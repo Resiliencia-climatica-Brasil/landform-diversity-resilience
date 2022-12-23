@@ -101,7 +101,11 @@ var calculate_TPI = function(pixel_size){
   
 // Split neighborhood cells within a circles kernel into bands
 
-var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
+var neigh = DEM.focalMean({
+                       radius: pixel_size,
+                       kernelType: "circle",
+                       units: "pixels"
+                     });
 
 // Calculate neighborhood differences to the focal cells and take the mean
 TPI = neigh
@@ -111,7 +115,9 @@ TPI = neigh
 return TPI;
 }
 
-var window_size = [1, 2, 3, 4, 5, 6]; 
+var TPI = calculate_TPI(1);
+/*
+var window_size = [1, 2]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -121,7 +127,7 @@ var TPI = ee.ImageCollection
           .reduce("mean")
           //.multiply(10000)
           //.add(0.5);
-          
+*/          
 
                      
 // Reclassifying landform values into classes
