@@ -5,12 +5,20 @@
 /*
 We followed .. step to calculate landform variety index.
 
-1- We calculate relief slopes and aspects from a Digital Elevation Model.
+1- Calculate relief slopes, aspects and Land Position Index (LPI) from a Digital Elevation Model.
 
-2- We calculate a moisture index from a flow accumulation raster.
+2- Calculate a moisture index from a flow accumulation raster and slopes.
 
+3- Transform slopes, aspect, LPI and moisture index into classes
 
-  
+4- Combine slopes, aspect, LPI and moisture classes into a code string
+
+5- Re-classify landform string into landform types
+
+6- Count the number of distinct landforms within a focal cell kernel (landform variety)
+
+7- Export landform variety raster
+
 */
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
