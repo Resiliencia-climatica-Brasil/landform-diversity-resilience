@@ -276,11 +276,9 @@ var sld_intervals =
 
 
 Map.setCenter(-47.4017, -13.9614, 7);
-Map.addLayer(TPI);
 
-/*
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-/Map.addLayer(landform_types)
+
 
 var legend = ui.Panel({
              style: {
@@ -351,7 +349,7 @@ for (var i = 0; i < 14; i++) {
   }  
  
 Map.add(legend);
-*/
+
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
 
