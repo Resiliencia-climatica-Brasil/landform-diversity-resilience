@@ -1,13 +1,22 @@
+/**
+ * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
+*/
 
-var bioma_collection = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
+/*
+We followed .. step to calculate landform variety index.
 
-var bioma = bioma_collection
-    .select("Bioma")
-    .filter(ee.Filter.eq("Bioma", "Cerrado"));
+1- We calculate relief slopes and aspects from a Digital Elevation Model.
 
-var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1");
+2- We calculate a moisture index from a flow accumulation raster.
 
-var dataset = ee.Image("MERIT/DEM/v1_0_3")
+
+  
+*/
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                       .select("Bioma")
+                       .filter(ee.Filter.eq("Bioma", "Cerrado"));
+
+var DEM = ee.Image("MERIT/DEM/v1_0_3")
     .clip(bioma);
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
@@ -15,9 +24,9 @@ var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
   
 // Calculate slope and aspect
 
-var slope = ee.Terrain.slope(dataset);
+var slope = ee.Terrain.slope(DEM);
 
-var aspect = ee.Terrain.aspect(dataset);
+var aspect = ee.Terrain.aspect(DEM);
 
 // Calculate moisture index 
 
@@ -27,7 +36,7 @@ var calculate_LPI = function(pixel_size){
 
 // Split neighbor cells within a kernel of 1 pixel in bands
 
-var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
+var neigh = DEM.neighborhoodToBands(ee.Kernel.square(pixel_size));
 
 // Calculate a mean difference weighted by the distance (Land position Index(LPI))
 /*
@@ -38,7 +47,7 @@ var neigh = dataset.neighborhoodToBands(ee.Kernel.square(pixel_size));
 /* We must calculate multiple windown size and take the average value*/
 var weight = ee.Number(pixel_size).multiply(90);
 
-var LPI = neigh.subtract(dataset).divide(weight);
+var LPI = neigh.subtract(DEM).divide(weight);
 
 return LPI;
 }
