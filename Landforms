@@ -103,11 +103,11 @@ var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
 
 //var LPI = neigh.subtract(DEM).divide(weight);
 
-LPI = neigh
+TPI = neigh
       .subtract(DEM)
       .reduce("mean")
 
-return LPI;
+return TPI;
 }
 
 var window_size = [1, 2, 3, 4, 5, 6]; 
