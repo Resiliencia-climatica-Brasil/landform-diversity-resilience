@@ -77,11 +77,17 @@ var moisture_index = flow_accumulation.
 /* Here we calculate a Topographic Position Index (TPI) (..). We create a function to calculate TPI 
 for a circular kernels of different sizes. Then, we took the average TPI to compose an index 
 that considers the landscape influence at multiple scale (Theobald..).
-The original TNC script used an annulus (torus) kernel to calculate the Land Position Index (TPI). Annulus kernel calculates 
-LPI only for cells within a ring, as cells differences need to be weighted by their geographical distances. Circular kernel take into account all cells within a circle around the 
-focal cell.
 
-Annulus kernel may be implemented in the future to calculate LPI.
+TPI = sum(elevation_neighborhood -  focal_elevation) / number of neighborhood cells
+
+We define the neighborhood by a circular kernel. 
+
+The original TNC script used an annulus (torus) kernel to calculate the Land Position Index (LPI). It was required 
+to weight elevation differences by their geographical distances.
+
+LPI = sum((elevation_neighborhood -  focal_elevation) / cell distance) / number of neighborhood cells
+
+Annulus kernel is not implemented yet on GEE, we may implement a function to calculate it in the future to calculate LPI.
 */
 
 
@@ -97,8 +103,7 @@ var calculate_TPI = function(pixel_size){
 
 var neigh = DEM.neighborhoodToBands(ee.Kernel.circle(pixel_size));
 
-
-
+// Calculate neighborhood differences to the focal cells and take the mean
 TPI = neigh
       .subtract(DEM)
       .reduce("mean")
