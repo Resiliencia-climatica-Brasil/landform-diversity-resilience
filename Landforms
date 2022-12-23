@@ -1,6 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var geometry = 
     /* color: #d63000 */
+    /* shown: false */
     /* displayProperties: [
       {
         "type": "rectangle"
@@ -249,13 +250,13 @@ var landform_types = landform_combination
 
 
 //Checking values
-
+/*
 var freq = TPI_classes.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
                                         geometry: geometry, 
                                         maxPixels: 242845367});
 
 print(freq)
-
+*/
 /*
 Calculating landform richness within a circular kernel
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
@@ -299,23 +300,10 @@ var sld_intervals =
 
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
-var TPI_sld_intervals =
-'<RasterSymbolizer>' +
-  '<ColorMap type="intervals" extended="false">' +
-    '<ColorMapEntry color="#ffc82d" quantity="1" label="Cool Steep Slope"/>' +
-    '<ColorMapEntry color="#997921" quantity="2" label="Warm Steep Slope"/>' +
-    '<ColorMapEntry color="#ff3110" quantity="3" label="Cliff"/>' +
-    '<ColorMapEntry color="#ffffff" quantity="4" label="Null"/>' +
-    '<ColorMapEntry color="#d7d95b" quantity="5" label="Null"/>' +
-  '</ColorMap>' +
-'</RasterSymbolizer>';
-
-
 Map.setCenter(-47.2012, -14.0447, 12);
 
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-//Map.addLayer(landform_types)
-Map.addLayer(TPI_classes.sldStyle(TPI_sld_intervals), {})
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types)
 
 
 var legend = ui.Panel({
