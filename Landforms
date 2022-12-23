@@ -86,7 +86,7 @@ Annulus kernel may be implemented in the future to calculate LPI.
 
 
 /**
- * Function to calculate Topographic Position Index (LPI) within a square kernel of a specific size. 
+ * Function to calculate Topographic Position Index (TPI) within a circle kernel of a specific size. 
  * @param Kernel size in pixel units.
  * @results An image of LPI values.
 */
