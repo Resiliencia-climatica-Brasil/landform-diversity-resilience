@@ -74,29 +74,24 @@ var moisture_index = flow_accumulation.
                        units: "pixels"
                      });
                      
-/* Here we calculate a Land Position Index (LPI) (..) for the cells.
-We created a function to calculate LPI for kernels of different sizes. Then we took the 
-average LPI to compose an index considering the landscape influence at multiple scale (Theobald..).
-The original TNC script used a Annulus kernel, we used a square kernel. Annulus kernel calculates 
-LPI only for cells far from multiples of the focal cell size (e.g. 1, 2, 3, 4). Squared kernel
-take into account all cells within a square around the focal cell.
-*/
+/* Here we calculate a Topographic Position Index (TPI) (..) for the cells.
+We created a function to calculate TPI for a circular kernels of different sizes. Then we took the 
+average TPI to compose an index considering the landscape influence at multiple scale (Theobald..).
+The original TNC script used a Annulus kernel to calculate LPI. Annulus kernel calculates 
+LPI only for cells within a ring with radius as multiples of the focal cell size (e.g. 1, 2, 3, 4). Circular kernel
+take into account all cells within a circle around the focal cell.
 
-/*
-Calculate a mean difference weighted by the distance (Land position Index(LPI))
-It is calculated by subtracting each neighbor cell by the focal cell, 
-dividing them by their distances and calculating their average
+Annulus kernel may be implemented in the future to calculate LPI.
 */
-
 
 
 /**
- * Function to calculate Land Position Index (LPI) within a square kernel of a specific size. 
+ * Function to calculate Topographic Position Index (LPI) within a square kernel of a specific size. 
  * @param Kernel size in pixel units.
  * @results An image of LPI values.
 */
 
-var calculate_LPI = function(pixel_size){
+var calculate_TPI = function(pixel_size){
   
 // Split neighborhood cells within a squared kernel of a pixel size into bands
 
@@ -284,10 +279,12 @@ var sld_intervals =
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
 
-Map.setCenter(-47.4017, -13.9614);
+Map.setCenter(-47.4017, -13.9614, 7);
+Map.addLayer(LPI);
 
+/*
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types)
+/Map.addLayer(landform_types)
 
 var legend = ui.Panel({
              style: {
@@ -358,7 +355,7 @@ for (var i = 0; i < 14; i++) {
   }  
  
 Map.add(legend);
-
+*/
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
 
