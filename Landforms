@@ -76,24 +76,34 @@ var moisture_index = flow_accumulation.
                      
 /* Here we calculate a Land Position Index (LPI) (..) for the cells.
 We created a function to calculate LPI for kernels of different sizes. Then we took the 
-average LPI to compose a index considering the landscape influence at multiple scale (Theobald..).
+average LPI to compose an index considering the landscape influence at multiple scale (Theobald..).
 The original TNC script used a Annulus kernel, we used a square kernel. Annulus kernel calculates 
 LPI only for cells far from multiples of the focal cell size (e.g. 1, 2, 3, 4). Squared kernel
 take into account all cells within a square around the focal cell.
+*/
+
+/*
+Calculate a mean difference weighted by the distance (Land position Index(LPI))
+It is calculated by subtracting each neighbor cell by the focal cell, 
+dividing them by their distances and calculating their average
+*/
+
+
+
+/**
+ * Function to calculate Land Position Index (LPI) within a square kernel of a specific size. 
+ * @param Kernel size in pixel units.
+ * @results An image of LPI values.
+*/
 
 var calculate_LPI = function(pixel_size){
 
-// Split neighbor cells within a kernel of 1 pixel in bands
+// Split neighborhood cells within a squared kernel of a pixel size into bands
 
 var neigh = DEM.neighborhoodToBands(ee.Kernel.square(pixel_size));
 
-// Calculate a mean difference weighted by the distance (Land position Index(LPI))
-/*
- It is calculated by subtracting each neighbor cell by the focal cell, 
-   dividing them by their distances and calculating their average
-*/
 
-/* We must calculate multiple windown size and take the average value*/
+
 var weight = ee.Number(pixel_size).multiply(90);
 
 var LPI = neigh.subtract(DEM).divide(weight);
