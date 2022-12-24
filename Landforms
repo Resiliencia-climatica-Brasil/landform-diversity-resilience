@@ -280,7 +280,7 @@ var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
     '<ColorMapEntry color="#ffc82d" quantity="3" label="Cool Steep Slope"/>' +
-    '<ColorMapEntry color="#997921" quantity="4" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#f5b70a" quantity="4" label="Warm Steep Slope"/>' +
     '<ColorMapEntry color="#ff3110" quantity="5" label="Cliff"/>' +
     '<ColorMapEntry color="#ffffff" quantity="20" label="Null"/>' +
     '<ColorMapEntry color="#997f7f" quantity="21" label="Flat Hilltop"/>' +
@@ -340,7 +340,7 @@ var makeRow = function(color, name) {
 
 var palette = [
 "#ffc82d",  
-"#997921",
+"#f5b70a",
 "#ff3110",
 "#ffffff",
 "#997f7f",
