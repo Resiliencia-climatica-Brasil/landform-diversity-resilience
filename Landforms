@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 20, 50, 100]; 
+var window_size = [1, 5, 10, 20, 50]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -162,8 +162,8 @@ var aspect_classes = aspect
 // TPI test, it needs to be checked with the original code
 
 var TPI_classes = TPI
-      .where(TPI.lte(-4), 1)
-      .where(TPI.gt(-4).and(TPI.lt(0)), 2)
+      .where(TPI.lte(-10), 1)
+      .where(TPI.gt(-10).and(TPI.lt(0)), 2)
       .where(TPI.gte(0).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
@@ -302,13 +302,12 @@ var sld_intervals =
 
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
-Map.setCenter(-47.2012, -14.0447, 12);
+Map.setCenter(-46.90818, -13.88489, 13);
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
-//Map.addLayer(TPI)
-//Map.addLayer(slope)
-//Map.addLayer(slope)
+Map.addLayer(TPI)
+Map.addLayer(slope)
 
 
 //Map.addLayer(slope);
