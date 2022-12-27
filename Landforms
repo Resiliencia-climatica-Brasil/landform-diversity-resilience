@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 10, 30, 50, 100]; 
+var window_size = [1, 10, 30, 100]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
