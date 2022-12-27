@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 15, 20, 25, 30]; 
+var window_size = [1, 5, 10, 20]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -137,8 +137,8 @@ var TPI = ee.ImageCollection
           .fromImages(TPI_windows)
           .toBands()
           .reduce("mean")
-          //.multiply(10000)
-          //.add(0.5);
+          .multiply(10000)
+          .add(0.5);
           
 
                      
@@ -279,19 +279,21 @@ var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radi
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
-    '<ColorMapEntry color="#ffc82d" quantity="3" label="Cool Steep Slope"/>' +
-    '<ColorMapEntry color="#f5b70a" quantity="4" label="Warm Steep Slope"/>' +
-    '<ColorMapEntry color="#ff3110" quantity="5" label="Cliff"/>' +
-    '<ColorMapEntry color="#ffffff" quantity="20" label="Null"/>' +
-    '<ColorMapEntry color="#997f7f" quantity="21" label="Flat Hilltop"/>' +
-    '<ColorMapEntry color="#dcbfbf" quantity="22" label="Gentle Slope Hilltop"/>' +
-    '<ColorMapEntry color="#62dc82" quantity="23" label="Cool Sideslope"/>' +
-    '<ColorMapEntry color="#cbd267" quantity="24" label="Warm Sideslope"/>' +
-    '<ColorMapEntry color="#6ca5a2" quantity="30" label="Dry Flats"/>' +
-    '<ColorMapEntry color="#c49a3c" quantity="32" label="Valley/Toeslope"/>' +
-    '<ColorMapEntry color="#8437ff" quantity="39" label="Moist Flats"/>' +
-    '<ColorMapEntry color="#40d43e" quantity="43" label="Cool Footslope/Cove"/>' +
-    '<ColorMapEntry color="#209534" quantity="44" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#ffc408" quantity="3" label="Cool Steep Slope"/>' +
+    '<ColorMapEntry color="#ffa101" quantity="4" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#ef595a" quantity="5" label="Cliff"/>' +
+    '<ColorMapEntry color="#ffbdbe" quantity="11" label="Summit/Ridgetop"/>' +
+    '<ColorMapEntry color="#6e4100" quantity="13" label="Slope Crest"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="21" label="Flat Hilltop"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="22" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="23" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="24" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#ffffbe" quantity="30" label="Dry Flats"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="32" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#b671f2" quantity="39" label="Moist Flats"/>' +
+    '<ColorMapEntry color="#010101" quantity="41" label="Flat at the bottom steep slope"/>' +
+    '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
+    '<ColorMapEntry color="#08a702" quantity="44" label="Warm Footslope/Cove"/>' +
     '<ColorMapEntry color="#000000" quantity="99" label="Null"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
@@ -305,6 +307,8 @@ Map.setCenter(-47.2012, -14.0447, 12);
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
 
+//Map.addLayer(slope);
+//Map.addLayer(TPI.multiply(ee.Number(-1)));
 
 var legend = ui.Panel({
              style: {
@@ -339,26 +343,29 @@ var makeRow = function(color, name) {
 };
 
 var palette = [
-"#ffc82d",  
-"#f5b70a",
-"#ff3110",
-"#ffffff",
-"#997f7f",
-"#dcbfbf",
-"#62dc82",
-"#cbd267",
-"#6ca5a2",
-"#c49a3c",
-"#8437ff",
-"#40d43e",
-"#209534",
+"#ffc408ff",
+"#ffa101ff",
+"#ef595aff",
+"#ffbdbeff",
+"#6e4100ff",
+"#af7b53ff",
+"#af7b53ff",
+"#af7b53ff",
+"#af7b53ff",
+"#ffffbeff",
+"#a9a800ff",
+"#b671f2ff",
+"#010101ff",
+"#08a702ff",
+"#08a702ff",
 "#000000"];
 
 var land =[
 "Cool Steep Slope",
 "Warm Steep Slope",
 "Cliff",
-"Null slope",
+"Summit/Ridgetop",
+"Slope Crest",
 "Flat Hilltop",
 "Gentle Slope Hilltop",
 "Cool Sideslope",
@@ -366,6 +373,7 @@ var land =[
 "Dry Flats",
 "Valley/Toeslope",
 "Moist Flats",
+"Flat at the bottom steep slope",
 "Cool Footslope/Cove",
 "Warm Footslope/Cove",
 "99"];
