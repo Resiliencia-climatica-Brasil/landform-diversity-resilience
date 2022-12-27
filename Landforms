@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 20, 50]; 
+var window_size = [1, 5, 10, 20, 30]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -163,8 +163,8 @@ var aspect_classes = aspect
 
 var TPI_classes = TPI
       .where(TPI.lte(-10), 1)
-      .where(TPI.gt(-10).and(TPI.lt(0)), 2)
-      .where(TPI.gte(0).and(TPI.lte(975)), 3)
+      .where(TPI.gt(-10).and(TPI.lt(-2)), 2)
+      .where(TPI.gte(-2).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
 var moisture_classes = moisture_index
