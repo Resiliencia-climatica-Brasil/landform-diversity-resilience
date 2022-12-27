@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 20, 30]; 
+var window_size = [1, 10, 30, 50, 100]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -145,8 +145,8 @@ var TPI = ee.ImageCollection
 // Reclassifying landform values into classes
 
 var slope_classes = slope
-      .where(slope.gt(-1).and(slope.lte(2)), 1)
-      .where(slope.gt(2).and(slope.lte(6)), 2)
+      .where(slope.gt(-1).and(slope.lte(3)), 1)
+      .where(slope.gt(3).and(slope.lte(6)), 2)
       .where(slope.gt(6).and(slope.lte(25)), 3)
       .where(slope.gt(25).and(slope.lte(35)), 4)
       .where(slope.gt(35).and(slope.lte(90)), 5);
@@ -162,8 +162,8 @@ var aspect_classes = aspect
 // TPI test, it needs to be checked with the original code
 
 var TPI_classes = TPI
-      .where(TPI.lte(-10), 1)
-      .where(TPI.gt(-10).and(TPI.lt(-2)), 2)
+      .where(TPI.lte(-15), 1)
+      .where(TPI.gt(-15).and(TPI.lt(-2)), 2)
       .where(TPI.gte(-2).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
@@ -186,7 +186,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 
 var landform_types = landform_combination
                       .where(landform_combination.eq(11), 11)
-                      .where(landform_combination.eq(12), 12)
+                      .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
                       .where(landform_combination.eq(14), 99)
                       .where(landform_combination.eq(15), 5)
@@ -304,10 +304,10 @@ var sld_intervals =
 
 Map.setCenter(-46.90818, -13.88489, 13);
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types)
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types)
 Map.addLayer(TPI)
-Map.addLayer(slope)
+//Map.addLayer(slope)
 
 
 //Map.addLayer(slope);
