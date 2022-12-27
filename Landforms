@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [10]; 
+var window_size = [1, 5, 10, 20]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -162,8 +162,8 @@ var aspect_classes = aspect
 // TPI test, it needs to be checked with the original code
 
 var TPI_classes = TPI
-      .where(TPI.lte(-976), 1)
-      .where(TPI.gt(-976).and(TPI.lt(0)), 2)
+      .where(TPI.lte(-4), 1)
+      .where(TPI.gt(-4).and(TPI.lt(0)), 2)
       .where(TPI.gte(0).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
@@ -307,6 +307,7 @@ Map.setCenter(-47.2012, -14.0447, 12);
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
 Map.addLayer(TPI)
+Map.addLayer(slope)
 //Map.addLayer(slope)
 
 
@@ -364,21 +365,21 @@ var palette = [
 "#000000"];
 
 var land =[
-"Cool Steep Slope",
-"Warm Steep Slope",
-"Cliff",
-"Summit/Ridgetop",
-"Slope Crest",
-"Flat Hilltop",
-"Gentle Slope Hilltop",
-"Cool Sideslope",
-"Warm Sideslope",
-"Dry Flats",
-"Valley/Toeslope",
-"Moist Flats",
-"Flat at the bottom steep slope",
-"Cool Footslope/Cove",
-"Warm Footslope/Cove",
+"3-Cool Steep Slope",
+"4-Warm Steep Slope",
+"5-Cliff",
+"11-Summit/Ridgetop",
+"13-Slope Crest",
+"21-Flat Hilltop",
+"22-Gentle Slope Hilltop",
+"23-Cool Sideslope",
+"24-Warm Sideslope",
+"30-Dry Flats",
+"32-Valley/Toeslope",
+"39-Moist Flats",
+"41-Flat at the bottom steep slope",
+"43-Cool Footslope/Cove",
+"44-Warm Footslope/Cove",
 "99"];
 
 for (var i = 0; i < 14; i++) {
