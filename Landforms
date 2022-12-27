@@ -285,9 +285,9 @@ var sld_intervals =
     '<ColorMapEntry color="#ffbdbe" quantity="11" label="Summit/Ridgetop"/>' +
     '<ColorMapEntry color="#6e4100" quantity="13" label="Slope Crest"/>' +
     '<ColorMapEntry color="#af7b53" quantity="21" label="Flat Hilltop"/>' +
-    '<ColorMapEntry color="#af7b53" quantity="22" label="Gentle Slope Hilltop"/>' +
-    '<ColorMapEntry color="#af7b53" quantity="23" label="Cool Sideslope"/>' +
-    '<ColorMapEntry color="#af7b53" quantity="24" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#c8c284" quantity="22" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#c8f6ad" quantity="23" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#83e763" quantity="24" label="Warm Sideslope"/>' +
     '<ColorMapEntry color="#ffffbe" quantity="30" label="Dry Flats"/>' +
     '<ColorMapEntry color="#a9a800" quantity="32" label="Valley/Toeslope"/>' +
     '<ColorMapEntry color="#b671f2" quantity="39" label="Moist Flats"/>' +
