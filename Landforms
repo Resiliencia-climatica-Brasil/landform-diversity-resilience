@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 20]; 
+var window_size = [1, 5, 10, 20, 50]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -348,10 +348,10 @@ var palette = [
 "#ef595aff",
 "#ffbdbeff",
 "#6e4100ff",
-"#af7b53ff",
-"#af7b53ff",
-"#af7b53ff",
-"#af7b53ff",
+"#af7b53",
+"#c8c284", 
+"#c8f6ad",
+"#83e763",
 "#ffffbeff",
 "#a9a800ff",
 "#b671f2ff",
