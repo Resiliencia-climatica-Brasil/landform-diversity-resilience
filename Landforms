@@ -343,21 +343,21 @@ var makeRow = function(color, name) {
 };
 
 var palette = [
-"#ffc408ff",
-"#ffa101ff",
-"#ef595aff",
-"#ffbdbeff",
-"#6e4100ff",
+"#ffc408",
+"#ffa101",
+"#ef595a",
+"#ffbdbe",
+"#6e4100",
 "#af7b53",
 "#c8c284", 
 "#c8f6ad",
 "#83e763",
-"#ffffbeff",
-"#a9a800ff",
-"#b671f2ff",
-"#010101ff",
-"#08a702ff",
-"#08a702ff",
+"#ffffbe",
+"#a9a800",
+"#b671f2",
+"#010101",
+"#08a702",
+"#08a702",
 "#000000"];
 
 var land =[
