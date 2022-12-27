@@ -129,7 +129,7 @@ return TPI;
 }
 
 
-var window_size = [1, 5, 10, 20]; 
+var window_size = [1, 5, 10, 20, 50, 100]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -306,8 +306,8 @@ Map.setCenter(-47.2012, -14.0447, 12);
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
-Map.addLayer(TPI)
-Map.addLayer(slope)
+//Map.addLayer(TPI)
+//Map.addLayer(slope)
 //Map.addLayer(slope)
 
 
