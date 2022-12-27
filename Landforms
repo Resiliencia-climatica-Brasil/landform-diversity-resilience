@@ -137,17 +137,17 @@ var TPI = ee.ImageCollection
           .fromImages(TPI_windows)
           .toBands()
           .reduce("mean")
-          .multiply(10000)
-          .add(0.5);
+          //.multiply(10000)
+          //.add(0.5);
           
 
                      
 // Reclassifying landform values into classes
 
 var slope_classes = slope
-      .where(slope.gt(-1).and(slope.lte(0.02)), 1)
-      .where(slope.gt(0.02).and(slope.lte(0.06)), 2)
-      .where(slope.gt(0.06).and(slope.lte(25)), 3)
+      .where(slope.gt(-1).and(slope.lte(2)), 1)
+      .where(slope.gt(2).and(slope.lte(6)), 2)
+      .where(slope.gt(6).and(slope.lte(25)), 3)
       .where(slope.gt(25).and(slope.lte(35)), 4)
       .where(slope.gt(35).and(slope.lte(90)), 5);
      
@@ -306,6 +306,9 @@ Map.setCenter(-47.2012, -14.0447, 12);
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
+Map.addLayer(TPI)
+Map.addLayer(slope)
+
 
 //Map.addLayer(slope);
 //Map.addLayer(TPI.multiply(ee.Number(-1)));
