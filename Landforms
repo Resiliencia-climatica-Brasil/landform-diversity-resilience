@@ -309,10 +309,12 @@ var sld_intervals =
 //var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
 //Map.setCenter(-47.37141, -14.1680, 13); //Plateau
-
+//Map.setCenter(-46.2448, -13.6721, 13); //Plateau to evaluate
 //Map.setCenter(-47.20997, -14.05082, 13); //Summits
 
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
+
+
 
 Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
