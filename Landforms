@@ -166,8 +166,8 @@ var aspect_classes = aspect
 
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1)
-      .where(TPI.gt(-15).and(TPI.lt(-2.5)), 2)
-      .where(TPI.gte(-2.5).and(TPI.lte(975)), 3)
+      .where(TPI.gt(-15).and(TPI.lt(-2)), 2)
+      .where(TPI.gte(-2).and(TPI.lte(975)), 3)
       .where(TPI.gt(975), 4);
 
 var moisture_classes = moisture_index
