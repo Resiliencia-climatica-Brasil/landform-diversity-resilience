@@ -195,13 +195,13 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(15), 5)
                       .where(landform_combination.eq(21), 21)
                       .where(landform_combination.eq(22), 22)
-                      .where(landform_combination.eq(23), 99)
+                      .where(landform_combination.eq(23), 23)
                       .where(landform_combination.eq(24), 99)
                       .where(landform_combination.eq(25), 5)
                       .where(landform_combination.eq(31), 30)
                       .where(landform_combination.eq(32), 32)
-                      .where(landform_combination.eq(33), 23)
-                      .where(landform_combination.eq(34), 99)
+                      .where(landform_combination.eq(33), 43)
+                      .where(landform_combination.eq(34), 43)
                       .where(landform_combination.eq(35), 5)
                       .where(landform_combination.eq(41), 41)
                       .where(landform_combination.eq(42), 41)
@@ -220,8 +220,8 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(125), 5)
                       .where(landform_combination.eq(131), 30)
                       .where(landform_combination.eq(132), 32)
-                      .where(landform_combination.eq(133), 23)
-                      .where(landform_combination.eq(134), 3)
+                      .where(landform_combination.eq(133), 43)
+                      .where(landform_combination.eq(134), 43)
                       .where(landform_combination.eq(135), 5)
                       .where(landform_combination.eq(141), 41)
                       .where(landform_combination.eq(142), 41)
@@ -316,8 +316,7 @@ Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
 Map.addLayer(TPI)
-
-//Map.addLayer(slope)
+Map.addLayer(slope)
 
 
 //Map.addLayer(slope);
@@ -391,7 +390,7 @@ var land =[
 "44-Warm Footslope/Cove",
 "99"];
 
-for (var i = 0; i < 14; i++) {
+for (var i = 0; i < 16; i++) {
   legend.add(makeRow(palette[i], land[i]));
   }  
  
