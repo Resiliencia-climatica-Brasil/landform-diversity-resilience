@@ -132,7 +132,7 @@ return TPI;
 
 // 10
 
-var window_size = [1, 10, 50]; 
+var window_size = [1, 5, 10, 30, 50]; 
 
 var TPI_windows = window_size.map(calculate_TPI);
 
@@ -166,9 +166,10 @@ var aspect_classes = aspect
 
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1)
-      .where(TPI.gt(-15).and(TPI.lt(-2)), 2)
-      .where(TPI.gte(-2).and(TPI.lte(975)), 3)
-      .where(TPI.gt(975), 4);
+      .where(TPI.gt(-15).and(TPI.lt(-1)), 2)
+      .where(TPI.gte(-1).and(TPI.lte(6)), 3)
+      .where(TPI.gt(6).and(TPI.lte(975)), 4)
+      .where(TPI.gt(975), 5);
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0)
@@ -223,8 +224,8 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(133), 23)
                       .where(landform_combination.eq(134), 3)
                       .where(landform_combination.eq(135), 5)
-                      .where(landform_combination.eq(141), 41)
-                      .where(landform_combination.eq(142), 41)
+                      .where(landform_combination.eq(141), 39)
+                      .where(landform_combination.eq(142), 39)
                       .where(landform_combination.eq(143), 43)
                       .where(landform_combination.eq(144), 3)
                       .where(landform_combination.eq(145), 5)
@@ -315,8 +316,10 @@ Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
+Map.addLayer(landform_combination)
 Map.addLayer(TPI)
 Map.addLayer(slope)
+
 
 
 //Map.addLayer(slope);
