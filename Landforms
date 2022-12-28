@@ -220,8 +220,8 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(125), 5)
                       .where(landform_combination.eq(131), 30)
                       .where(landform_combination.eq(132), 32)
-                      .where(landform_combination.eq(133), 43)
-                      .where(landform_combination.eq(134), 43)
+                      .where(landform_combination.eq(133), 23)
+                      .where(landform_combination.eq(134), 24)
                       .where(landform_combination.eq(135), 5)
                       .where(landform_combination.eq(141), 41)
                       .where(landform_combination.eq(142), 41)
@@ -240,7 +240,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(225), 5)
                       .where(landform_combination.eq(231), 30)
                       .where(landform_combination.eq(232), 32)
-                      .where(landform_combination.eq(233), 43)
+                      .where(landform_combination.eq(233), 23)
                       .where(landform_combination.eq(234), 44)
                       .where(landform_combination.eq(235), 5)
                       .where(landform_combination.eq(241), 41)
@@ -307,7 +307,7 @@ var sld_intervals =
 
 //Map.setCenter(-47.37141, -14.1680, 13); //Plateau
 
-Map.setCenter(-47.20997, -14.05082, 13); //Summits
+//Map.setCenter(-47.20997, -14.05082, 13); //Summits
 
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
 
@@ -315,8 +315,9 @@ Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
-Map.addLayer(TPI)
-Map.addLayer(slope)
+Map.addLayer(landform_combination)
+// Map.addLayer(TPI)
+// Map.addLayer(slope)
 
 
 //Map.addLayer(slope);
