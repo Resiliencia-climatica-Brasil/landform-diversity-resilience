@@ -295,10 +295,9 @@ var sld_intervals =
     '<ColorMapEntry color="#ffffbe" quantity="30" label="Dry Flats"/>' +
     '<ColorMapEntry color="#a9a800" quantity="32" label="Valley/Toeslope"/>' +
     '<ColorMapEntry color="#b671f2" quantity="39" label="Moist Flats"/>' +
-    '<ColorMapEntry color="#010101" quantity="41" label="Flat at the bottom steep slope"/>' +
+    '<ColorMapEntry color="#010101" quantity="51" label="Flat at the bottom steep slope"/>' +
     '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
     '<ColorMapEntry color="#0a7000" quantity="44" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#000000" quantity="99" label="Null"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
@@ -373,7 +372,7 @@ var palette = [
 "#010101",
 "#08a702",
 "#0a7000",
-"#000000"];
+];
 
 var land =[
 "3-Cool Steep Slope",
@@ -388,12 +387,12 @@ var land =[
 "30-Dry Flats",
 "32-Valley/Toeslope",
 "39-Moist Flats",
-"41-Flat at the bottom steep slope",
+"51-Flat at the bottom steep slope",
 "43-Cool Footslope/Cove",
 "44-Warm Footslope/Cove",
-"99"];
+];
 
-for (var i = 0; i < 16; i++) {
+for (var i = 0; i < 15; i++) {
   legend.add(makeRow(palette[i], land[i]));
   }  
  
