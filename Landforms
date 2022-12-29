@@ -182,11 +182,11 @@ var aspect_classes = aspect
 // TPI test, it needs to be checked with the original code
 
 var TPI_classes = TPI
-      .where(TPI.lte(-15), 1)
-      .where(TPI.gt(-15).and(TPI.lt(-1)), 2)
-      .where(TPI.gte(-1).and(TPI.lte(6)), 3)
-      .where(TPI.gt(6).and(TPI.lte(975)), 4)
-      .where(TPI.gt(975), 5);
+      .where(TPI.lte(-15), 1) // summits
+      .where(TPI.gt(-15).and(TPI.lt(-1)), 2) // Hilltops and Sideslopes
+      .where(TPI.gte(-1).and(TPI.lte(6)), 3) //Valleys and Toeslopes
+      .where(TPI.gt(6).and(TPI.lte(975)), 4) // Footslopes
+      .where(TPI.gt(975), 5); // Flat at the bottom steep slope
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0)
