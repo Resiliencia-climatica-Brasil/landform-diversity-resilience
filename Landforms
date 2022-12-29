@@ -172,12 +172,12 @@ var slope_classes = slope
       .where(slope.gt(35).and(slope.lte(90)), 5);
      
 // It seems Earth engine does not calculate -1 values for flat areas as ArcGis does
-// Aspect values were classified as north (1) and south (2). Values between 90 and 270 are warm areas in south hemisphere. The other values are cool areas.  
+// Aspect values were classified as north (1) and south (2) faces. Values between 90 and 270 are warm areas in south hemisphere. The other values are cool areas.  
 var aspect_classes = aspect
       .where(aspect.lte(0), 0)
-      .where(aspect.gt(0).and(aspect.lte(90)), 1)
-      .where(aspect.gt(90).and(aspect.lte(270)), 2)
-      .where(aspect.gt(270).and(aspect.lte(360)), 1);
+      .where(aspect.gt(0).and(aspect.lte(90)), 2)
+      .where(aspect.gt(90).and(aspect.lte(270)), 1)
+      .where(aspect.gt(270).and(aspect.lte(360)), 2);
       
 // TPI test, it needs to be checked with the original code
 
