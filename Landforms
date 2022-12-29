@@ -130,24 +130,38 @@ TPI = focal_mean.subtract(DEM)
 return TPI;
 }
 
-// 50 cells identify high elevation areas and plateaus
+/*
+We need to define window sizes to calculate the average TPI. First, 
+we looked for window sizes that captured regional morphologies 
+such as plateaus, mountains. We tried values of ranging from 1 to 100 cells
+and selected 50 as the optimal window capture regional features. Then, we chose
+values to capture finer features as hilltop and mountain peaks (1 and 5 cells). Then, we included
+intermediary values (10, 30) to smooth local values. We need to smooth values as they 
+enhance local variation, classifying peaks in plain areas. 
+*/
 
-// 10
+var window_size = [1, 5, 10, 30, 50]; // window sizes
 
-var window_size = [1, 5, 10, 30, 50]; 
+var TPI_windows = window_size.map(calculate_TPI); // TPI for each window
 
-var TPI_windows = window_size.map(calculate_TPI);
-
+// average TPI
 var TPI = ee.ImageCollection
           .fromImages(TPI_windows)
           .toBands()
           .reduce("mean")
-          //.multiply(10000)
-          //.add(0.5);
-          
 
-                     
-// Reclassifying landform values into classes
+// Reclassifying indexes into classes
+/*
+Here, by try and error, we classified slope, aspect, TPI and moisture indexes into classes
+that will represent the landforms.  TPI and slope values were defined by looking 
+a terrain map in GEE and identifying values that better represented the landforms.
+For instance, values of TPI and slope that better classified Summits and
+Slope Crests. Then, values that classified Steep Slopes, Side Slopes
+and Footslopes properly. We tuned values to split Side Slopes and Hilltops. 
+So, we tuned values to identify Valleys and Dry flats. Unfortunatly, flat areas in plateaus 
+are classified as dry flats and valley, maube a elevation criteria must be included 
+to separate flat lowlands from flat highlands.  
+*/
 
 var slope_classes = slope
       .where(slope.gt(-1).and(slope.lte(3)), 1)
