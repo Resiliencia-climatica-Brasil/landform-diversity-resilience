@@ -179,7 +179,7 @@ var aspect_classes = aspect
       .where(aspect.gt(90).and(aspect.lte(270)), 1) // cool
       .where(aspect.gt(270).and(aspect.lte(360)), 2); // warm
       
-// TPI test, it needs to be checked with the original code
+
 
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1) // summits
