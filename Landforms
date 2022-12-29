@@ -325,16 +325,12 @@ var sld_intervals =
 
 
 
-Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
-
-
-
-//Map.addLayer(landform_richness);
 
 
 var legend = ui.Panel({
@@ -413,6 +409,7 @@ Map.add(legend);
 
 
 //print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
+
 
 /*
 Export.image.toDrive({
