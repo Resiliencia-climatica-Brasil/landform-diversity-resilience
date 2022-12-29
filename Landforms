@@ -180,13 +180,16 @@ var aspect_classes = aspect
       .where(aspect.gt(270).and(aspect.lte(360)), 2); // warm
       
 
-
+// We tuned TPI by try and error
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1) // summits
       .where(TPI.gt(-15).and(TPI.lt(-1)), 2) // Hilltops and Sideslopes
       .where(TPI.gte(-1).and(TPI.lte(6)), 3) //Valleys and Toeslopes
       .where(TPI.gt(6).and(TPI.lte(975)), 4) // Footslopes
       .where(TPI.gt(975), 5); // Flat at the bottom steep slope
+
+// We defined the moisture values creating a mask of moisture raster. We chose values 
+// capturing rivers
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0) 
