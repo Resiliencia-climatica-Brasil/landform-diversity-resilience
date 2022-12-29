@@ -175,9 +175,9 @@ var slope_classes = slope
 // Aspect values were classified as north (1) and south (2) faces. Values between 90 and 270 are warm areas in south hemisphere. The other values are cool areas.  
 var aspect_classes = aspect
       .where(aspect.lte(0), 0)
-      .where(aspect.gt(0).and(aspect.lte(90)), 2)
-      .where(aspect.gt(90).and(aspect.lte(270)), 1)
-      .where(aspect.gt(270).and(aspect.lte(360)), 2);
+      .where(aspect.gt(0).and(aspect.lte(90)), 2) // warm
+      .where(aspect.gt(90).and(aspect.lte(270)), 1) // cool
+      .where(aspect.gt(270).and(aspect.lte(360)), 2); // warm
       
 // TPI test, it needs to be checked with the original code
 
@@ -189,8 +189,8 @@ var TPI_classes = TPI
       .where(TPI.gt(975), 5); // Flat at the bottom steep slope
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1400), 0)
-      .where(moisture_index.gt(1400), 1);
+      .where(moisture_index.lte(1400), 0) 
+      .where(moisture_index.gt(1400), 1); // moist areas
 
 //var landform = moisture_classes
 //                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(TPI_classes.eq(1)).and(slope_classes.eq(1)), )
