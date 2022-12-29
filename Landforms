@@ -192,9 +192,7 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0) 
       .where(moisture_index.gt(1400), 1); // moist areas
 
-//var landform = moisture_classes
-//                 .where(moisture_classes.eq(0).and(aspect_classes.eq(0)).and(TPI_classes.eq(1)).and(slope_classes.eq(1)), )
-                 
+           
       
 // Combining classes
 
@@ -339,7 +337,7 @@ Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
-//Map.addLayer(slope)
+Map.addLayer(slope)
 
 
 
