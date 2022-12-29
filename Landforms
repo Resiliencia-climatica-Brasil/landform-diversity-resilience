@@ -270,8 +270,6 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(251), 51)
                       .where(landform_combination.gt(1000), 39);
                       
-
-
 //Checking values
 /*
 var freq = TPI_classes.reduceRegion({reducer: ee.Reducer.frequencyHistogram(), 
