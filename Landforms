@@ -190,7 +190,7 @@ var TPI_classes = TPI
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0) 
-      .where(moisture_index.gt(1400), 1); // moist areas
+      .where(moisture_index.gt(1400), 0); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
@@ -222,7 +222,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(35), 5)
                       .where(landform_combination.eq(41), 32)
                       .where(landform_combination.eq(42), 32)
-                      .where(landform_combination.eq(43), 32)
+                      .where(landform_combination.eq(43), 43)
                       .where(landform_combination.eq(44), 3)
                       .where(landform_combination.eq(45), 5)
                       .where(landform_combination.eq(51), 51)
@@ -243,7 +243,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(135), 5)
                       .where(landform_combination.eq(141), 32)
                       .where(landform_combination.eq(142), 32)
-                      .where(landform_combination.eq(143), 32)
+                      .where(landform_combination.eq(143), 43)
                       .where(landform_combination.eq(144), 3)
                       .where(landform_combination.eq(145), 5)
                       .where(landform_combination.eq(151), 51)
@@ -264,7 +264,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(235), 5)
                       .where(landform_combination.eq(241), 32)
                       .where(landform_combination.eq(242), 32)
-                      .where(landform_combination.eq(243), 32)
+                      .where(landform_combination.eq(243), 44)
                       .where(landform_combination.eq(244), 4)
                       .where(landform_combination.eq(245), 5)
                       .where(landform_combination.eq(251), 51)
@@ -326,8 +326,8 @@ var sld_intervals =
 Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types)
-Map.addLayer(landform_combination)
+//Map.addLayer(landform_types)
+//Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
 
