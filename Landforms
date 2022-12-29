@@ -50,7 +50,7 @@ We clip the raster by the biome mask.
 */
 
 var DEM = ee.Image("MERIT/DEM/v1_0_3")
-          .clip(bioma);
+//          .clip(bioma);
 
 /*
 Also, we import Merit-Hydro raster (..), which has a layer of flow accumulation derived from the above cited Merit-DEM. 
@@ -60,7 +60,7 @@ of calculating flow direction and flow accumulation for biomes without taking in
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
     .select("upg")
-    .clip(bioma);
+//    .clip(bioma);
     
 /* 
 We calculate relief slopes and aspect based on the DEM. 
@@ -290,6 +290,7 @@ var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
+/**
 // Visualization
 
 var sld_intervals =
@@ -406,12 +407,9 @@ for (var i = 0; i < 15; i++) {
   }  
  
 Map.add(legend);
+*/
 
 
-//print(slope.reduceRegion(ee.Reducer.first(), ee.Geometry.Point([-49.71676, -15.54498])))
-
-
-/*
 Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
@@ -419,4 +417,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
-*/
+
