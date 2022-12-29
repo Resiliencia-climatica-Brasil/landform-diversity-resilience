@@ -290,7 +290,6 @@ var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
-/**
 // Visualization
 
 var sld_intervals =
@@ -407,7 +406,7 @@ for (var i = 0; i < 15; i++) {
   }  
  
 Map.add(legend);
-*/
+
 
 /*
 Export.image.toDrive({
