@@ -323,13 +323,15 @@ var sld_intervals =
 
 
 
-Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+Map.setCenter(-46.87646, -13.89561, 7); //flat areas to evaluate
+var landform_30 = landform_combination.mask(landform_combination.eq(20))
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(landform_types)
+Map.addLayer(landform_30)
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
-Map.addLayer(slope)
+//Map.addLayer(slope)
 
 
 
