@@ -192,9 +192,8 @@ var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0) 
       .where(moisture_index.gt(1400), 1); // moist areas
 
-           
-      
-// Combining classes
+         
+// Combining classes into a string descriptor of landform types
 
 var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)), 
                                    aspect_classes.multiply(ee.Number(100)), 
@@ -202,6 +201,8 @@ var classes_collection = ee.Image([moisture_classes.multiply(ee.Number(1000)),
                                    slope_classes]);
 
 var landform_combination = classes_collection.reduce(ee.Reducer.sum());
+
+// Re-classifying strings into landform types
 
 var landform_types = landform_combination
                       .where(landform_combination.eq(11), 11)
