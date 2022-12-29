@@ -122,7 +122,9 @@ var focal_mean = DEM.focalMean({
                        units: "pixels"
                      });
 
-// Calculate differences of the focal cell to the average neighborhood
+// Calculate differences of the focal cell to the average neighborhood. 
+//It gives the same result as the average of differences as in the above equation 
+
 TPI = focal_mean.subtract(DEM)
 
 return TPI;
