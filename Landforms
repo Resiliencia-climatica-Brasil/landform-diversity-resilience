@@ -286,6 +286,8 @@ var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
 
+
+
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
@@ -323,10 +325,7 @@ var sld_intervals =
 
 
 
-Map.setCenter(-46.87646, -13.89561, 7); //flat areas to evaluate
-var landform_30 = landform_combination.mask(landform_combination.eq(20))
-
-Map.addLayer(landform_30)
+Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 //Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
@@ -335,8 +334,8 @@ Map.addLayer(landform_30)
 
 
 
-//Map.addLayer(slope);
-//Map.addLayer(TPI.multiply(ee.Number(-1)));
+//Map.addLayer(landform_richness);
+
 
 var legend = ui.Panel({
              style: {
