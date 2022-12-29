@@ -165,10 +165,10 @@ To classify wet areas we tuned moisture index to capture rivers.
 */
 
 var slope_classes = slope
-      .where(slope.gt(-1).and(slope.lte(3)), 1)
-      .where(slope.gt(3).and(slope.lte(6)), 2)
-      .where(slope.gt(6).and(slope.lte(25)), 3)
-      .where(slope.gt(25).and(slope.lte(35)), 4)
+      .where(slope.gte(0).and(slope.lte(2)), 1)
+      .where(slope.gt(2).and(slope.lte(6)), 2)
+      .where(slope.gt(6).and(slope.lte(24)), 3)
+      .where(slope.gt(24).and(slope.lte(35)), 4)
       .where(slope.gt(35).and(slope.lte(90)), 5);
      
 // It seems Earth engine does not calculate -1 values for flat areas as ArcGis does
@@ -190,7 +190,7 @@ var TPI_classes = TPI
 
 var moisture_classes = moisture_index
       .where(moisture_index.lte(1400), 0) 
-      .where(moisture_index.gt(1400), 0); // moist areas
+      .where(moisture_index.gt(1400), 1); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
