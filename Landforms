@@ -286,8 +286,6 @@ var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
 var radius_pixels = r.divide(ee.Number(90)).round()
 
-
-
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
