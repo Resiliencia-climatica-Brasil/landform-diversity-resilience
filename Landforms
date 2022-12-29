@@ -409,7 +409,7 @@ for (var i = 0; i < 15; i++) {
 Map.add(legend);
 */
 
-
+/*
 Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
@@ -417,4 +417,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
-
+*/
