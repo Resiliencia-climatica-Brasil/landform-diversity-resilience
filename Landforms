@@ -161,6 +161,7 @@ and Footslopes properly. We tuned values to split Side Slopes and Hilltops.
 So, we tuned values to identify Valleys and Dry flats. Unfortunatly, flat areas in plateaus 
 are classified as dry flats and valley, maube a elevation criteria must be included 
 to separate flat lowlands from flat highlands.  
+To classify wet areas we tuned moisture index to capture rivers.
 */
 
 var slope_classes = slope
@@ -171,7 +172,7 @@ var slope_classes = slope
       .where(slope.gt(35).and(slope.lte(90)), 5);
      
 // It seems Earth engine does not calculate -1 values for flat areas as ArcGis does
-
+// Aspect values 
 var aspect_classes = aspect
       .where(aspect.lte(0), 0)
       .where(aspect.gt(0).and(aspect.lte(90)), 1)
@@ -336,9 +337,9 @@ Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
-Map.addLayer(landform_combination)
-Map.addLayer(TPI)
-Map.addLayer(slope)
+//Map.addLayer(landform_combination)
+//Map.addLayer(TPI)
+//Map.addLayer(slope)
 
 
 
