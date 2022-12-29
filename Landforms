@@ -323,11 +323,10 @@ var sld_intervals =
 
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
 
+Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-
-//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-//Map.addLayer(landform_types)
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
