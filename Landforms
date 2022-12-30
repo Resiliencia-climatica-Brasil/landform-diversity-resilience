@@ -127,13 +127,16 @@ enhance local variation, classifying peaks in plain areas.
 
 var window_size = [1, 5, 10, 30, 50]; // window sizes
 
-var TPI_windows = window_size.map(calculate_TPI); // TPI for each window
+var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
+          .mean();
+
+//var TPI_windows = window_size.map(calculate_TPI); // TPI for each window
 
 // average TPI
-var TPI = ee.ImageCollection
-          .fromImages(TPI_windows)
-          .toBands()
-          .reduce("mean")
+//var TPI = ee.ImageCollection
+//          .fromImages(TPI_windows)
+//          .toBands()
+//          .reduce("mean")
 
 // Reclassifying indexes into classes
 /*
@@ -279,7 +282,7 @@ var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
-/**
+/*
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -313,10 +316,10 @@ var sld_intervals =
 
 Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
-//Map.addLayer(TPI)
+Map.addLayer(TPI)
 //Map.addLayer(slope)
 
 
