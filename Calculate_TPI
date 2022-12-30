@@ -50,7 +50,7 @@ var TPI = ee.ImageCollection
 
 Export.image.toAsset({
   image: TPI,
-  description: 'Cerrado TPI',
+  description: 'Cerrado_TPI',
   assetId: "Cerrado_TPI",
   scale: 92.76624,
   region: bioma,
