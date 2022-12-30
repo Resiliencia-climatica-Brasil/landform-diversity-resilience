@@ -1,0 +1,58 @@
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                       .select("Bioma")
+                       .filter(ee.Filter.eq("Bioma", "Cerrado"));
+
+var DEM = ee.Image("MERIT/DEM/v1_0_3")
+
+/**
+ * Function to calculate Topographic Position Index (TPI) within a circle kernel of a specific size. 
+ * @param Kernel size in pixel units.
+ * @results An image of TPI values.
+*/
+
+var calculate_TPI = function(pixel_size){
+  
+// Split neighborhood cells within a circles kernel into bands
+
+var focal_mean = DEM.focalMean({
+                       radius: pixel_size,
+                       kernelType: "circle",
+                       units: "pixels"
+                     });
+
+// Calculate differences of the focal cell to the average neighborhood. 
+//It gives the same result as the average of differences as in the above equation 
+
+TPI = focal_mean.subtract(DEM)
+
+return TPI;
+}
+
+/*
+We need to define window sizes to calculate the average TPI. First, 
+we looked for window sizes that captured regional morphologies 
+such as plateaus, mountains. We tried values of ranging from 1 to 100 cells
+and selected 50 as the optimal window capture regional features. Then, we chose
+values to capture finer features as hilltop and mountain peaks (1 and 5 cells). Then, we included
+intermediary values (10, 30) to smooth local values. We need to smooth values as they 
+enhance local variation, classifying peaks in plain areas. 
+*/
+
+var window_size = [1, 5, 10, 30, 50]; // window sizes
+
+var TPI_windows = window_size.map(calculate_TPI); // TPI for each window
+
+// average TPI
+var TPI = ee.ImageCollection
+          .fromImages(TPI_windows)
+          .toBands()
+          .reduce("mean")
+
+Export.image.toAsset({
+  image: TPI,
+  description: 'Cerrado TPI',
+  assetId: "Cerrado_TPI",
+  scale: 92.76624,
+  region: bioma,
+  maxPixels: 631694567
+});
