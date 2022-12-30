@@ -23,6 +23,8 @@
 /*
 First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a biome to mask the rasters.
 */
+// It is required to use bioma bounds instead the whole polygons because the feature complexity 
+// inhibits the image exportation.
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
