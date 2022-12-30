@@ -286,7 +286,7 @@ var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
-/*
+
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -320,10 +320,10 @@ var sld_intervals =
 
 Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
-Map.addLayer(TPI)
+//Map.addLayer(TPI)
 //Map.addLayer(slope)
 
 
@@ -400,9 +400,9 @@ for (var i = 0; i < 15; i++) {
   }  
  
 Map.add(legend);
-*/
 
 
+/*
 Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
@@ -410,4 +410,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
-
+*/
