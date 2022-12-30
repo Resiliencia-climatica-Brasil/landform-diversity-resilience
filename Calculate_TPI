@@ -1,7 +1,11 @@
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
-                       .filter(ee.Filter.eq("Bioma", "Cerrado"));
-
+                       .filter(ee.Filter.eq("Bioma", "Cerrado"))
+                       .map(function(feature){
+                             return feature.bounds()
+                       })
+                       .geometry();
+                       
 var DEM = ee.Image("MERIT/DEM/v1_0_3")
 
 /**
@@ -49,13 +53,7 @@ var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
 //          .toBands()
 //          .reduce("mean")
           
-          
-          print(TPI)
-          
-          
 
-
-/*
 Export.image.toAsset({
   image: TPI,
   description: 'Cerrado_TPI',
@@ -64,4 +62,3 @@ Export.image.toAsset({
   region: bioma,
   maxPixels: 631694567
 });
-*/
