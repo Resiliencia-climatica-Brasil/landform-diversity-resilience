@@ -40,16 +40,17 @@ enhance local variation, classifying peaks in plain areas.
 
 var window_size = [1, 5, 10, 30, 50]; // window sizes
 
-var TPI_windows = ee.Image(Collection(window_size.map(calculate_TPI)); // TPI for each window
+var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
+          .mean(); // TPI for each window
 
 // average TPI
-var TPI =  ee.ImageCollection
-          .fromImages(TPI_windows)
-          .toBands()
-          .reduce("mean")
+//var TPI =  ee.ImageCollection
+//          .fromImages(TPI_windows)
+//          .toBands()
+//          .reduce("mean")
           
           
-          print(typeof TPI_windows)
+          print(TPI)
           
           
 
