@@ -29,10 +29,10 @@ First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a b
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"))
-                       .map(function(feature){
-                         return feature.bounds()
-                       })
-                       .geometry();
+                       //.map(function(feature){
+                      //   return feature.bounds()
+                      // })
+                      // .geometry();
                        
 /*
 Then, we import a Digital Elevation Model from Merit-DEM (...) at a scale of ~ 90 meters. 
@@ -319,15 +319,16 @@ var sld_intervals =
 //Map.setCenter(-47.20997, -14.05082, 13); //Summits
 
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
+Map.setCenter(-50.98912, -12.4299, 13); //wetlands
 
-Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
-
+Map.addLayer(bioma)
 
 var legend = ui.Panel({
              style: {
