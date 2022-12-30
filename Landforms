@@ -186,7 +186,7 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1400), 0) 
+      .where(moisture_index.lte(1400), 0) //1400
       .where(moisture_index.gt(1400), 1); // moist areas
 
          
@@ -328,7 +328,9 @@ Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
-Map.addLayer(bioma)
+//Map.addLayer(bioma)
+//Map.addLayer(moisture_classes)
+//Map.addLayer(moisture_index)
 
 var legend = ui.Panel({
              style: {
