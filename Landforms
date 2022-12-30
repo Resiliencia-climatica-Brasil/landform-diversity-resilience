@@ -35,7 +35,7 @@ We clip the raster by the biome mask.
 */
 
 var DEM = ee.Image("MERIT/DEM/v1_0_3")
-//          .clip(bioma);
+
 
 /*
 Also, we import Merit-Hydro raster (..), which has a layer of flow accumulation derived from the above cited Merit-DEM. 
@@ -45,7 +45,7 @@ of calculating flow direction and flow accumulation for biomes without taking in
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
     .select("upg")
-//    .clip(bioma);
+
     
 /* 
 We calculate relief slopes and aspect based on the DEM. 
