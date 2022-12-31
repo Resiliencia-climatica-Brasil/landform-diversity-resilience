@@ -1,0 +1,105 @@
+
+var landform = ee.Image("CSP/ERGo/1_0/Global/ALOS_landforms");
+
+var sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#ff8fbe" quantity="11" label="Warm Summit/ridge"/>' +
+    '<ColorMapEntry color="#ffbdbe" quantity="12" label="Summit/ridge"/>' +
+    '<ColorMapEntry color="#e08fbe" quantity="13" label="Cool Summit/ridge"/>' +
+    '<ColorMapEntry color="#c8c284" quantity="14" label="Mountain/divide"/>' +
+    '<ColorMapEntry color="#ef595a" quantity="15" label="Cliff"/>' +
+    '<ColorMapEntry color="#83e763" quantity="21" label="Warm Upper slope"/>' +
+    '<ColorMapEntry color="#83e747" quantity="22" label="Upper slope"/>' +
+    '<ColorMapEntry color="#c8f6ad" quantity="23" label="Cool Upper slope"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="24" label="Flat Upper slope"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="31" label="Warm Lower slope"/>' +
+    '<ColorMapEntry color="#08a702" quantity="32" label="Lower slope"/>' +
+    '<ColorMapEntry color="#08a76c" quantity="33" label="Cool Lower slope"/>' +
+    '<ColorMapEntry color="#ffffbe" quantity="34" label="Flat Lower slope"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="41" label="Valley"/>' +
+    '<ColorMapEntry color="#dba800" quantity="42" label="Valley (narrow)"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+
+
+Map.setCenter(-46.87646, -13.89561, 13);
+
+Map.addLayer(landform.sldStyle(sld_intervals), {});
+
+Map.addLayer(landform)
+
+var legend = ui.Panel({
+             style: {
+               position:'bottom-right',
+               padding: '8px 10px'
+             }
+});
+
+var makeRow = function(color, name) {
+ 
+      // Create the label that is actually the colored box.
+      var colorBox = ui.Label({
+        style: {
+          backgroundColor: color,
+          // Use padding to give the box height and width.
+          padding: '8px',
+          margin: '0 0 4px 0'
+        }
+      });
+ 
+      // Create the label filled with the description text.
+      var description = ui.Label({
+        value: name,
+        style: {margin: '0 0 4px 6px'}
+      });
+ 
+      // return the panel
+      return ui.Panel({
+        widgets: [colorBox, description],
+        layout: ui.Panel.Layout.Flow('horizontal')
+      });
+};
+
+var palette = [
+"#ff8fbe",
+"#ffbdbe",
+"#e08fbe",
+"#c8c284",
+"#ef595a",
+"#83e763",
+"#83e747",
+"#c8f6ad",
+"#af7b53",
+"#0a7000",
+"#08a702",
+"#08a76c",
+"#ffffbe",
+"#a9a800",
+"#dba800",
+];
+
+var land =[
+"Warm Summit/ridge",
+"Summit/ridge",
+"Cool Summit/ridge",
+"Mountain/divide",
+"Cliff",
+"Warm Upper slope",
+"Upper slope",
+"Cool Upper slope",
+"Flat Upper slope",
+"Warm Lower slope",
+"Lower slope",
+"Cool Lower slope",
+"Flat Lower slope",
+"Valley",
+"Valley (narrow)"
+];
+
+for (var i = 0; i < 15; i++) {
+  legend.add(makeRow(palette[i], land[i]));
+  }  
+ 
+Map.add(legend);
+
