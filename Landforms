@@ -29,10 +29,10 @@ First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a b
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"))
-                       //.map(function(feature){
-                      //   return feature.bounds()
-                      // })
-                      // .geometry();
+                       .map(function(feature){
+                         return feature.bounds()
+                        })
+                       .geometry();
                        
 /*
 Then, we import a Digital Elevation Model from Merit-DEM (...) at a scale of ~ 90 meters. 
