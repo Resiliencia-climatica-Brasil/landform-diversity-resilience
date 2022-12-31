@@ -80,21 +80,21 @@ var palette = [
 ];
 
 var land =[
-"Warm Summit/ridge",
-"Summit/ridge",
-"Cool Summit/ridge",
-"Mountain/divide",
-"Cliff",
-"Warm Upper slope",
-"Upper slope",
-"Cool Upper slope",
-"Flat Upper slope",
-"Warm Lower slope",
-"Lower slope",
-"Cool Lower slope",
-"Flat Lower slope",
-"Valley",
-"Valley (narrow)"
+"11-Warm Summit/ridge",
+"12-Summit/ridge",
+"13-Cool Summit/ridge",
+"14-Mountain/divide",
+"15-Cliff",
+"21-Warm Upper slope",
+"22-Upper slope",
+"23-Cool Upper slope",
+"24-Flat Upper slope",
+"31-Warm Lower slope",
+"32-Lower slope",
+"33-Cool Lower slope",
+"34-Flat Lower slope",
+"41-Valley",
+"42-Valley (narrow)"
 ];
 
 for (var i = 0; i < 15; i++) {
@@ -103,3 +103,21 @@ for (var i = 0; i < 15; i++) {
  
 Map.add(legend);
 
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                       .select("Bioma")
+                       .filter(ee.Filter.eq("Bioma", "Cerrado"))
+                       .map(function(feature){
+                         return feature.bounds()
+                        })
+                       .geometry();
+
+var landform_richness = landform.neighborhoodToBands(ee.Kernel.circle(ee.Number(4))).reduce(ee.Reducer.countDistinct())
+
+Export.image.toDrive({
+  image: landform_richness,
+  description: 'Theobald_landform_richness',
+  scale: 92.76624,
+  region: bioma,
+  maxPixels: 631694567
+});
