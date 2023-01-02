@@ -29,10 +29,10 @@ First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a b
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"))
-                       //.map(function(feature){
-                      //   return feature.bounds()
-                      //  })
-                      // .geometry();
+                       .map(function(feature){
+                         return feature.bounds()
+                        })
+                       .geometry();
 
 /*
 Then, we import a Digital Elevation Model from Merit-DEM (...) at a scale of ~ 90 meters. 
@@ -199,7 +199,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 // Re-classifying strings into landform types
 
 var landform_types = landform_combination
-                      .where(landform_combination.eq(0), 30) // null values
+                      .where(landform_combination.eq(0), 99) // null DEM values
                       .where(landform_combination.eq(11), 11)
                       .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
@@ -263,7 +263,8 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(244), 4)
                       .where(landform_combination.eq(245), 5)
                       .where(landform_combination.eq(251), 51)
-                      .where(landform_combination.gte(1000), 39);
+                      .where(landform_combination.gte(1000), 39)
+                      ;
                       
 /*
 Calculating landform richness within a circular kernel
@@ -321,7 +322,7 @@ Map.setCenter(-43.40084, -2.334998, 13)
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
-Map.addLayer(bioma)
+Map.addLayer(DEM)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
