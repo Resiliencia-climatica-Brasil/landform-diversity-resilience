@@ -29,10 +29,10 @@ First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a b
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"))
-                       .map(function(feature){
-                         return feature.bounds()
-                        })
-                       .geometry();
+                       //.map(function(feature){
+                      //   return feature.bounds()
+                      //  })
+                      // .geometry();
 
 /*
 Then, we import a Digital Elevation Model from Merit-DEM (...) at a scale of ~ 90 meters. 
@@ -199,7 +199,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 // Re-classifying strings into landform types
 
 var landform_types = landform_combination
-                      .where(landform_combination.eq(0), 99) // null values
+                      .where(landform_combination.eq(0), 30) // null values
                       .where(landform_combination.eq(11), 11)
                       .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
@@ -308,21 +308,20 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-// Valores de slopes nulos
-
-//var landform_30 = landform_combination.mask(landform_combination.eq(20))
-
 //Map.setCenter(-47.37141, -14.1680, 13); //Plateau
 //Map.setCenter(-46.2448, -13.6721, 13); //Plateau to evaluate
 //Map.setCenter(-47.20997, -14.05082, 13); //Summits
 
-//Map.setCenter(-46.96556, -13.96459, 13); //hilltops
+//Map.setCenter(-46.96556, -13.96459, 7); //hilltops
 //Map.setCenter(-50.98912, -12.4299, 13); //wetlands
 
 //Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-//Map.addLayer(landform_types)
+Map.setCenter(-43.40084, -2.334998, 13)
+
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types)
+Map.addLayer(bioma)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
 //Map.addLayer(slope)
@@ -424,4 +423,5 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
+
 */
