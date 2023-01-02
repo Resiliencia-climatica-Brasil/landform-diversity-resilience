@@ -1,3 +1,17 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = 
+    /* color: #ffc82d */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-46.977396889648425, -13.87902895684867],
+          [-46.977396889648425, -13.922853658289615],
+          [-46.90684406372069, -13.922853658289615],
+          [-46.90684406372069, -13.87902895684867]]], null, false);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
@@ -26,7 +40,6 @@ First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a b
 // It is required to use bioma bounds instead the whole polygons because the feature complexity 
 // inhibits the image exportation.
 
-/*
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                        .select("Bioma")
                        .filter(ee.Filter.eq("Bioma", "Cerrado"))
@@ -34,8 +47,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                          return feature.bounds()
                         })
                        .geometry();
-*/
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/wwf_cerrado");
+
 /*
 Then, we import a Digital Elevation Model from Merit-DEM (...) at a scale of ~ 90 meters. 
 This raster solves problems of elevation estimates in flat regions and places with high density of wetlands.
@@ -266,14 +278,6 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(251), 51)
                       .where(landform_combination.gt(1000), 39);
                       
-var landform_values = landform_types.reduceRegion({
-                        reducer: ee.Reducer.frequencyHistogram(), 
-                        geometry: bioma, 
-                        maxPixels:617765325,
-                        }) 
-
-print(landform_values)              
-
 /*
 Calculating landform richness within a circular kernel
 The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than meters.
@@ -294,7 +298,7 @@ var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
-/**
+
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -327,7 +331,7 @@ var sld_intervals =
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
 //Map.setCenter(-50.98912, -12.4299, 13); //wetlands
 
-//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
@@ -411,7 +415,7 @@ for (var i = 0; i < 15; i++) {
   }  
  
 Map.add(legend);
-*/
+
 
 /*
 Export.image.toDrive({
