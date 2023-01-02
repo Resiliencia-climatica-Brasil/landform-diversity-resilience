@@ -199,7 +199,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 // Re-classifying strings into landform types
 
 var landform_types = landform_combination
-                      .where(landform_combination.eq(0), 99) // null DEM values
+                      .mask(landform_combination.gt(0))
                       .where(landform_combination.eq(11), 11)
                       .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
@@ -263,8 +263,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(244), 4)
                       .where(landform_combination.eq(245), 5)
                       .where(landform_combination.eq(251), 51)
-                      .where(landform_combination.gte(1000), 39)
-                      ;
+                      .where(landform_combination.gte(1000), 39);
                       
 /*
 Calculating landform richness within a circular kernel
@@ -318,7 +317,7 @@ var sld_intervals =
 
 //Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-Map.setCenter(-43.40084, -2.334998, 13)
+Map.setCenter(-43.40084, -2.334998, 20)
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 Map.addLayer(landform_types)
