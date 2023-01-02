@@ -199,7 +199,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 // Re-classifying strings into landform types
 
 var landform_types = landform_combination
-                      .where(landform_combination.eq(0), 99)
+                      .where(landform_combination.eq(0), 99) // null values
                       .where(landform_combination.eq(11), 11)
                       .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
@@ -319,9 +319,9 @@ var sld_intervals =
 //Map.setCenter(-46.96556, -13.96459, 13); //hilltops
 //Map.setCenter(-50.98912, -12.4299, 13); //wetlands
 
-Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 //Map.addLayer(landform_types)
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
@@ -397,9 +397,10 @@ var land =[
 "51-Flat at the bottom steep slope",
 "43-Cool Footslope/Cove",
 "44-Warm Footslope/Cove",
+"99-Null"
 ];
 
-for (var i = 0; i < 15; i++) {
+for (var i = 0; i < 16; i++) {
   legend.add(makeRow(palette[i], land[i]));
   }  
  
@@ -415,7 +416,6 @@ Export.image.toDrive({
   maxPixels: 631694567
 });
 */
-
 /*
 Export.image.toDrive({
   image: landform_types,
