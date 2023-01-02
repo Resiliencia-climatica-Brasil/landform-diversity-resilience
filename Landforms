@@ -156,7 +156,7 @@ To classify wet areas we tuned moisture index to capture rivers.
 */
 
 var slope_classes = slope
-      .where(slope.gte(0).and(slope.lte(2)), 1)
+      .where(slope.gte(-1).and(slope.lte(2)), 1)
       .where(slope.gt(2).and(slope.lte(6)), 2)
       .where(slope.gt(6).and(slope.lte(24)), 3)
       .where(slope.gt(24).and(slope.lte(35)), 4)
@@ -199,6 +199,7 @@ var landform_combination = classes_collection.reduce(ee.Reducer.sum());
 // Re-classifying strings into landform types
 
 var landform_types = landform_combination
+                      .where(landform_combination.eq(0), 99)
                       .where(landform_combination.eq(11), 11)
                       .where(landform_combination.eq(12), 11)
                       .where(landform_combination.eq(13), 13)
@@ -262,7 +263,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(244), 4)
                       .where(landform_combination.eq(245), 5)
                       .where(landform_combination.eq(251), 51)
-                      .where(landform_combination.gt(1000), 39);
+                      .where(landform_combination.gte(1000), 39);
                       
 /*
 Calculating landform richness within a circular kernel
@@ -303,6 +304,7 @@ var sld_intervals =
     '<ColorMapEntry color="#010101" quantity="51" label="Flat at the bottom steep slope"/>' +
     '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
     '<ColorMapEntry color="#0a7000" quantity="44" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#111111" quantity="99" label="Null values"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
@@ -376,6 +378,7 @@ var palette = [
 "#010101",
 "#08a702",
 "#0a7000",
+"#111111"
 ];
 
 var land =[
@@ -413,7 +416,7 @@ Export.image.toDrive({
 });
 */
 
-
+/*
 Export.image.toDrive({
   image: landform_types,
   description: 'landform_types',
@@ -421,4 +424,4 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 631694567
 });
-
+*/
