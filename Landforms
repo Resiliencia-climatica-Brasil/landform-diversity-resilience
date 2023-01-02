@@ -1,17 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = 
-    /* color: #ffc82d */
-    /* displayProperties: [
-      {
-        "type": "rectangle"
-      }
-    ] */
-    ee.Geometry.Polygon(
-        [[[-46.977396889648425, -13.87902895684867],
-          [-46.977396889648425, -13.922853658289615],
-          [-46.90684406372069, -13.922853658289615],
-          [-46.90684406372069, -13.87902895684867]]], null, false);
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
@@ -426,3 +412,13 @@ Export.image.toDrive({
   maxPixels: 631694567
 });
 */
+
+
+Export.image.toDrive({
+  image: landform_types,
+  description: 'landform_types',
+  scale: 92.76624,
+  region: bioma,
+  maxPixels: 631694567
+});
+
