@@ -389,7 +389,7 @@ var land =[
 "44-Warm Footslope/Cove"
 ];
 
-for (var i = 0; i < 16; i++) {
+for (var i = 0; i < 15; i++) {
   legend.add(makeRow(palette[i], land[i]));
   }  
  
