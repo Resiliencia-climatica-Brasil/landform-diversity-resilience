@@ -208,6 +208,7 @@ var landform_types = landform_combination
                       .where(landform_combination.eq(33), 24)
                       .where(landform_combination.eq(34), 24)
                       .where(landform_combination.eq(35), 5)
+                      .where(landform_combination.eq(40), 32)
                       .where(landform_combination.eq(41), 32)
                       .where(landform_combination.eq(42), 32)
                       .where(landform_combination.eq(43), 43)
@@ -306,9 +307,9 @@ var sld_intervals =
 //Map.setCenter(-46.96556, -13.96459, 7); //hilltops
 //Map.setCenter(-50.98912, -12.4299, 13); //wetlands
 
-//Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
+Map.setCenter(-46.87646, -13.89561); //flat areas to evaluate
 
-Map.setCenter(-43.40084, -2.334998, 13) // foz
+//Map.setCenter(-43.40084, -2.334998, 13) // foz
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 
@@ -387,7 +388,7 @@ var land =[
 "44-Warm Footslope/Cove"
 ];
 
-for (var i = 0; i < 15; i++) {
+for (var i = 0; i < 14; i++) {
   legend.add(makeRow(palette[i], land[i]));
   }  
  
