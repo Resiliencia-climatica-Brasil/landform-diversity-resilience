@@ -133,14 +133,6 @@ var window_size = [1, 5, 10, 30, 50]; // window sizes
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .mean();
 
-//var TPI_windows = window_size.map(calculate_TPI); // TPI for each window
-
-// average TPI
-//var TPI = ee.ImageCollection
-//          .fromImages(TPI_windows)
-//          .toBands()
-//          .reduce("mean")
-
 // Reclassifying indexes into classes
 /*
 Here, by try and error, we classified slope, aspect, TPI and moisture indexes into classes
@@ -304,7 +296,6 @@ var sld_intervals =
     '<ColorMapEntry color="#010101" quantity="51" label="Flat at the bottom steep slope"/>' +
     '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
     '<ColorMapEntry color="#0a7000" quantity="44" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#111111" quantity="99" label="Null values"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
@@ -317,9 +308,9 @@ var sld_intervals =
 
 //Map.setCenter(-46.87646, -13.89561, 13); //flat areas to evaluate
 
-//Map.setCenter(-43.40084, -2.334998, 13) // foz
+Map.setCenter(-43.40084, -2.334998, 13) // foz
 
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 
 //Map.addLayer(landform_types)
 
@@ -377,8 +368,7 @@ var palette = [
 "#b671f2",
 "#010101",
 "#08a702",
-"#0a7000",
-"#111111"
+"#0a7000"
 ];
 
 var land =[
@@ -396,8 +386,7 @@ var land =[
 "39-Moist Flats",
 "51-Flat at the bottom steep slope",
 "43-Cool Footslope/Cove",
-"44-Warm Footslope/Cove",
-"99-Null"
+"44-Warm Footslope/Cove"
 ];
 
 for (var i = 0; i < 16; i++) {
