@@ -1,17 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = 
-    /* color: #0000ff */
-    /* displayProperties: [
-      {
-        "type": "rectangle"
-      }
-    ] */
-    ee.Geometry.Polygon(
-        [[[-51.022422307128906, -12.402070661828706],
-          [-51.022422307128906, -12.47985121316623],
-          [-50.9286951953125, -12.47985121316623],
-          [-50.9286951953125, -12.402070661828706]]], null, false);
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
@@ -293,7 +279,7 @@ var image_resolution = DEM.projection().nominalScale()
 
 var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
 
-var landform_richness = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
+var landform_variety = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
 // Visualization
 
@@ -320,18 +306,18 @@ var sld_intervals =
 
 
 //Map.setCenter(-47.37141, -14.1680); //Plateau
-//Map.setCenter(-46.2448, -13.6721 ); //Plateau to evaluate
+//Map.setCenter(-46.2448, -13.6721 ); //Plateau
 //Map.setCenter(-47.20997, -14.05082); //Summits
 
 //Map.setCenter(-46.96556, -13.96459); //hilltops
-Map.setCenter(-50.98912, -12.4299); //wetlands
+//Map.setCenter(-50.98912, -12.4299, 11); //wetlands
 
-//Map.setCenter(-46.87646, -13.89561); //13 better zoom//flat areas to evaluate
+//Map.setCenter(-46.87646, -13.89561); //13 better zoom//flat areas
 
 //Map.setCenter(-43.40084, -2.334998) // delta
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-print(Map.getScale())
+//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+//print(Map.getScale())
 //Map.addLayer(landform_types)
 
 //Map.addLayer(landform_combination)
@@ -415,11 +401,11 @@ Map.add(legend);
 
 /*Exporting images
 */
-
-/* Exporting landform varieties
+/*
+// Exporting landform varieties
 Export.image.toDrive({
-  image: landform_richness,
-  description: 'landform_richness',
+  image: landform_variety,
+  description: 'landform_variety',
   scale: 92.76624,
   region: bioma,
   maxPixels: 631694567
@@ -470,7 +456,6 @@ Export.image.toDrive({
 */
 
 /*
-
 var wetland = ee.Geometry.Polygon(
           [[[-51.022422307128906, -12.402070661828706],
           [-51.022422307128906, -12.47985121316623],
@@ -484,4 +469,4 @@ Export.image.toDrive({
   region: wetland,
   maxPixels:  656402880
 });
-          
+*/
