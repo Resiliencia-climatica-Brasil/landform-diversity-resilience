@@ -1,3 +1,17 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = 
+    /* color: #00ff00 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-43.41491623291016, -2.3302812238332526],
+          [-43.41491623291016, -2.3872245106589762],
+          [-43.334578708496096, -2.3872245106589762],
+          [-43.334578708496096, -2.3302812238332526]]], null, false);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
 */
@@ -128,9 +142,9 @@ intermediary values (10, 30) to smooth local values. We need to smooth values as
 enhance local variation, classifying peaks in plain areas. 
 */
 
-//var window_size = [1, 5, 10, 30, 50]; // window sizes
+//var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
 
-var window_size = [1, 5, 10, 20]; // window sizes
+var window_size = [1, 5, 7]; //90 meters scale window sizes
 
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .toBands()
@@ -169,8 +183,8 @@ var aspect_classes = aspect
 // We tuned TPI by try and error
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1) // summits
-      .where(TPI.gt(-15).and(TPI.lt(-1)), 2) // Hilltops and Sideslopes
-      .where(TPI.gte(-1).and(TPI.lte(6)), 3) //Valleys and Toeslopes
+      .where(TPI.gt(-15).and(TPI.lt(0)), 2) // Hilltops and Sideslopes
+      .where(TPI.gte(0).and(TPI.lte(6)), 3) //Valleys and Toeslopes
       .where(TPI.gt(6).and(TPI.lte(975)), 4) // Footslopes
       .where(TPI.gt(975), 5); // Flat at the bottom steep slope
 
@@ -178,8 +192,8 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1400), 0) //1400
-      .where(moisture_index.gt(1400), 1); // moist areas
+      .where(moisture_index.lte(1200), 0) //1400
+      .where(moisture_index.gt(1200), 1); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
@@ -303,6 +317,8 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
+
+
 //Map.setCenter(-47.37141, -14.1680); //Plateau
 //Map.setCenter(-46.2448, -13.6721 ); //Plateau to evaluate
 //Map.setCenter(-47.20997, -14.05082); //Summits
@@ -310,17 +326,17 @@ var sld_intervals =
 //Map.setCenter(-46.96556, -13.96459); //hilltops
 //Map.setCenter(-50.98912, -12.4299); //wetlands
 
-Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas to evaluate
+//Map.setCenter(-46.87646, -13.89561); //13 better zoom//flat areas to evaluate
 
-//Map.setCenter(-43.40084, -2.334998) // foz
+Map.setCenter(-43.40084, -2.334998) // foz
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 print(Map.getScale())
 //Map.addLayer(landform_types)
 
 //Map.addLayer(landform_combination)
-Map.addLayer(TPI)
-Map.addLayer(slope)
+//Map.addLayer(TPI)
+//Map.addLayer(slope)
 //Map.addLayer(bioma)
 //Map.addLayer(moisture_classes)
 //Map.addLayer(moisture_index)
@@ -397,8 +413,10 @@ for (var i = 0; i < 14; i++) {
  
 Map.add(legend);
 
+/*Exporting images
+*/
 
-/*
+/* Exporting landform varieties
 Export.image.toDrive({
   image: landform_richness,
   description: 'landform_richness',
@@ -407,12 +425,48 @@ Export.image.toDrive({
   maxPixels: 631694567
 });
 */
-/*
+
+/*Exporting landform types for Cerrado          
 Export.image.toDrive({
   image: landform_types,
   description: 'landform_types',
-  scale: 90,
-  region: bioma,
+  scale: 92.76624,
+  region: geometry,
   maxPixels:  656402880
 });
 */
+
+/* Exporting landform types for a flat area
+
+var flat = ee.Geometry.Polygon(
+          [[[-46.99134216374191, -13.860657258071942],
+          [-46.99134216374191, -13.94230764612206],
+          [-46.89504013127121, -13.94230764612206],
+          [-46.89504013127121, -13.860657258071942]]], null, false);
+          
+Export.image.toDrive({
+  image: landform_types,
+  description: 'landform_types',
+  scale: 92.76624,
+  region: flat,
+  maxPixels:  656402880
+});          
+*/
+
+/*
+var delta = ee.Geometry.Polygon(
+          [[[-43.41491623291016, -2.3302812238332526],
+          [-43.41491623291016, -2.3872245106589762],
+          [-43.334578708496096, -2.3872245106589762],
+          [-43.334578708496096, -2.3302812238332526]]], null, false);
+
+Export.image.toDrive({
+  image: landform_types,
+  description: 'landform_types',
+  scale: 92.76624,
+  region: delta,
+  maxPixels:  656402880
+});
+*/
+
+          
