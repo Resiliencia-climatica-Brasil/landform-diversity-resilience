@@ -129,9 +129,9 @@ intermediary values (10, 30) to smooth local values. We need to smooth values as
 enhance local variation, classifying peaks in plain areas. 
 */
 
-var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
+//var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
 
-//var window_size = [1, 5, 7]; //90 meters scale window sizes
+var window_size = [1, 5, 7]; //90 meters scale window sizes
 
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .toBands()
@@ -315,7 +315,7 @@ var sld_intervals =
 
 //Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas
 
-Map.setCenter(-46.35, -23.196, 13) //Nazare Paulista
+Map.setCenter(-46.35, -23.196, 11) //Nazare Paulista
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 print(Map.getScale())
