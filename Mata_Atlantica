@@ -305,28 +305,14 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
 
-
-//Map.setCenter(-47.37141, -14.1680); //Plateau
-//Map.setCenter(-46.2448, -13.6721 ); //Plateau
-//Map.setCenter(-47.20997, -14.05082); //Summits
-
-//Map.setCenter(-46.96556, -13.96459); //hilltops
-//Map.setCenter(-50.98912, -12.4299, 11); //wetlands
-
-//Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas
-
 Map.setCenter(-46.35, -23.196, 11) //Nazare Paulista
 
 Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-print(Map.getScale())
-Map.addLayer(landform_types)
 
-//Map.addLayer(landform_combination)
-//Map.addLayer(TPI)
-//Map.addLayer(slope)
-//Map.addLayer(bioma)
-//Map.addLayer(moisture_classes)
-//Map.addLayer(moisture_index)
+/* Print plot scale*/
+print(Map.getScale())
+
+//Map.addLayer(landform_types)
 
 var legend = ui.Panel({
              style: {
