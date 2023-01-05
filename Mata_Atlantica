@@ -129,9 +129,9 @@ intermediary values (10, 30) to smooth local values. We need to smooth values as
 enhance local variation, classifying peaks in plain areas. 
 */
 
-//var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
+var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
 
-var window_size = [1, 5, 7]; //90 meters scale window sizes
+//var window_size = [1, 5, 7]; //90 meters scale window sizes
 
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .toBands()
@@ -315,12 +315,11 @@ var sld_intervals =
 
 //Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas
 
-Map.setCenter(-46.35, -23.196, 11) // delta
+Map.setCenter(-46.35, -23.196, 13) //Nazare Paulista
 
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
-Map.addLayer(bioma)
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 print(Map.getScale())
-//Map.addLayer(landform_types)
+Map.addLayer(landform_types)
 
 //Map.addLayer(landform_combination)
 //Map.addLayer(TPI)
@@ -410,7 +409,7 @@ Export.image.toDrive({
   description: 'landform_variety',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 631694567
+  maxPixels: 1178624880
 });
 */
 /*
@@ -420,69 +419,6 @@ Export.image.toDrive({
   description: 'landform_types',
   scale: 92.76624,
   region: bioma,
-  maxPixels:  1178624880
-});
-*/
-
-/**
-/* Exporting landform types for a flat area
-
-var flat = ee.Geometry.Polygon(
-          [[[-46.99134216374191, -13.860657258071942],
-          [-46.99134216374191, -13.94230764612206],
-          [-46.89504013127121, -13.94230764612206],
-          [-46.89504013127121, -13.860657258071942]]], null, false);
-          
-Export.image.toDrive({
-  image: landform_types,
-  description: 'landform_types_flat',
-  scale: 92.76624,
-  region: flat,
-  maxPixels:  656402880
-});          
-
-
-var delta = ee.Geometry.Polygon(
-          [[[-43.41491623291016, -2.3302812238332526],
-          [-43.41491623291016, -2.3872245106589762],
-          [-43.334578708496096, -2.3872245106589762],
-          [-43.334578708496096, -2.3302812238332526]]], null, false);
-
-Export.image.toDrive({
-  image: landform_types,
-  description: 'landform_types_delta',
-  scale: 92.76624,
-  region: delta,
-  maxPixels:  656402880
-});
-
-
-
-var wetland = ee.Geometry.Polygon(
-          [[[-51.022422307128906, -12.402070661828706],
-          [-51.022422307128906, -12.47985121316623],
-          [-50.9286951953125, -12.47985121316623],
-          [-50.9286951953125, -12.402070661828706]]], null, false);
-
-Export.image.toDrive({
-  image: landform_types,
-  description: 'landform_types_wetland',
-  scale: 92.76624,
-  region: wetland,
-  maxPixels:  656402880
-});
-
-var hilltops = ee.Geometry.Polygon(
-          [[[-47.35008148437501, -13.959592307779667],
-          [-47.35008148437501, -14.123459888496333],
-          [-47.14958099609376, -14.123459888496333],
-          [-47.14958099609376, -13.959592307779667]]], null, false);
-
-Export.image.toDrive({
-  image: landform_types,
-  description: 'landform_types_hilltops',
-  scale: 92.76624,
-  region: hilltops,
-  maxPixels:  656402880
+  maxPixels: 1178624880
 });
 */
