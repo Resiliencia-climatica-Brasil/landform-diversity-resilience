@@ -5,7 +5,6 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                              })
                         .geometry()
                         .dissolve({'maxError': 1});
-                        
 
 var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
 
