@@ -1,4 +1,11 @@
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1});
+                        
 
 var dataset = ee.Image("MERIT/DEM/v1_0_3").clip(bioma);
 
