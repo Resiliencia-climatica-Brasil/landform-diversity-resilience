@@ -1,5 +1,5 @@
 /**
- * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for a biome.  
+ * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for Brazil.  
 */
 
 /* Steps to calculate landform variety
