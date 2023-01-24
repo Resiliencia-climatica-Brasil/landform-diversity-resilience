@@ -389,7 +389,7 @@ Map.add(legend);
 
 /*Exporting images
 */
-/*
+
 // Exporting landform varieties
 Export.image.toDrive({
   image: landform_variety,
@@ -398,7 +398,7 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 2536229300 
 });
-*/
+
 
 //Exporting landform types for Cerrado       
 
