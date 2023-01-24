@@ -1,3 +1,27 @@
+/**
+ * This script generates and exports to Google Drive a raster of soil diversity at a scale of ~ 90 m for Brazil.  
+*/
+
+/* Steps to calculate landform variety
+
+1- Calculate relief slopes, aspects and Topographic Position Index (TPI) from a Digital Elevation Model.
+
+2- Calculate a moisture index from a flow accumulation raster and slopes.
+
+3- Transform slopes, aspect, TPI and moisture index into classes
+
+4- Combine slopes, aspect, TPI and moisture classes into a code string
+
+5- Re-classify landform string into landform types
+
+6- Count the number of distinct landforms within a focal cell kernel (landform variety)
+
+7- Export landform variety raster
+
+*/
+
+
+
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
                              return feature.bounds()
