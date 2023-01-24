@@ -19,14 +19,13 @@ var soil_presence = function(code){
     var soil_raster = type.reduceToImage({
                         properties: ["cod_simbol"],
                         reducer: ee.Reducer.first()
-                      })
-                      .reproject({crs: "EPSG:4326",
-                                  scale: 92.76624});
+                      });
+                     
                       
-    //var soil_raster = soil_raster
-    //                  .clip(bioma)
-    //                  .reproject({crs: "EPSG:4326",
-    //                              scale: 92.76624});   
+    var soil_raster = soil_raster
+                      .clip(bioma)
+                      .reproject({crs: "EPSG:4326",
+                                  scale: 92.76624});   
                                   
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
@@ -64,13 +63,17 @@ var soil_diversity = ee.ImageCollection.fromImages(soil_list)
                      .toBands()
                      .reduce("sum")
                      .toDouble()
+                     
+Map.setCenter(-50, -16, 11);
+
+Map.addLayer(soil_diversity);                     
                     
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 631694567
+  maxPixels: 2536229300
   })
 
 
