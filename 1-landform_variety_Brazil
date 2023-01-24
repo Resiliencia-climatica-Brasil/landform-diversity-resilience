@@ -306,9 +306,9 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
 
-Map.setCenter(-50, -16) //Nazare Paulista
-Map.addLayer(bioma)
-//Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.setCenter(-50, -16, 11) //Nazare Paulista
+
+Map.addLayer(landform_types.sldStyle(sld_intervals), {});
 
 /* Print plot scale*/
 print(Map.getScale())
