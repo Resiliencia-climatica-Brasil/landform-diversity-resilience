@@ -1,8 +1,10 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var table = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE");
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
-
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1});
+                        
 var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
            .select("cod_simbol");
            
@@ -17,12 +19,14 @@ var soil_presence = function(code){
     var soil_raster = type.reduceToImage({
                         properties: ["cod_simbol"],
                         reducer: ee.Reducer.first()
-                      });
-                      
-    var soil_raster = soil_raster
-                      .clip(bioma)
+                      })
                       .reproject({crs: "EPSG:4326",
-                                  scale: 92.76624});   
+                                  scale: 92.76624});
+                      
+    //var soil_raster = soil_raster
+    //                  .clip(bioma)
+    //                  .reproject({crs: "EPSG:4326",
+    //                              scale: 92.76624});   
                                   
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
