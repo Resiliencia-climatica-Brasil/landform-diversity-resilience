@@ -30,7 +30,8 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                              return feature.bounds()
                              })
                         .geometry()
-                        .dissolve({'maxError': 1});
+                        .dissolve({'maxError': 1})
+                        .bounds();
                         
                        
                        
