@@ -22,9 +22,9 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
 var dataset = ee.Image("MERIT/DEM/v1_0_3");
 
 /*
-Elevation range
+Elevation range is calculated within a neighborhood region
 
-The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
+Following TNC, the circle radius was defined as 100 acre, calculated backwards to squared meters, than to meters.
 
 r = (A/pi)^1/2
 
@@ -50,7 +50,11 @@ var elevation_range = elevation_max.subtract(elevation_min).abs();
 var elevation = ee.Image.cat(dataset, elevation_range)
                  .rename(['elevation', 'elevation_range']);
                  
-/* Elevation versus elevation range regression */
+/* Elevation versus elevation range regression
+
+Elevation is correlated to elevation range, we calculated a regression and used its residuals to discount
+the effect of elevation on elevation range
+*/
                  
 var regression = elevation.reduceRegion({
      reducer: ee.Reducer.linearFit(),
@@ -63,13 +67,15 @@ var regression = elevation.reduceRegion({
 /* Predictor */
 var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scale')));
 
-/* Add intercept to the model */ 
+/* Add intercept to the model prediction */ 
 
 var predict = pred.add(ee.Number(regression.get('offset')));
 
 /* Calculate residuals */
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
+
+/* Mapping residuals */
 
 Map.setCenter(-40, -8, 7);
 
