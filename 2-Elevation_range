@@ -90,7 +90,7 @@ evaluate elevation and range elevation correlation
 
 var sample = ee.FeatureCollection.randomPoints({
                region: bioma,
-               points: 5000
+               points: 10
              });
 
 var plot_image = ee.Image.cat(residuals, elevation.select('elevation'))
