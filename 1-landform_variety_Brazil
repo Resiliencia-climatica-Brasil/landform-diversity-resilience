@@ -1,8 +1,7 @@
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for Brazil.  
-*/
 
-/* Steps to calculate landform variety
+- Steps to calculate landform variety
 
 1- Calculate relief slopes, aspects and Topographic Position Index (TPI) from a Digital Elevation Model.
 
