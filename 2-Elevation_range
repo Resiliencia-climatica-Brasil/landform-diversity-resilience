@@ -57,8 +57,11 @@ Export.image.toDrive({
   scale: 92.76624,
   region: bioma,
   maxPixels: 2536229300});
-
-
+  
+  
+/*Plot elevation and elevation range relationship
+evaluate elevation and range elevation correlation
+*/
 /*
 var sample = ee.FeatureCollection.randomPoints({
                region: bioma,
