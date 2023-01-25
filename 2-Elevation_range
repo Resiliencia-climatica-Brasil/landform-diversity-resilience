@@ -52,6 +52,8 @@ var regression = elevation.reduceRegion({
      maxPixels: 3903490882,
      scale: 92.76624
     });
+    
+/* Regression prediction */    
 
 var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scale')));
 
