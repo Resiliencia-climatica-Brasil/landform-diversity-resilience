@@ -88,7 +88,7 @@ Map.addLayer(residuals);
 evaluate elevation and range elevation correlation
 */
 /*
-teem que corrigir para nao sortar pontos fora do continente. Quando area bioma funcionava,
+Tem que corrigir para nao sortar pontos fora do continente. Quando area bioma funcionava,
 agora que é o bounds do Brasil não funciona.
 var sample = ee.FeatureCollection.randomPoints({
                region: bioma,
