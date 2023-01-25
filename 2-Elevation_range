@@ -1,3 +1,11 @@
+/**
+ * This script generates and exports to Google Drive a raster of elevation range at a scale of ~ 90 m for Brazil.  
+
+
+
+*/
+
+
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
                              return feature.bounds()
@@ -25,6 +33,8 @@ var radius_pixels = r.divide(ee.Number(90)).round();
 
 var neighbor = dataset.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
+/* Calculate elevation range within a neighborhood */ 
+
 var elevation_max = neighbor.reduce(ee.Reducer.max());
 
 var elevation_min = neighbor.reduce(ee.Reducer.min());
@@ -33,6 +43,8 @@ var elevation_range = elevation_max.subtract(elevation_min).abs();
 
 var elevation = ee.Image.cat(dataset, elevation_range)
                  .rename(['elevation', 'elevation_range']);
+                 
+/* Elevation versus elevation range regression */
                  
 var regression = elevation.reduceRegion({
      reducer: ee.Reducer.linearFit(),
