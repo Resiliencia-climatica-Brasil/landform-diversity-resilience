@@ -7,7 +7,6 @@
 2- Run a regression between elevation range and elevation
 3- Calculate regression residuals
 4- Export results
-
 */
 
 /* Import Biome polygons and extract their bounds */
@@ -85,14 +84,14 @@ Map.setCenter(-40, -8, 7);
 
 Map.addLayer(residuals);
 
-/*
+
 Export.image.toDrive({
   image: residuals,
   description: 'elevation_range_residual',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 2536229300});
-*/  
+  maxPixels: 5072319225});
+  
   
 /*Plot elevation and elevation range relationship
 evaluate elevation and range elevation correlation
