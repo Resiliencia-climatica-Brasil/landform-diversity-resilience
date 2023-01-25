@@ -47,17 +47,18 @@ var predict = pred.add(ee.Number(regression.get('offset')));
 
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
-Map.setCenter(-40, -8, 11);
+//Map.setCenter(-40, -8, 11);
 
-Map.addLayer(residuals);
+//Map.addLayer(residuals);
 
+/*
 Export.image.toDrive({
   image: residuals,
   description: 'elevation_range_residual',
   scale: 92.76624,
   region: bioma,
   maxPixels: 2536229300});
-  
+*/  
   
 /*Plot elevation and elevation range relationship
 evaluate elevation and range elevation correlation
