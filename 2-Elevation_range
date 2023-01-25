@@ -106,12 +106,13 @@ var chart = ui.Chart.feature.byFeature(plot_image, 'elevation', ['residuals'])
   
   print(chart);
 */
+
 /* Export image */
-/*
+
 Export.image.toDrive({
   image: residuals,
   description: 'elevation_range_residual',
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225});
-*/  
+  
