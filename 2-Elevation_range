@@ -1,10 +1,14 @@
 /**
  * This script generates and exports to Google Drive a raster of elevation range at a scale of ~ 90 m for Brazil.  
 
+- Steps to calculate elavation range
+
+1- 
 
 
 */
 
+/* Import Biome polygons and extract their bounds */
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
@@ -12,6 +16,8 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                              })
                         .geometry()
                         .dissolve({'maxError': 1});
+                        
+/* Import DEM */                      
 
 var dataset = ee.Image("MERIT/DEM/v1_0_3");
 
@@ -54,14 +60,18 @@ var regression = elevation.reduceRegion({
     });
     
 /* Regression prediction */    
-
+/* Predictor */
 var pred = elevation.select('elevation').multiply(ee.Number(regression.get('scale')));
+
+/* Add intercept to the model */ 
 
 var predict = pred.add(ee.Number(regression.get('offset')));
 
+/* Calculate residuals */
+
 var residuals = elevation.select('elevation_range').subtract(predict).rename(['residuals']);
 
-Map.setCenter(-40, -8, 11);
+Map.setCenter(-40, -8, 7);
 
 Map.addLayer(residuals);
 
@@ -77,7 +87,7 @@ Export.image.toDrive({
 /*Plot elevation and elevation range relationship
 evaluate elevation and range elevation correlation
 */
-/*
+
 var sample = ee.FeatureCollection.randomPoints({
                region: bioma,
                points: 5000
@@ -92,4 +102,3 @@ var chart = ui.Chart.feature.byFeature(plot_image, 'elevation', ['residuals'])
   
   print(chart);
 
-*/
