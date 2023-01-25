@@ -396,7 +396,7 @@ Export.image.toDrive({
   description: 'landform_variety',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 2536229300 
+  maxPixels: 5072319225 
 });
 
 
@@ -407,6 +407,6 @@ Export.image.toDrive({
   description: 'Brazil_landform_types',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 2536229300
+  maxPixels: 5072319225
 });
 
