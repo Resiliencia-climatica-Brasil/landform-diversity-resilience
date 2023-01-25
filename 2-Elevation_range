@@ -63,7 +63,7 @@ the effect of elevation on elevation range
 var regression = elevation.reduceRegion({
      reducer: ee.Reducer.linearFit(),
      geometry: bioma,
-     maxPixels: 3903490882,
+     maxPixels: 5072319225,
      scale: 92.76624
     });
     
