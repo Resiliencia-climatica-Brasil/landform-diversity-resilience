@@ -67,9 +67,7 @@ var neighbors_amount = neighbors.bandNames().length();
 
 var wetlands_density_1000 = wetlands_count.divide(ee.Number(neighbors_amount));
 
-
-
-// Exporting wetlands patchness
+// Exporting wetlands patchness (number of wetlands within neighborhood)
 
 Export.image.toDrive({
   image: wetlands_count,
@@ -79,7 +77,7 @@ Export.image.toDrive({
   maxPixels: 631694567
 });
 
-// Wetlands density
+// Wetlands density at 100 and 1000 acres
 
 Export.image.toDrive({
   image: wetlands_density,
