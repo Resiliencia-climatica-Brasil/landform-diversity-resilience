@@ -2,35 +2,12 @@
  * This script generates and exports to Google Drive a raster of soil diversity at a scale of ~ 90 m for Brazil.  
 */
 
-/* Steps to calculate landform variety
+/* Steps to calculate soil diversity
 
-1- Calculate relief slopes, aspects and Topographic Position Index (TPI) from a Digital Elevation Model.
-
-2- Calculate a moisture index from a flow accumulation raster and slopes.
-
-3- Transform slopes, aspect, TPI and moisture index into classes
-
-4- Combine slopes, aspect, TPI and moisture classes into a code string
-
-5- Re-classify landform string into landform types
-
-6- Count the number of distinct landforms within a focal cell kernel (landform variety)
-
-7- Export landform variety raster
+1-
 
 */
 
-
-
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-                        .map(function(feature){
-                             return feature.bounds()
-                             })
-                        .geometry()
-                        .dissolve({'maxError': 1});
-                        
-var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
-           .select("cod_simbol");
            
 var soil_presence = function(code){           
            
@@ -47,7 +24,7 @@ var soil_presence = function(code){
                      
                       
     var soil_raster = soil_raster
-                      .clip(bioma)
+                      //.clip(bioma)
                       .reproject({crs: "EPSG:4326",
                                   scale: 92.76624});   
                                   
@@ -62,6 +39,22 @@ var soil_presence = function(code){
     return soil_diversity;
 
 }
+
+/* Import biome polygons*/
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1});
+                        
+/* Filter soil codes */
+
+var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
+           .select("cod_simbol");
+
+/* Create a list of unique soil codes */
 
 var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
                   "RYbd", "RLd", "RYve", "GXve", "GXa", "GXbe", "ESKg", "FFc",
@@ -79,19 +72,26 @@ var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
                   "NBd", "NBa", "NBaf", "NBdf", "NVa", "CYve", "MEk", "MEo", "PVva", "SXk", "ESo",
                   "MTf"];
                   
+/* Create a raster for each soil type */
+/* A binary raster indicating if there is that soil type within the cell neighborhood*/
 
 var soil_list = soil_codes.map(soil_presence);
 
+/* Sum all binary raster to create the soil diversity within cell neighborhood */
 
 var soil_diversity = ee.ImageCollection.fromImages(soil_list)
                      .toBands()
                      .reduce("sum")
                      .toDouble()
-                     
+
+/* Mapping soil diversity */
+
 Map.setCenter(-50, -16, 11);
 
 Map.addLayer(soil_diversity);                     
-                    
+
+/* Export soil diversity */
+
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
