@@ -8,6 +8,11 @@
 
 */
 
+/**
+ * Function to create a raster indicating the presence of a soil type within a circle kernel of a specific size. 
+ * @param code A character with the soil code.
+ * @results An image of presence and absence of soil type within the neighborhood.
+*/
            
 var soil_presence = function(code){           
            
@@ -97,7 +102,7 @@ Export.image.toDrive({
   description: 'soil_diversity',
   scale: 92.76624,
   region: bioma,
-  maxPixels: 2536229300
+  maxPixels: 5072319225
   })
 
 
