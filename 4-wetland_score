@@ -51,11 +51,13 @@ var neighbors_amount = neighbors.bandNames().length();
 
 var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
+/* Replicate the same procedure to a neighborhood of 1000 acres */
+
 // Wetland density 1000 acre
 
 var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
-var radius_pixels = r.divide(ee.Number(90)).round()
+var radius_pixels = r.divide(ee.Number(90)).round();
 
 var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
