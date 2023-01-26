@@ -22,13 +22,13 @@ var soil_presence = function(code){
                return feature.set("cod_simbol", 1)
               });
              
-    var soil_raster = type.reduceToImage({
+    var soil_rast = type.reduceToImage({
                         properties: ["cod_simbol"],
                         reducer: ee.Reducer.first()
                       });
                      
                       
-    var soil_raster = soil_raster
+    var soil_raster = soil_rast
                       //.clip(bioma)
                       .reproject({crs: "EPSG:4326",
                                   scale: 92.76624});   
@@ -96,7 +96,7 @@ Map.setCenter(-50, -16, 11);
 Map.addLayer(soil_diversity);                     
 
 /* Export soil diversity */
-
+/*
 Export.image.toDrive({
   image: soil_diversity,
   description: 'soil_diversity',
@@ -105,4 +105,4 @@ Export.image.toDrive({
   maxPixels: 5072319225
   })
 
-
+*/
