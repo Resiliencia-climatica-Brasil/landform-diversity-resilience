@@ -23,13 +23,14 @@
 */
            
 var soil_presence = function(code){           
-           
+    /* Filter soil type and change the value to 1 */           
     var type = soil.filter(ee.Filter.eq("cod_simbol", code))
               .map(
               function(feature){
                return feature.set("cod_simbol", 1)
               });
-             
+    /* Transform soil type polygon into raster */
+    
     var soil_rast = type.reduceToImage({
                         properties: ["cod_simbol"],
                         reducer: ee.Reducer.first()
@@ -42,12 +43,25 @@ var soil_presence = function(code){
                       .reproject({crs: "EPSG:4326",
                                   scale: 92.76624});   
                                   
+    /*
+    The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
+    r = (A/pi)^1/2
+    100 acre equal to 404686 squared meters
+    r = (404686/3.14)^1/2
+    */
+                                  
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
     var radius_pixels = r.divide(ee.Number(90)).round()
-
+    
+    /* Count soil type presence within the cell neighborhood */
+    
     var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
-                    
+    
+    /* Create a presence-absence raster. 
+    Counts higher than zero are transformed into one (presence).
+    */
+    
     var soil_diversity = soil_count.where(soil_count.gt(0), 1);    
     
     return soil_diversity;
