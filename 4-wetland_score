@@ -10,11 +10,14 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .geometry()
                         .dissolve({'maxError': 1})
                         .bounds();
+                        
+/* Import wetland raster from CIFOR database*/                        
+/* Reproject to the same projection as the other variables */
 
 var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
-               .clip(bioma)
                .reproject({crs: "EPSG:4326",
                            scale: 92.76624});
+/* Transform wetland raster into a binary raster of wetland presence */
 
 var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
 
@@ -29,15 +32,22 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
-var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt(); // radius in meters
 
-var radius_pixels = r.divide(ee.Number(90)).round()
+var radius_pixels = r.divide(ee.Number(90)).round();
 
 var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
+/* Count the amount of wetlands within a cell neighborhood */
+
 var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
 
+/* Calculate the number of cells within neighborhood */
+
 var neighbors_amount = neighbors.bandNames().length();
+
+/* Calculate wetland density */
+/* Number of wetlands divided by the number of cells */
 
 var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
 
