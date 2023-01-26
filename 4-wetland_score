@@ -2,8 +2,14 @@
  * This script generates and exports to Google Drive a raster of wetland score at a scale of ~ 90 m for Brazil.  
 */
 
-
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Caatinga");
+/* Import biome polygons and extract their bounds */
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
 
 var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
                .clip(bioma)
