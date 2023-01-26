@@ -19,6 +19,31 @@
 
 */
 
+/**
+ * Function to calculate Topographic Position Index (TPI) within a circle kernel of a specific size. 
+ * @param Kernel size in pixel units.
+ * @results An image of TPI values.
+*/
+
+var calculate_TPI = function(pixel_size){
+  
+// Split neighborhood cells within a circles kernel into bands
+
+var focal_mean = DEM.focalMean({
+                       radius: pixel_size,
+                       kernelType: "circle",
+                       units: "pixels"
+                     });
+
+// Calculate differences of the focal cell to the average neighborhood. 
+//It gives the same result as the average of differences as in the above equation 
+
+TPI = focal_mean.subtract(DEM)
+
+return TPI;
+}
+
+
 /*
 First, we import a shapefile of brazilian biomes from IBGE (2018) and filter a biome to mask the rasters.
 */
@@ -94,30 +119,6 @@ LPI = sum((elevation_neighborhood -  focal_elevation) / cell distance) / number 
 
 Annulus kernel is not implemented yet on GEE, we may implement, if it is necessary, a function to calculate it in the future to calculate LPI.
 */
-
-/**
- * Function to calculate Topographic Position Index (TPI) within a circle kernel of a specific size. 
- * @param Kernel size in pixel units.
- * @results An image of TPI values.
-*/
-
-var calculate_TPI = function(pixel_size){
-  
-// Split neighborhood cells within a circles kernel into bands
-
-var focal_mean = DEM.focalMean({
-                       radius: pixel_size,
-                       kernelType: "circle",
-                       units: "pixels"
-                     });
-
-// Calculate differences of the focal cell to the average neighborhood. 
-//It gives the same result as the average of differences as in the above equation 
-
-TPI = focal_mean.subtract(DEM)
-
-return TPI;
-}
 
 /*
 We need to define window sizes to calculate the average TPI. First, we
