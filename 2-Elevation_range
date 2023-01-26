@@ -84,29 +84,6 @@ Map.setCenter(-40, -8, 7);
 
 Map.addLayer(residuals);
 
-/*Plot elevation and elevation range relationship
-evaluate elevation and range elevation correlation
-*/
-/*
-Tem que corrigir para nao sortar pontos fora do continente. Quando area bioma funcionava,
-agora que é o bounds do Brasil não funciona.
-var sample = ee.FeatureCollection.randomPoints({
-               region: bioma,
-               points: 10
-             });
-             
-             
-
-var plot_image = ee.Image.cat(residuals, elevation.select('elevation'))
-                 .sampleRegions({collection: sample});  
-
-
-var chart = ui.Chart.feature.byFeature(plot_image, 'elevation', ['residuals'])
-  .setChartType('ScatterChart');
-  
-  print(chart);
-*/
-
 /* Export image */
 
 Export.image.toDrive({
