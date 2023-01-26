@@ -4,7 +4,15 @@
 
 /* Steps to calculate soil diversity
 
-1-
+1- Import soil data
+
+2- Filter soil codes
+
+3- Calculate a raster of soil type presence within a neighborhood
+
+4- Sum the soil presence rasters to create a raster of soil diversity within the neighborhood
+
+5- Export soil diversity data
 
 */
 
@@ -27,9 +35,10 @@ var soil_presence = function(code){
                         reducer: ee.Reducer.first()
                       });
                      
-                      
+    /* Convert projection and rescale soil rasters to the same projection and scale
+       as the other variables
+    */
     var soil_raster = soil_rast
-                      //.clip(bioma)
                       .reproject({crs: "EPSG:4326",
                                   scale: 92.76624});   
                                   
