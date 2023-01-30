@@ -411,9 +411,12 @@ Export.image.toDrive({
   maxPixels: 5072319225
 });
 
-Export.image.toDrive({
+
+Export.image.toAsset({
   image: landform_types,
   description: 'Brazil_landform_types',
+  assetId: "users/lucasljardim9/landforms",
+  pyramidingPolicy: "mode", 
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
