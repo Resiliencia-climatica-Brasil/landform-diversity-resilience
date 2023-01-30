@@ -390,7 +390,7 @@ Map.add(legend);
 
 /*Exporting images
 */
-
+/*
 // Exporting landform varieties
 Export.image.toDrive({
   image: landform_variety,
@@ -410,12 +410,12 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 5072319225
 });
-
+*/
 
 Export.image.toAsset({
   image: landform_types,
   description: 'Brazil_landform_types',
-  assetId: "users/lucasljardim9/landforms",
+  assetId: "projects/ee-lucasljardim9/assets/landform_types",
   pyramidingPolicy: "mode", 
   scale: 92.76624,
   region: bioma,
