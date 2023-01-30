@@ -390,7 +390,7 @@ Map.add(legend);
 
 /*Exporting images
 */
-/*
+
 // Exporting landform varieties
 Export.image.toDrive({
   image: landform_variety,
@@ -410,7 +410,6 @@ Export.image.toDrive({
   region: bioma,
   maxPixels: 5072319225
 });
-*/
 
 Export.image.toAsset({
   image: landform_types,
