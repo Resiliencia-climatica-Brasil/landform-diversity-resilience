@@ -1,0 +1,32 @@
+var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
+
+var l8_toa = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_221070_20210804')
+            .select(['B6', 'B5', 'B4', 'B3', 'B2']);
+
+var imageVisParam_1 = {"opacity":1,"bands":["B6","B5","B4"],"min":0.07262176737389975,"max":0.3477250349775628,"gamma":1};
+
+var sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#ffc408" quantity="3" label="Cool Steep Slope"/>' +
+    '<ColorMapEntry color="#ffa101" quantity="4" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#ef595a" quantity="5" label="Cliff"/>' +
+    '<ColorMapEntry color="#ffbdbe" quantity="11" label="Summit/Ridgetop"/>' +
+    '<ColorMapEntry color="#6e4100" quantity="13" label="Slope Crest"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="21" label="Flat Hilltop"/>' +
+    '<ColorMapEntry color="#c8c284" quantity="22" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#c8f6ad" quantity="23" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#83e763" quantity="24" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#ffffbe" quantity="30" label="Dry Flats"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="32" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#b671f2" quantity="39" label="Moist Flats"/>' +
+    '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="44" label="Warm Footslope/Cove"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+
+Map.setCenter(-47.4341, -13.9848, 11);
+
+Map.addLayer(landform.sldStyle(sld_intervals), {});
+
+Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
