@@ -29,6 +29,6 @@ Map.setCenter(-47.4341, -13.9848, 11);
 
 Map.addLayer(landform.sldStyle(sld_intervals), {});
 
-Map.addLayer(landform)
+Map.addLayer(landform);
 
 Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
