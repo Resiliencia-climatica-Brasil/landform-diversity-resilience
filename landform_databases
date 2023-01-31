@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var imageVisParam = {"opacity":1,"bands":["b1"],"min":1,"max":21,"gamma":1};
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
 var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
@@ -27,12 +30,14 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
+var imageVisParam = {"opacity":1,"bands":["b1"],"min":1,"max":21,"gamma":1};
+
 Map.setCenter(-47.4341, -13.9848, 11);
 
 Map.addLayer(landform.sldStyle(sld_intervals), {});
 
 Map.addLayer(landform);
 
-Map.addLayer(Iwahashi);
+Map.addLayer(Iwahashi, imageVisParam);
 
-Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
+//Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
