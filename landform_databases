@@ -1,5 +1,7 @@
 var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
+var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
+
 var l8_toa = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_221070_20210804')
             .select(['B6', 'B5', 'B4', 'B3', 'B2']);
 
@@ -30,5 +32,7 @@ Map.setCenter(-47.4341, -13.9848, 11);
 Map.addLayer(landform.sldStyle(sld_intervals), {});
 
 Map.addLayer(landform);
+
+Map.addLayer(Iwahashi);
 
 Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
