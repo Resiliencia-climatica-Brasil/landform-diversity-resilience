@@ -27,7 +27,6 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-
 var sld_intervals_Iwahashi =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -40,19 +39,19 @@ var sld_intervals_Iwahashi =
     '<ColorMapEntry color="#c8c284" quantity="14" label="Mountain valley slope"/>' +
     '<ColorMapEntry color="#c8f6ad" quantity="10" label="Moderate hills"/>' +
     '<ColorMapEntry color="#83e763" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink < 50%)"/>' +
-    '<ColorMapEntry color="#ffffbe" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink >= 50%)"/>' +
+    //'<ColorMapEntry color="#ffffbe" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink >= 50%)"/>' +
     '<ColorMapEntry color="#a9a800" quantity="7" label="Terrace/fan/plateau(high, surface, Sink < 50%)"/>' +
-    '<ColorMapEntry color="#b671f2" quantity="7" label="Terrace/fan/plateau(high, surface, Sink >= 50)"/>' +
+    //'<ColorMapEntry color="#b671f2" quantity="7" label="Terrace/fan/plateau(high, surface, Sink >= 50)"/>' +
     '<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink < 50%)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="8" label="Valley slope (Sink >= 50%)"/>' +
+    //'<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink >= 50%)"/>' +
     '<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink < 50)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink >= 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink >= 50)"/>' +
     '<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink < 50)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink >= 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink >= 50)"/>' +
     '<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink < 50%)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink >= 50%)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink >= 50%)"/>' +
     '<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink < 50%)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink >= 50%)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink >= 50%)"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
@@ -61,6 +60,8 @@ var imageVisParam2 = {"opacity":1,"bands":["constant"],"min":11,"max":42,"gamma"
 Map.setCenter(-47.4341, -13.9848, 11);
 
 Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi');
+
+//Map.addLayer(Iwahashi, {}, 'Iwahashi');
 
 Map.addLayer(Theobald, imageVisParam2, 'Theobald')
 
