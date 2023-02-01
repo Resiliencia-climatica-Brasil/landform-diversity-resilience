@@ -1,14 +1,11 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var imageVisParam = {"opacity":1,"bands":["b1"],"min":1,"max":21,"gamma":1};
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
 var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
 
+var Theobald = ee.Image("CSP/ERGo/1_0/Global/ALOS_landforms");
+
 var l8_toa = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_221070_20210804')
             .select(['B6', 'B5', 'B4', 'B3', 'B2']);
-
-var imageVisParam_1 = {"opacity":1,"bands":["B6","B5","B4"],"min":0.07262176737389975,"max":0.3477250349775628,"gamma":1};
 
 var sld_intervals =
 '<RasterSymbolizer>' +
@@ -32,12 +29,16 @@ var sld_intervals =
 
 var imageVisParam = {"opacity":1,"bands":["b1"],"min":1,"max":21,"gamma":1};
 
+var imageVisParam2 = {"opacity":1,"bands":["constant"],"min":11,"max":42,"gamma":1};
+
 Map.setCenter(-47.4341, -13.9848, 11);
 
-Map.addLayer(landform.sldStyle(sld_intervals), {});
+Map.addLayer(Iwahashi, imageVisParam, 'Iwahashi');
 
-Map.addLayer(landform);
+Map.addLayer(Theobald, imageVisParam2, 'Theobald')
 
-Map.addLayer(Iwahashi, imageVisParam);
+Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
+
+Map.addLayer(landform, {}, 'TNC');
 
 //Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
