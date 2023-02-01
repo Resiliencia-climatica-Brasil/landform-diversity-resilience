@@ -39,6 +39,6 @@ Map.addLayer(Theobald, imageVisParam2, 'Theobald')
 
 Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 
-Map.addLayer(landform, {}, 'TNC');
+Map.addLayer(landform.eq(21).selfMask(), {}, 'TNC');
 
 //Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam_1, 'R6G5B4');
