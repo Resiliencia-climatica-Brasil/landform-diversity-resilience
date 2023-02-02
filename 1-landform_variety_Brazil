@@ -181,8 +181,8 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1200), 0) 
-      .where(moisture_index.gt(1200), 1); // moist areas
+      .where(moisture_index.lte(1500), 0) //1200
+      .where(moisture_index.gt(1500), 1); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
@@ -286,6 +286,15 @@ var landform_variety = landform_types.neighborhoodToBands(ee.Kernel.circle(radiu
 
 // Visualization
 
+var l8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+         .filterDate('2021-06-01', '2021-06-30')
+         //.filter(ee.Filter.lt('CLOUND_COVER', 50))
+         .select(['B6', 'B5', 'B4']);
+         
+var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":82,"max":5388,"gamma":1};
+
+Map.addLayer(l8, imageVisParam, 'R6G5B4');
+
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
@@ -307,9 +316,9 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
 
-Map.setCenter(-50, -16, 11) //Nazare Paulista
+Map.setCenter(-41.44, -12.88, 11)
 
-Map.addLayer(landform_types.sldStyle(sld_intervals), {});
+Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {});
 
 /* Print plot scale*/
 print(Map.getScale())
