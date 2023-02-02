@@ -55,6 +55,27 @@ var sld_intervals_Iwahashi =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
+var sld_intervals_Theobald =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#707070" quantity="11" label="Peak/ridge warm"/>' +
+    '<ColorMapEntry color="#a4a4a4" quantity="12" label="Peak/ridge neutral"/>' +
+    '<ColorMapEntry color="#d9d9d9" quantity="13" label="Peak/ridge cool"/>' +
+    '<ColorMapEntry color="#fceefd" quantity="14" label="Mountain/Divide"/>' +
+    '<ColorMapEntry color="#c14d4d" quantity="15" label="Cliff"/>' +
+    '<ColorMapEntry color="#e36f62" quantity="21" label="Upper slope warm"/>' +
+    '<ColorMapEntry color="#fdaf8b" quantity="22" label="Upper slope neutral"/>' +
+    '<ColorMapEntry color="#f7dbac" quantity="23" label="Upper slope cool"/>' +
+    '<ColorMapEntry color="#fef5e4" quantity="24" label="Upper slope flat"/>' +
+    '<ColorMapEntry color="#65af7e" quantity="31" label="Lower slope warm"/>' +
+    '<ColorMapEntry color="#9dd69f" quantity="32" label="Lower slope neutral"/>' +
+    '<ColorMapEntry color="#e8f4e6" quantity="33" label="Lower slope cool"/>' +
+    '<ColorMapEntry color="#d0ebca" quantity="34" label="Lower slope flat"/>' +
+    '<ColorMapEntry color="#9785c0" quantity="41" label="Valley"/>' +
+    '<ColorMapEntry color="#7a5cb4" quantity="42" label="Valley (narrow)"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+
 var imageVisParam2 = {"opacity":1,"bands":["constant"],"min":11,"max":42,"gamma":1};
 
 Map.setCenter(-47.4341, -13.9848, 11);
@@ -63,9 +84,9 @@ Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi_classes');
 
 Map.addLayer(Iwahashi, {}, 'Iwahashi')
 
-//Map.addLayer(Iwahashi, {}, 'Iwahashi');
+Map.addLayer(Theobald.sldStyle(sld_intervals_Iwahashi), {}, 'Theobald_classes')
 
-//Map.addLayer(Theobald, imageVisParam2, 'Theobald')
+Map.addLayer(Theobald, {}, 'Theobald')
 
 Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 
