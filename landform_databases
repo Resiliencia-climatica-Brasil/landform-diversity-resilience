@@ -7,10 +7,14 @@ var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
 
 var Theobald = ee.Image("CSP/ERGo/1_0/Global/ALOS_landforms");
 
-var l8_toa = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_221070_20210804')
-            .select(['B6', 'B5', 'B4', 'B3', 'B2']);
+var l8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+         .filterDate('2021-06-01', '2021-06-30')
+         //.filter(ee.Filter.lt('CLOUND_COVER', 20))
+         .select(['B6', 'B5', 'B4', 'B3', 'B2']);
+//var l8_toa = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_221070_20210804')
+//            .select(['B6', 'B5', 'B4', 'B3', 'B2']);
             
-var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":0.04395250976085663,"max":0.4165128767490387,"gamma":1};
+var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":0.04,"max":0.42,"gamma":1};
 
 var sld_intervals =
 '<RasterSymbolizer>' +
@@ -97,4 +101,4 @@ Map.addLayer(landform, {}, 'TNC');
 
 //Map.addLayer(landform.eq(11).selfMask(), {}, 'TNC');
 
-Map.addLayer(l8_toa.select(['B6', 'B5', 'B4']), imageVisParam, 'R6G5B4');
+Map.addLayer(l8.select(['B6', 'B5', 'B4']), imageVisParam, 'R6G5B4');
