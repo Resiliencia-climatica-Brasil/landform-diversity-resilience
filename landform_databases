@@ -59,15 +59,17 @@ var imageVisParam2 = {"opacity":1,"bands":["constant"],"min":11,"max":42,"gamma"
 
 Map.setCenter(-47.4341, -13.9848, 11);
 
-Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi');
+Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi_classes');
+
+Map.addLayer(Iwahashi, {}, 'Iwahashi')
 
 //Map.addLayer(Iwahashi, {}, 'Iwahashi');
 
 //Map.addLayer(Theobald, imageVisParam2, 'Theobald')
 
-//Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
+Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 
-//Map.addLayer(landform, {}, 'TNC');
+Map.addLayer(landform, {}, 'TNC');
 
 //Map.addLayer(landform.eq(11).selfMask(), {}, 'TNC');
 
