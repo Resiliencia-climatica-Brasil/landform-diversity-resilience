@@ -85,7 +85,7 @@ var sld_intervals_Theobald =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-Map.setCenter(-47.4341, -13.9848, 11);
+Map.setCenter(-59.029, -3.76, 11);
 
 Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi_classes');
 
