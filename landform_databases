@@ -30,7 +30,7 @@ var sld_intervals =
 var sld_intervals_Iwahashi =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
-    '<ColorMapEntry color="#ffc408" quantity="2" label="Mountain summit"/>' +
+    '<ColorMapEntry color="#76502b" quantity="2" label="Mountain summit"/>' +
     '<ColorMapEntry color="#ffa101" quantity="3" label="Cliff slope"/>' +
     '<ColorMapEntry color="#ef595a" quantity="13" label="Lower/Hilly mountain"/>' +
     '<ColorMapEntry color="#ffbdbe" quantity="12" label="Steep hills/dissected cliff slope"/>' +
@@ -38,20 +38,20 @@ var sld_intervals_Iwahashi =
     '<ColorMapEntry color="#af7b53" quantity="4" label="Large highland slope (moderate)"/>' +
     '<ColorMapEntry color="#c8c284" quantity="14" label="Mountain valley slope"/>' +
     '<ColorMapEntry color="#c8f6ad" quantity="10" label="Moderate hills"/>' +
-    '<ColorMapEntry color="#83e763" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink < 50%)"/>' +
-    //'<ColorMapEntry color="#ffffbe" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink >= 50%)"/>' +
-    '<ColorMapEntry color="#a9a800" quantity="7" label="Terrace/fan/plateau(high, surface, Sink < 50%)"/>' +
-    //'<ColorMapEntry color="#b671f2" quantity="7" label="Terrace/fan/plateau(high, surface, Sink >= 50)"/>' +
-    '<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink < 50%)"/>' +
-    //'<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink >= 50%)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink < 50)"/>' +
-    //'<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink >= 50)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink < 50)"/>' +
-    //'<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink >= 50)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink < 50%)"/>' +
-    //'<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink >= 50%)"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink < 50%)"/>' +
-    //'<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink >= 50%)"/>' +
+    '<ColorMapEntry color="#83e763" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#ffffbe" quantity="11" label="Terrace/fan/plateau(high, dissected, Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="7" label="Terrace/fan/plateau(high, surface, Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#b671f2" quantity="7" label="Terrace/fan/plateau(high, surface, Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#08a702" quantity="8" label="Valley slope (Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="9" label="Terrace/fan/plateau(low, dissected, Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="6" label="Terrace/fan/plateau(low, surface, Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="1" label="High plain (Sink greater than 50)"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink lesser than 50)"/>' +
+    //'<ColorMapEntry color="#0a7000" quantity="15" label="Low plain (Sink greater than 50)"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
@@ -63,11 +63,11 @@ Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi');
 
 //Map.addLayer(Iwahashi, {}, 'Iwahashi');
 
-Map.addLayer(Theobald, imageVisParam2, 'Theobald')
+//Map.addLayer(Theobald, imageVisParam2, 'Theobald')
 
-Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
+//Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 
-Map.addLayer(landform, {}, 'TNC');
+//Map.addLayer(landform, {}, 'TNC');
 
 //Map.addLayer(landform.eq(11).selfMask(), {}, 'TNC');
 
