@@ -91,7 +91,7 @@ var sld_intervals_Theobald =
 Map.setCenter(-47.789577484 , -14.186807632, 11);
 
 
-
+/*
 Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi_classes');
 
 Map.addLayer(Iwahashi, {}, 'Iwahashi')
@@ -107,4 +107,4 @@ Map.addLayer(landform, {}, 'TNC');
 Map.addLayer(l8, imageVisParam, 'R6G5B4');
 
 Map.addLayer(vegetacao);
-
+*/
