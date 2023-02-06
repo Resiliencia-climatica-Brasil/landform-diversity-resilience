@@ -99,12 +99,13 @@ Map.addLayer(Iwahashi, {}, 'Iwahashi')
 Map.addLayer(Theobald.sldStyle(sld_intervals_Theobald), {}, 'Theobald_classes')
 
 Map.addLayer(Theobald, {}, 'Theobald')
+*/
 
 Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 
 Map.addLayer(landform, {}, 'TNC');
 
-Map.addLayer(l8, imageVisParam, 'R6G5B4');
+//Map.addLayer(l8, imageVisParam, 'R6G5B4');
 
 Map.addLayer(vegetacao);
-*/
+
