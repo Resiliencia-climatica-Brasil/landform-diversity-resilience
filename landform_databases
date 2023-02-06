@@ -1,6 +1,8 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":0.04395250976085663,"max":0.4165128767490387,"gamma":1};
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+
+var vale_da_lua = ee.Geometry.Point([-47.789577484, -14.186807632]);
 var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
 var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
@@ -85,7 +87,7 @@ var sld_intervals_Theobald =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-Map.setCenter(-59.029, -3.76, 11);
+Map.setCenter(-47.789577484 , -14.186807632, 11);
 
 Map.addLayer(Iwahashi.sldStyle(sld_intervals_Iwahashi), {}, 'Iwahashi_classes');
 
@@ -100,3 +102,5 @@ Map.addLayer(landform.sldStyle(sld_intervals), {}, 'TNC_classes');
 Map.addLayer(landform, {}, 'TNC');
 
 Map.addLayer(l8, imageVisParam, 'R6G5B4');
+
+Map.addLayer(vale_da_lua); 
