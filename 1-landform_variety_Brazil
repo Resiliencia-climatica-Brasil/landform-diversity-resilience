@@ -182,8 +182,8 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1400), 0) //1200
-      .where(moisture_index.gt(1400), 1); // moist areas
+      .where(moisture_index.lte(3000), 0) //3000
+      .where(moisture_index.gt(3000), 1); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
