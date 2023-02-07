@@ -86,7 +86,7 @@ var sld_intervals_Theobald =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
-Map.setCenter(-47.789577484 , -14.186807632, 11);
+Map.setCenter(-52.8552, -18.1341, 13);
 
 
 
