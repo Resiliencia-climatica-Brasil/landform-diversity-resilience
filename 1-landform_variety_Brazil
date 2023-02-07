@@ -182,8 +182,8 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1200), 0) //1200
-      .where(moisture_index.gt(1200), 1); // moist areas
+      .where(moisture_index.lte(1400), 0) //1200
+      .where(moisture_index.gt(1400), 1); // moist areas
 
          
 // Combining classes into a string descriptor of landform types
@@ -317,7 +317,7 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
 
-Map.setCenter( -72.814290, 44.543663, 11)
+Map.setCenter(-47.2198, -14.0351, 11)
 
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {});
 
