@@ -37,8 +37,6 @@ var chili_classes = chili
 
 Map.setCenter(-60.284, 4.626, 11);
 
-Map.addLayer(chili)
-
 Map.addLayer(chili_classes, {min: 0, max: 2}, 'chili');
 
 Map.addLayer(aspect_classes, {min: 1, max: 2}, 'aspect');
