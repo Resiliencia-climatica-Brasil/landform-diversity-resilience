@@ -287,15 +287,6 @@ var landform_variety = landform_types.neighborhoodToBands(ee.Kernel.circle(radiu
 
 // Visualization
 
-var l8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
-         .filterDate('2021-06-01', '2021-06-30')
-         //.filter(ee.Filter.lt('CLOUND_COVER', 50))
-         .select(['B6', 'B5', 'B4']);
-         
-var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":82,"max":5388,"gamma":1};
-
-Map.addLayer(l8, imageVisParam, 'R6G5B4');
-
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
