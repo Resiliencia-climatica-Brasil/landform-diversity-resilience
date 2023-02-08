@@ -191,10 +191,13 @@ var TPI_classes = TPI
 // capturing rivers
 
 var moisture_classes = moisture_index
-      .where(moisture_index.lte(1200), 0) //1200
-      .where(moisture_index.gt(1200), 1); // moist areas
+      .where(moisture_index.lte(3000), 0) //1200
+      .where(moisture_index.gt(3000), 1); // moist areas
 
-var moisture_classes = moisture_classes.multiply(0).add(water);
+moisture_classes = moisture_classes.add(water);
+moisture_classes = moisture_classes
+                   .where(moisture_classes.gte(1), 1)
+                   .where(moisture_classes.lt(1), 0)
 
 // Combining classes into a string descriptor of landform types
 
@@ -324,7 +327,7 @@ Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_
 
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624))
 
-Map.addLayer(water, {}, 'water')
+Map.addLayer(water, {min: 0, max: 1}, 'water')
 
 /* Print plot scale*/
 print(Map.getScale())
