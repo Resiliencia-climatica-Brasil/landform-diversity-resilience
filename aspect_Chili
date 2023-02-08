@@ -50,16 +50,18 @@ var samp = heat.sample({region: bioma,
                        numPixels:4001
                        });
                        
-var chart = ui.Chart.feature.byFeature(values, 'elevation', ['temp'])
+
+/*                       
+var chart = ui.Chart.feature.byFeature(samp, 'aspect', ['chili'])
             .setChartType('ScatterChart')
-            .setOptions({pointSize: 2, 
-                         pointColor: 'red', 
-                         width: 300, 
-                         height: 300, 
-                         titleX: 'Elevation (m)', 
-                         titleY: 'Temperature (C)'
+            .setOptions({pointSize: 2
+                         //pointColor: 'red', 
+                         //width: 300, 
+                         //height: 300, 
+                         //titleX: 'Aspect', 
+                         //titleY: 'CHILI'
                         })
    
 print(chart)  
-
+*/
 
