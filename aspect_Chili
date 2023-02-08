@@ -45,10 +45,8 @@ var chili_classes = chili
 
 Map.setCenter(-60.284, 4.626, 11);
 
-
 Map.addLayer(chili_classes.reproject('EPSG:4326', null, 92.76624232772798), {min: 0, max: 2, palette: ['ffffff','bcbcbc','000000']}, 'chili');
 
-/*
 Map.addLayer(aspect_classes, {min: 1, max: 2}, 'aspect');
 
 var heat = ee.Image.cat([aspect, chili])
@@ -91,5 +89,5 @@ var chartClasses = ui.Chart.feature.byFeature(samp_classes, 'aspect', ['chili'])
                         })
    
 print(chartClasses)  
-*/
+
 
