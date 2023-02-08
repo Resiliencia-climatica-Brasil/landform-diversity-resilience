@@ -2,11 +2,14 @@
 var imageVisParam = {"opacity":1,"bands":["B6","B5","B4"],"min":0.04395250976085663,"max":0.4165128767490387,"gamma":1};
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
-var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
+var landform = ee.Image("projects/ee-lucasljardim9/assets/landform_types")
+               .reproject('EPSG:4326', null, 92.76624);
 
-var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi");
+var Iwahashi = ee.Image("projects/ee-lucasljardim9/assets/landform_Iwahashi")
+               .reproject('EPSG:4326', null, 92.76624);
 
-var Theobald = ee.Image("CSP/ERGo/1_0/Global/ALOS_landforms");
+var Theobald = ee.Image("CSP/ERGo/1_0/Global/ALOS_landforms")
+               .reproject('EPSG:4326', null, 92.76624);
 
 var l8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
          .filterDate('2021-06-01', '2021-06-30')
