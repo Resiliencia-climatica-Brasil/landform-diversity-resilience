@@ -30,9 +30,9 @@ to 0-255 linearly.
 */
 
 var chili_classes = chili
-      .where(aspect.gt(195.585), 2) // warm
-      .where(aspect.lt(114.24), 1) // cool
-      .where(aspect.gte(114.24).and(aspect.lte(195.585)), 0); // neutral
+      .where(chili.gt(195.585), 2) // warm
+      .where(chili.lt(114.24), 1) // cool
+      .where(chili.gte(114.24).and(chili.lte(195.585)), 0); // neutral
 
 
 Map.setCenter(-60.284, 4.626, 11);
