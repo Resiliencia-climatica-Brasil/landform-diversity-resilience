@@ -317,7 +317,7 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
 
-Map.setCenter(-72.814290, 44.543663, 11)
+Map.setCenter(-59.806, -3.441, 11)
 
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {});
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624))
