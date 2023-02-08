@@ -50,18 +50,36 @@ var samp = heat.sample({region: bioma,
                        numPixels:4001
                        });
                        
+var heat_classes = ee.Image.cat([aspect_classes, chili_classes])
+                   .rename(['aspect', 'chili']);
 
-/*                       
+var samp_classes = heat_classes.sample({region: bioma, 
+                       scale: 92.76624232772798, 
+                       numPixels:4001
+                       });
+
 var chart = ui.Chart.feature.byFeature(samp, 'aspect', ['chili'])
             .setChartType('ScatterChart')
-            .setOptions({pointSize: 2
+            .setOptions({pointSize: 2,
                          //pointColor: 'red', 
                          //width: 300, 
                          //height: 300, 
-                         //titleX: 'Aspect', 
-                         //titleY: 'CHILI'
+                         titleX: 'Aspect', 
+                         titleY: 'CHILI'
                         })
    
 print(chart)  
-*/
+
+var chart = ui.Chart.feature.byFeature(samp_classes, 'aspect', ['chili'])
+            .setChartType('ScatterChart')
+            .setOptions({pointSize: 2,
+                         //pointColor: 'red', 
+                         //width: 300, 
+                         //height: 300, 
+                         titleX: 'Aspect', 
+                         titleY: 'CHILI'
+                        })
+   
+print(chart)  
+
 
