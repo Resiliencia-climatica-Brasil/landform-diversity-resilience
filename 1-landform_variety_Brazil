@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var image = ee.Image("projects/ee-lucasljardim9/assets/brasil_coverage_2021");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for Brazil.  
 
@@ -76,6 +79,9 @@ taking into account the whole basin flow.
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
     .select("upg")
+    
+var water = image = ee.Image("projects/ee-lucasljardim9/assets/brasil_coverage_2021")
+                    .reproject('EPSG:4326', null, 92.76624);     
 
 /* 
 We calculate relief slopes and aspect based on the DEM. 
@@ -311,7 +317,11 @@ var sld_intervals =
 Map.setCenter(-59.806, -3.441, 11)
 
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {});
+
 Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624))
+
+Map.addLayer(water, {}, 'water')
+
 /* Print plot scale*/
 print(Map.getScale())
 
