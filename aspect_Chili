@@ -1,9 +1,9 @@
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-                        //.map(function(feature){
-                        //     return feature.bounds()
-                        //     })
-                        //.geometry()
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
                         //.dissolve({'maxError': 1})
                         //.bounds();
                         
@@ -47,9 +47,13 @@ var heat = ee.Image.cat([aspect, chili])
          
 var samp = heat.sample({region: bioma, 
                        scale: 92.76624232772798, 
-                       numPixels:3 
-                       })
+                       numPixels:4001
+                       });
                        
-                       print(samp)
+var chart = ui.Chart.feature.byFeature(values, 'elevation', ['temp'])
+  .setChartType('ScatterChart')
+  .setOptions({ pointSize: 2, pointColor: 'red', width: 300, height: 300, titleX: 'Elevation (m)', titleY: 'Temperature (C)' })
+   
+print(chart)  
 
 
