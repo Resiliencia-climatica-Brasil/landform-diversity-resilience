@@ -50,6 +50,7 @@ var chart = ui.Chart.feature.byFeature(points, 'DEM', ['HAND'])
                         
 print(chart);
 */
+
 //-------------------------------------------------------------------------------
 
 var hand_range = ee.Image.cat([DEM, hand_range])
