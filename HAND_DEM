@@ -57,9 +57,9 @@ var hand_range = ee.Image.cat([DEM, hand_range])
                 
 var hand_points = hand_range.sample({region: bioma, 
                        scale: 92.76624232772798, 
-                       numPixels:4
+                       numPixels:1000
                        });
-
+                       
 var hand_chart = ui.Chart.feature.byFeature(hand_points, 'DEM', ['HAND_range'])
             .setChartType('ScatterChart')
             .setOptions({pointSize: 2,
