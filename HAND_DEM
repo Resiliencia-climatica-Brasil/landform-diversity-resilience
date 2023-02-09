@@ -27,8 +27,6 @@ var hand_min = neighbor.reduce(ee.Reducer.min());
 var hand_range = hand_max.subtract(hand_min).abs()
                  .rename(["HAND_range"]);
 
-print(hand_range);
-
 //Map.addLayer(DEM)
 //Map.addLayer(hand)
 /*
@@ -51,7 +49,7 @@ var chart = ui.Chart.feature.byFeature(points, 'DEM', ['HAND'])
                         })  ; 
                         
 print(chart);
-
+*/
 //-------------------------------------------------------------------------------
 
 var hand_range = ee.Image.cat([DEM, hand_range])
@@ -59,7 +57,7 @@ var hand_range = ee.Image.cat([DEM, hand_range])
                 
 var hand_points = hand_range.sample({region: bioma, 
                        scale: 92.76624232772798, 
-                       numPixels:5000
+                       numPixels:4
                        });
 
 var hand_chart = ui.Chart.feature.byFeature(hand_points, 'DEM', ['HAND_range'])
@@ -74,5 +72,5 @@ var hand_chart = ui.Chart.feature.byFeature(hand_points, 'DEM', ['HAND_range'])
                         
 print(hand_chart);
                 
-*/              
+              
 
