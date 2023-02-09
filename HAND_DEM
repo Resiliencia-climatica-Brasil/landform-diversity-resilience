@@ -27,9 +27,12 @@ var hand_min = neighbor.reduce(ee.Reducer.min());
 var hand_range = hand_max.subtract(hand_min).abs()
                  .rename(["HAND_range"]);
 
+print(hand_range)
+
+
 //Map.addLayer(DEM)
 //Map.addLayer(hand)
-
+/*
 var variables = ee.Image.cat([DEM, hand])
                 .rename(["DEM", "HAND"]);
                 
@@ -72,5 +75,5 @@ var hand_chart = ui.Chart.feature.byFeature(hand_points, 'DEM', ['HAND_range'])
                         
 print(hand_chart);
                 
-                
+*/              
 
