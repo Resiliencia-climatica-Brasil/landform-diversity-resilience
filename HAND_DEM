@@ -9,6 +9,24 @@ var DEM = ee.Image("MERIT/DEM/v1_0_3");
 var hand = ee.Image("MERIT/Hydro/v1_0_1")
            .select("hnd");  
            
+var scale = DEM.projection().nominalScale()           
+
+//---------------------------------------------------------------------------------------           
+var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt(); // radius in meters
+
+var radius_pixels = r.divide(ee.Number(scale)).round();
+
+var neighbor = hand.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
+
+/* Calculate elevation range within a neighborhood */ 
+
+var hand_max = neighbor.reduce(ee.Reducer.max());
+
+var hand_min = neighbor.reduce(ee.Reducer.min());
+
+var hand_range = hand_max.subtract(hand_min).abs()
+                 .rename(["HAND_range"]);
+
 //Map.addLayer(DEM)
 //Map.addLayer(hand)
 
@@ -31,5 +49,28 @@ var chart = ui.Chart.feature.byFeature(points, 'DEM', ['HAND'])
                         })  ; 
                         
 print(chart);
+
+//-------------------------------------------------------------------------------
+
+var hand_range = ee.Image.cat([DEM, hand_range])
+                .rename(["DEM", "HAND_range"]);
+                
+var hand_points = hand_range.sample({region: bioma, 
+                       scale: 92.76624232772798, 
+                       numPixels:5000
+                       });
+
+var hand_chart = ui.Chart.feature.byFeature(hand_points, 'DEM', ['HAND_range'])
+            .setChartType('ScatterChart')
+            .setOptions({pointSize: 2,
+                         //pointColor: 'red', 
+                         //width: 300, 
+                         //height: 300, 
+                         titleX: 'DEM', 
+                         titleY: 'HAND_range'
+                        }); 
+                        
+print(hand_chart);
+                
                 
 
