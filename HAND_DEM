@@ -1,0 +1,35 @@
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry();
+
+var DEM = ee.Image("MERIT/DEM/v1_0_3"); 
+
+var hand = ee.Image("MERIT/Hydro/v1_0_1")
+           .select("hnd");  
+           
+//Map.addLayer(DEM)
+//Map.addLayer(hand)
+
+var variables = ee.Image.cat([DEM, hand])
+                .rename(["DEM", "HAND"]);
+                
+var points = variables.sample({region: bioma, 
+                       scale: 92.76624232772798, 
+                       numPixels:5000
+                       });
+
+var chart = ui.Chart.feature.byFeature(points, 'DEM', ['HAND'])
+            .setChartType('ScatterChart')
+            .setOptions({pointSize: 2,
+                         //pointColor: 'red', 
+                         //width: 300, 
+                         //height: 300, 
+                         titleX: 'DEM', 
+                         titleY: 'HAND'
+                        })  ; 
+                        
+print(chart);
+                
+
