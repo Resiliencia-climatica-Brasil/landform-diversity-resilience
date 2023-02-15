@@ -15,13 +15,19 @@ TPI = focal_mean.subtract(DEM)
 
 return TPI;
 }
-
+/*
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
                              return feature.bounds()
                              })
                         .geometry();
-                        
+*/
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+            .filter(ee.Filter.eq('Bioma', 'Cerrado'))
+            .geometry();
+
+
 var DEM = ee.Image("MERIT/DEM/v1_0_3");
 
 var flow_accumulation = ee.Image("MERIT/Hydro/v1_0_1")
@@ -53,54 +59,37 @@ var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
 var properties = ['DEM', 'slope', 'aspect', 'moisture_index', 'TPI'];                
 
 var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI])
-                .rename(properties);
+                .rename(properties)
+                .toArray();
                 
-var points = variables.sample({region: bioma,
-                               scale: 92, 
-                               numPixels: 100, 
-                               geometries: true})
-                               ;
-                               
+var points = variables
+             .sample({region:bioma, scale: 92, numPixels: 20, geometries: true})  
 
+var map = ee.Image(properties
+          .map(function(i) {points.reduceToImage({properties: [i], 
+                                                 reducer: ee.Reducer.first()})}))
+       
+       
+Map.setCenter(-46.504472585699524,-13.383292172419555, 15)                                                 
 
+Map.addLayer(map)
 
-                         
-                                
-                             
-//var eigen = points_array.eigen();
+Map.addLayer(ee.Geometry.Point([-46.504472585699524,-13.383292172419555]))
 
 
 
 /*
-var var_array = variables.toArray()
-                .reduceRegion({reducer: ee.Reducer.covariance(), 
-                              geometry: bioma, 
-                              scale: 92, 
-                              maxPixels: 1e13});
+var covariance = variables
+                 .reduceRegion({reducer: ee.Reducer.covariance(), 
+                                geometry: bioma, 
+                                scale: 92,
+                                maxPixels:1e13})
+                 .get('array');
+                 
+var eig = ee.Array(covariance)
+          .eigen();
+          
+var eigenvectors = eig.slice(1, 1);
+
+print(ee.Image(eigenvectors))
 */
-
-/*
-var covariance = ee.Array(var_array.get('array'));
-
-var eigen = covariance.eigen();
-
-print(eigen)
-*/
-
-
-
-
-
-                               
-                               
-
-
-
-
-
-    
-    
-
-
-
-
