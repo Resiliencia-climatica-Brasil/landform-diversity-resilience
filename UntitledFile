@@ -50,23 +50,26 @@ var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           
 //-------------------------------------------------------------------------
 
+var properties = ['DEM', 'slope', 'aspect', 'moisture_index', 'TPI'];                
 
 var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI])
-                .rename(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']);
+                .rename(properties);
                 
 var points = variables.sample({region: bioma,
                                scale: 92, 
-                               numPixels: 20, 
-                               geometries: true});
+                               numPixels: 100, 
+                               geometries: true})
+                               ;
                                
-var points_array = points.reduceColumns({reducer: ee.Reducer.toList(5), 
-                                         selectors:['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']
-                                        })
-                   .toArray(); 
-                             
-var eigen = points_array.eigen();
 
-print(eigen)
+
+
+                         
+                                
+                             
+//var eigen = points_array.eigen();
+
+
 
 /*
 var var_array = variables.toArray()
