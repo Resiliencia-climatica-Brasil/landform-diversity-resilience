@@ -59,22 +59,17 @@ var points = variables.sample({region: bioma,
                                numPixels: 20, 
                                geometries: true});
                                
-var points_geometry = points
-                      .map(function(feature){
-                        return feature.bounds()
-                        })
-                      .geometry();
-                      
-var points_array = points.reduceRegion({reducer, 
-                                        geometry, 
-                                        scale
-                                       });                      
+var points_array = points.reduceColumns({reducer: ee.Reducer.toList(), 
+                                         selectors:['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']
+                                        }); 
+                                       
+                                       print(points_array)
                                
                              
 
-var eigen = points.eigen();
+//var eigen = points.eigen();
 
-print(eigen)
+//print(eigen)
 
 /*
 var var_array = variables.toArray()
