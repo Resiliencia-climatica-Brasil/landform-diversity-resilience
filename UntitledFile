@@ -53,14 +53,31 @@ var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
 
 var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI])
                 .rename(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']);
+
                 
 var points = variables.sample({region: bioma,
                                scale: 92, 
                                numPixels: 20, 
                                geometries: true});
-                               
 
-print(points);
+/*
+var var_array = variables.toArray()
+                .reduceRegion({reducer: ee.Reducer.covariance(), 
+                              geometry: bioma, 
+                              scale: 92, 
+                              maxPixels: 1e13});
+*/
+
+
+var covariance = ee.Array(var_array.get('array'));
+
+var eigen = covariance.eigen();
+
+print(eigen)
+
+
+
+
 
 
                                
