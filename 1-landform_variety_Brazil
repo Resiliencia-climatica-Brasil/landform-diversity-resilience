@@ -406,10 +406,14 @@ Map.add(legend);
 var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI, landform_types])
                 .rename(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI', 'landform_types']);
                 
-                
+var points =  variables.sample({region: bioma, 
+                                scale: 92.76624, 
+                                numPixels: 1e4,
+                                geometries: true});               
 /*Exporting images
 */
 
+/*
 
 // Exporting landform varieties
 Export.image.toDrive({
@@ -441,6 +445,8 @@ Export.image.toAsset({
   region: bioma,
   maxPixels: 5072319225
 });
-
-Export.table.toDrive(collection, description, folder, fileNamePrefix, fileFormat, selectors, maxVertices)
+*/
+Export.table.toDrive({collection:points, 
+                     description: "sampled_points", 
+                     fileFormat: "CSV"});
 
