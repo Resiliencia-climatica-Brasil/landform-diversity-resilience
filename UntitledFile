@@ -67,13 +67,23 @@ var var_array = variables.toArray()
                               maxPixels: 1e13});
 */
 
+var to_array = function(feature){
+     
+     return feature.toArray(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']);
+}
 
+var var_array = points.map(to_array);
+
+print(var_array)
+
+
+/*
 var covariance = ee.Array(var_array.get('array'));
 
 var eigen = covariance.eigen();
 
 print(eigen)
-
+*/
 
 
 
