@@ -403,8 +403,13 @@ for (var i = 0; i < 14; i++) {
  
 Map.add(legend);
 
+var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI, landform_types])
+                .rename(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI', 'landform_types']);
+                
+                
 /*Exporting images
 */
+
 
 // Exporting landform varieties
 Export.image.toDrive({
@@ -436,4 +441,6 @@ Export.image.toAsset({
   region: bioma,
   maxPixels: 5072319225
 });
+
+Export.table.toDrive(collection, description, folder, fileNamePrefix, fileFormat, selectors, maxVertices)
 
