@@ -51,6 +51,21 @@ var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
 //-------------------------------------------------------------------------
 
 
+var variables = ee.Image.cat([DEM, slope, aspect, moisture_index, TPI])
+                .rename(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']);
+                
+var points = variables.sample({region,
+                               scale, 
+                               projection, 
+                               factor, 
+                               numPixels, 
+                               seed, 
+                               dropNulls, 
+                               tileScale, 
+                               geometries});
+                               
+                               
+
 
 
 
