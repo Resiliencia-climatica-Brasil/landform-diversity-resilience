@@ -60,7 +60,9 @@ var points = variables.sample({region: bioma,
                                geometries: true});
                                
 
-print(points)
+print(points);
+
+
                                
                                
 
