@@ -58,6 +58,23 @@ var points = variables.sample({region: bioma,
                                scale: 92, 
                                numPixels: 20, 
                                geometries: true});
+                               
+var points_geometry = points
+                      .map(function(feature){
+                        return feature.bounds()
+                        })
+                      .geometry();
+                      
+var points_array = points.reduceRegion({reducer, 
+                                        geometry, 
+                                        scale
+                                       });                      
+                               
+                             
+
+var eigen = points.eigen();
+
+print(eigen)
 
 /*
 var var_array = variables.toArray()
@@ -66,16 +83,6 @@ var var_array = variables.toArray()
                               scale: 92, 
                               maxPixels: 1e13});
 */
-
-var to_array = function(feature){
-     
-     return feature.toArray(['DEM', 'slope', 'aspect', 'moisture_index', 'TPI']);
-}
-
-var var_array = points.map(to_array);
-
-print(var_array)
-
 
 /*
 var covariance = ee.Array(var_array.get('array'));
