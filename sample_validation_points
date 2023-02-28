@@ -1,0 +1,38 @@
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+            .select("Bioma")
+            .filter(ee.Filter.eq("Bioma", "Cerrado"));
+        
+var landforms = ee.Image('projects/ee-lucasljardim9/assets/landform_types');
+
+var points = landforms.toByte().stratifiedSample({numPoints: 10, 
+                                        classBand: "sum", 
+                                        region: bioma, 
+                                        scale: 92.76624,
+                                        seed:123456,   
+                                        geometries: true})
+/*
+var landform_types = [3,4,5,11,13,21,22,23,24,30,32,39,43,44];
+
+var samplePoints = function(i){
+  
+var masked = landforms
+             .eq(i)
+             .selfMask();
+      
+var points = masked.sample({region: bioma, 
+                            scale: 92.76624, 
+                            numPixels: 100,
+                            seed: 123456, 
+                            geometries: true});
+
+return points;
+} 
+
+var points = landform_types.map(samplePoints);
+*/
+
+Export.table.toDrive({collection: points, 
+                      description: "landform_sampled_points", 
+                      fileFormat: "CSV"} 
+                      )
+
