@@ -110,6 +110,8 @@ var moisture_index = flow_accumulation.
                        units: "pixels"
                      });
                      
+
+
 /* Here we calculate a Topographic Position Index (TPI) (..). We create a function to calculate TPI 
 for a circular kernels of different sizes. Then, we took the average TPI to compose an index 
 that considers the landscape influence at multiple scales (Theobald..).
@@ -139,7 +141,7 @@ enhance local variation, classifying peaks in plain areas.
 
 //var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
 
-var window_size = [1, 5, 7]; //90 meters scale window sizes
+var window_size = [7, 11, 15]; //90 meters scale window sizes
 
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .toBands()
