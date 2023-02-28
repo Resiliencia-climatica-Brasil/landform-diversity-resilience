@@ -1,0 +1,104 @@
+var landforms = ee.Image('projects/ee-lucasljardim9/assets/landform_types');
+
+var point = ee.Geometry.Point([-45.01667005373338,-9.124997638187976]);
+
+var sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#ffc408" quantity="3" label="Cool Steep Slope"/>' +
+    '<ColorMapEntry color="#ffa101" quantity="4" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#ef595a" quantity="5" label="Cliff"/>' +
+    '<ColorMapEntry color="#ffbdbe" quantity="11" label="Summit/Ridgetop"/>' +
+    '<ColorMapEntry color="#6e4100" quantity="13" label="Slope Crest"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="21" label="Flat Hilltop"/>' +
+    '<ColorMapEntry color="#c8c284" quantity="22" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#c8f6ad" quantity="23" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#83e763" quantity="24" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#ffffbe" quantity="30" label="Dry Flats"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="32" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#b671f2" quantity="39" label="Moist Flats"/>' +
+    '<ColorMapEntry color="#08a702" quantity="43" label="Cool Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="44" label="Warm Footslope/Cove"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+
+Map.addLayer(landforms.sldStyle(sld_intervals), {});
+
+Map.addLayer(point);
+
+Map.centerObject(point, 15);
+
+var legend = ui.Panel({
+             style: {
+               position:'bottom-right',
+               padding: '8px 10px'
+             }
+});
+
+var makeRow = function(color, name) {
+ 
+      // Create the label that is actually the colored box.
+      var colorBox = ui.Label({
+        style: {
+          backgroundColor: color,
+          // Use padding to give the box height and width.
+          padding: '8px',
+          margin: '0 0 4px 0'
+        }
+      });
+ 
+      // Create the label filled with the description text.
+      var description = ui.Label({
+        value: name,
+        style: {margin: '0 0 4px 6px'}
+      });
+ 
+      // return the panel
+      return ui.Panel({
+        widgets: [colorBox, description],
+        layout: ui.Panel.Layout.Flow('horizontal')
+      });
+};
+
+var palette = [
+"#ffc408",
+"#ffa101",
+"#ef595a",
+"#ffbdbe",
+"#6e4100",
+"#af7b53",
+"#c8c284", 
+"#c8f6ad",
+"#83e763",
+"#ffffbe",
+"#a9a800",
+"#b671f2",
+"#08a702",
+"#0a7000"
+];
+
+var land =[
+"3-Cool Steep Slope",
+"4-Warm Steep Slope",
+"5-Cliff",
+"11-Summit/Ridgetop",
+"13-Slope Crest",
+"21-Flat Hilltop",
+"22-Gentle Slope Hilltop",
+"23-Cool Sideslope",
+"24-Warm Sideslope",
+"30-Dry Flats",
+"32-Valley/Toeslope",
+"39-Moist Flats",
+"43-Cool Footslope/Cove",
+"44-Warm Footslope/Cove"
+];
+
+for (var i = 0; i < 14; i++) {
+  legend.add(makeRow(palette[i], land[i]));
+  }  
+ 
+Map.add(legend);
+
+
+
