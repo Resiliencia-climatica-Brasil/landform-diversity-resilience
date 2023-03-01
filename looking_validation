@@ -1,6 +1,6 @@
 var landforms = ee.Image('projects/ee-lucasljardim9/assets/landform_types');
 
-var point = ee.Geometry.Point([-48.45583663410309,-16.08833079679454]);
+var point = ee.Geometry.Point([-45.90250336483903,-8.48916432080923]);
 
 var sld_intervals =
 '<RasterSymbolizer>' +
