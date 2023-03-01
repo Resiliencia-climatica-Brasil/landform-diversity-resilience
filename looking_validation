@@ -1,6 +1,6 @@
 var landforms = ee.Image('projects/ee-lucasljardim9/assets/landform_types');
 
-var point = ee.Geometry.Point([-51.69000321961674,-11.06666425613356]);
+var point = ee.Geometry.Point([-48.45583663410309,-16.08833079679454]);
 
 var sld_intervals =
 '<RasterSymbolizer>' +
@@ -27,7 +27,7 @@ Map.addLayer(landforms.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_inter
 
 Map.addLayer(point);
 
-Map.centerObject(point, 15);
+Map.centerObject(point, 13);
 
 var legend = ui.Panel({
              style: {
