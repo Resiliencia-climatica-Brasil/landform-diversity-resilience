@@ -22,28 +22,16 @@ var varieties = ee.ImageCollection(windows
                 .map(calculate_variety))
                 .toBands();
 
-Map.addLayer(varieties.select(0), {min:0, max:14}, "0")
-Map.addLayer(varieties.select(1), {min:0, max:14}, "1")
-Map.addLayer(varieties.select(2), {min:0, max:14}, "2")
-Map.addLayer(varieties.select(3), {min:0, max:14}, "3")
-Map.addLayer(varieties.select(4), {min:0, max:14}, "4")
-Map.addLayer(varieties.select(5), {min:0, max:14}, "5")
-
-
-
-/*
 var points = varieties
              .sample({region: bioma, 
                      scale: landforms.projection().nominalScale(), 
-                     numPixels: 10, 
-                     seed: 54687});
+                     numPixels: 100
+                     });
                      
 var reducer = ee.Reducer.mean()
               .combine({reducer2: ee.Reducer.stdDev(),
                         sharedInputs: true
                         });
-                        
-
 
 var media = points.reduceColumns({reducer: reducer.repeat(6), 
                                   selectors: ["0_sum_count", 
@@ -53,7 +41,7 @@ var media = points.reduceColumns({reducer: reducer.repeat(6),
                                               "4_sum_count",
                                               "5_sum_count"]});
                                   
-*/
+print(media);
                       
               
                                    
