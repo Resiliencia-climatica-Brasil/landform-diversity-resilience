@@ -4,7 +4,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
         
 var landforms = ee.Image('projects/ee-lucasljardim9/assets/landform_types');
 
-Map.addLayer(bioma)
+Map.addLayer(landfobioma)
 /*
 var points = landforms.toByte().stratifiedSample({numPoints: 10, 
                                         classBand: "sum", 
