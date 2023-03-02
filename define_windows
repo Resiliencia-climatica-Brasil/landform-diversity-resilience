@@ -6,7 +6,6 @@ var calculate_variety = function(i){
   
 }
 
-
 var landforms = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
@@ -23,6 +22,16 @@ var varieties = ee.ImageCollection(windows
                 .map(calculate_variety))
                 .toBands();
 
+Map.addLayer(varieties.select(0), {min:0, max:14}, "0")
+Map.addLayer(varieties.select(1), {min:0, max:14}, "1")
+Map.addLayer(varieties.select(2), {min:0, max:14}, "2")
+Map.addLayer(varieties.select(3), {min:0, max:14}, "3")
+Map.addLayer(varieties.select(4), {min:0, max:14}, "4")
+Map.addLayer(varieties.select(5), {min:0, max:14}, "5")
+
+
+
+/*
 var points = varieties
              .sample({region: bioma, 
                      scale: landforms.projection().nominalScale(), 
@@ -34,12 +43,17 @@ var reducer = ee.Reducer.mean()
                         sharedInputs: true
                         });
                         
-                        print(points)
 
-var media = points.reduceColumns({reducer: reducer, 
-                                  selectors: ["sum_count"]});
+
+var media = points.reduceColumns({reducer: reducer.repeat(6), 
+                                  selectors: ["0_sum_count", 
+                                              "1_sum_count",
+                                              "2_sum_count",
+                                              "3_sum_count",
+                                              "4_sum_count",
+                                              "5_sum_count"]});
                                   
-                                  print(media)
+*/
                       
               
                                    
