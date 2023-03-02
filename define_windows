@@ -1,0 +1,15 @@
+var landforms = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
+                        
+var image_resolution = landforms.projection().nominalScale()
+
+var landform_variety = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
+
+
