@@ -1,3 +1,12 @@
+var calculate_variety = function(i){
+  var landform_variety = landforms
+                       .reduceNeighborhood({reducer: ee.Reducer.countDistinct(), 
+                                            kernel: ee.Kernel.circle(i)});
+  return landform_variety;                                      
+  
+}
+
+
 var landforms = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
@@ -7,21 +16,30 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .geometry()
                         .dissolve({'maxError': 1})
                         .bounds();
+                        
+var windows = [2, 5, 7, 10, 15, 20];
 
-var landform_variety = landforms
-                       .reduceNeighborhood({reducer: ee.Reducer.countDistinct(), 
-                                            kernel: ee.Kernel.circle(20)})
-                                            
-                                            print(landform_variety)
-            
-var points = landform_variety
-             .sample(region: bioma, 
-                         scale: landforms.projection().nominalScale(), 
-                         numPixels: 20000, 
-                         seed: });
-                         
-var media = points.reduceColumns(reducer, selectors: "sum_count")                         
-                         
-                    
-                                
+var varieties = ee.ImageCollection(windows
+                .map(calculate_variety))
+                .toBands();
+
+var points = varieties
+             .sample({region: bioma, 
+                     scale: landforms.projection().nominalScale(), 
+                     numPixels: 10, 
+                     seed: 54687});
+                     
+var reducer = ee.Reducer.mean()
+              .combine({reducer2: ee.Reducer.stdDev(),
+                        sharedInputs: true
+                        });
+                        
+                        print(points)
+
+var media = points.reduceColumns({reducer: reducer, 
+                                  selectors: ["sum_count"]});
+                                  
+                                  print(media)
+                      
+              
                                    
