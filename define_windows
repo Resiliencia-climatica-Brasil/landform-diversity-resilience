@@ -1,6 +1,5 @@
 var landforms = ee.Image("projects/ee-lucasljardim9/assets/landform_types");
 
-/*
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
                              return feature.bounds()
@@ -8,19 +7,21 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .geometry()
                         .dissolve({'maxError': 1})
                         .bounds();
-*/
 
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-            .select("bioma")
-            .filter(ee.Filter.eq("Bioma", "Pampa");
-    
-    
 var landform_variety = landforms
                        .reduceNeighborhood({reducer: ee.Reducer.countDistinct(), 
                                             kernel: ee.Kernel.circle(20)})
-                       .reduceRegion({reducer: ee.Reducer.mean(), 
-                                     geometry: bioma, 
-                                     scale: landforms.projection().nominalScale(), 
-                                     maxPixels: 1e13});
-                                     
-                              
+                                            
+                                            print(landform_variety)
+            
+var points = landform_variety
+             .sample(region: bioma, 
+                         scale: landforms.projection().nominalScale(), 
+                         numPixels: 20000, 
+                         seed: });
+                         
+var media = points.reduceColumns(reducer, selectors: "sum_count")                         
+                         
+                    
+                                
+                                   
