@@ -22,6 +22,7 @@ var varieties = ee.ImageCollection(windows
                 .map(calculate_variety))
                 .toBands();
 
+/*
 var points = varieties
              .sample({region: bioma, 
                      scale: landforms.projection().nominalScale(), 
@@ -43,5 +44,5 @@ var media = points.reduceColumns({reducer: reducer.repeat(6),
                                   
 print(media);
                       
-              
+*/              
                                    
