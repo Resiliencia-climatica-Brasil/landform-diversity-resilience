@@ -24,14 +24,6 @@ var averages = [1, 2, 3, 4, 5].map(variety_average);
 
 print(averages);
 
-print(maps.select(3)
-                .subtract(maps.select(1))
-                .reduceRegion({reducer: ee.Reducer.median(), 
-                              geometry: bioma, 
-                              scale: maps.projection().nominalScale(), 
-                              maxPixels: 1e13}))
-
-
 var histograma = ui.Chart.image.histogram({image:maps.select(1)
                                 .subtract(maps.select(0)), 
                          region: bioma, 
