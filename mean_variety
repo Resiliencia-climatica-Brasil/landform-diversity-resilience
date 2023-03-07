@@ -8,7 +8,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
 
 var maps = ee.Image("projects/ee-lucasljardim9/assets/variety_maps");
 
-/*
+
 var variety_average = function(i){
   var average = maps.select(i)
                 .subtract(maps.select(i - 1))
@@ -21,7 +21,16 @@ var variety_average = function(i){
 }
 
 var averages = [1, 2, 3, 4, 5].map(variety_average);
-*/
+
+print(averages);
+
+print(maps.select(3)
+                .subtract(maps.select(1))
+                .reduceRegion({reducer: ee.Reducer.median(), 
+                              geometry: bioma, 
+                              scale: maps.projection().nominalScale(), 
+                              maxPixels: 1e13}))
+
 
 var histograma = ui.Chart.image.histogram({image:maps.select(1)
                                 .subtract(maps.select(0)), 
@@ -61,7 +70,9 @@ var histograma5 = ui.Chart.image.histogram({image:maps.select(5)
                          scale: maps.projection().nominalScale(), 
                          maxPixels: 1e13});
                          
-                         print(histograma5)                             
+                         print(histograma5)    
+                         
+                         
                          
                          
 
