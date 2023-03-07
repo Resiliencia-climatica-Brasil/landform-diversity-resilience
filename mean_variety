@@ -8,6 +8,7 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
 
 var maps = ee.Image("projects/ee-lucasljardim9/assets/variety_maps");
 
+/*
 var variety_average = function(i){
   var average = maps.select(i)
                 .subtract(maps.select(i - 1))
@@ -20,7 +21,47 @@ var variety_average = function(i){
 }
 
 var averages = [1, 2, 3, 4, 5].map(variety_average);
+*/
 
-print(averages)
-
+var histograma = ui.Chart.image.histogram({image:maps.select(1)
+                                .subtract(maps.select(0)), 
+                         region: bioma, 
+                         scale: maps.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma)
+                         
+var histograma2 = ui.Chart.image.histogram({image:maps.select(2)
+                                .subtract(maps.select(1)), 
+                         region: bioma, 
+                         scale: maps.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma2)    
+                         
+var histograma3 = ui.Chart.image.histogram({image:maps.select(3)
+                                .subtract(maps.select(2)), 
+                         region: bioma, 
+                         scale: maps.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma3)
+                         
+var histograma4 = ui.Chart.image.histogram({image:maps.select(4)
+                                .subtract(maps.select(3)), 
+                         region: bioma, 
+                         scale: maps.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma4) 
+                         
+var histograma5 = ui.Chart.image.histogram({image:maps.select(5)
+                                .subtract(maps.select(4)), 
+                         region: bioma, 
+                         scale: maps.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma5)                             
+                         
+                         
 
