@@ -1,3 +1,20 @@
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
+
 var maps = ee.Image("projects/ee-lucasljardim9/assets/variety_maps");
 
-print(maps)
+function(i){
+  var average = maps.select(1)
+                .subtract(maps.select(0))
+                .reduceRegion({reducer: ee.Reducer.mean(), 
+                              geometry: bioma, 
+                              scale: maps.projection().nominalScale(), 
+                              maxPixels: 1e13});
+
+  return average;
+}
