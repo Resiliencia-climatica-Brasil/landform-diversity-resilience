@@ -9,8 +9,8 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
 var maps = ee.Image("projects/ee-lucasljardim9/assets/variety_maps");
 
 var variety_average = function(i){
-  var average = maps.select(1)
-                .subtract(maps.select(0))
+  var average = maps.select(i)
+                .subtract(maps.select(i - 1))
                 .reduceRegion({reducer: ee.Reducer.mean(), 
                               geometry: bioma, 
                               scale: maps.projection().nominalScale(), 
@@ -18,3 +18,9 @@ var variety_average = function(i){
 
   return average;
 }
+
+var averages = [1, 2, 3, 4, 5].map(variety_average);
+
+print(averages)
+
+
