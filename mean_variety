@@ -11,7 +11,7 @@ var maps = ee.Image("projects/ee-lucasljardim9/assets/variety_maps");
 var variety_average = function(i){
   var average = maps.select(i)
                 .subtract(maps.select(i - 1))
-                .reduceRegion({reducer: ee.Reducer.mean(), 
+                .reduceRegion({reducer: ee.Reducer.median(), 
                               geometry: bioma, 
                               scale: maps.projection().nominalScale(), 
                               maxPixels: 1e13});
