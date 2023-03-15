@@ -461,9 +461,10 @@ Export.table.toDrive({collection:points,
 // LeftMap and RightMap to easily compare landforms.
 
 //creating a center for the maps
+
 //var center = {lon:-59.971332,lat:-3.076426, zoom:11}; // Manaus showning problems with wetlands classifications
 
-var center = {lon:-60.736,lat:5.2204, zoom:12};
+var center = {lon:-60.736,lat:5.2204, zoom:12}; // Mount Roraima 
 
 // Create two maps.
 var leftMap = ui.Map(center);
