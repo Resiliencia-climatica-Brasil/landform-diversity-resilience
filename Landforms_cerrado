@@ -311,7 +311,7 @@ var sld_intervals =
 //Map.setCenter(-47.20997, -14.05082); //Summits
 
 //Map.setCenter(-46.96556, -13.96459); //hilltops
-Map.setCenter(-50.98912, -12.4299, 11); //wetlands
+Map.setCenter(-72.8119, 44.5461, 11); //wetlands
 
 //Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas
 
