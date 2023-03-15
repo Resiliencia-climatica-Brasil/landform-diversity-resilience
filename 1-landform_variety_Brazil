@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var image = ee.Image("projects/ee-resilience/assets/Landforms_Assets/Landforms_types_7-11-15");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /**
  * This script generates and exports to Google Drive a raster of landform varieties at a scale of ~ 90 m for Brazil.  
 
@@ -453,4 +456,43 @@ var points =  variables.sample({region: bioma,
 Export.table.toDrive({collection:points, 
                      description: "sampled_points", 
                      fileFormat: "CSV"});
+
+
+// LeftMap and RightMap to easily compare landforms.
+
+//creating a center for the maps
+//var center = {lon:-59.971332,lat:-3.076426, zoom:11}; // Manaus showning problems with wetlands classifications
+
+var center = {lon:-60.736,lat:5.2204, zoom:12};
+
+// Create two maps.
+var leftMap = ui.Map(center);
+var rightMap = ui.Map(center);
+
+// Create a split panel with the two maps.
+var splitPanel = ui.SplitPanel({
+  firstPanel: leftMap,
+  secondPanel: rightMap,
+  orientation: 'horizontal',
+  wipe: true
+});
+// Remove the default map from the root panel.
+ui.root.clear();
+
+// Add our split panel to the root panel.
+ui.root.add(splitPanel);
+
+
+//Ploting maps and legends 
+//adding 7-11-15 to the left part
+
+var imagem = ee.Image("projects/ee-resilience/assets/Landforms_Assets/Landforms_types_7-11-15");
+
+leftMap.addLayer(imagem.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {}, 'Landform 7-11-15');
+
+
+
+//adding TNC classification on the right
+rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals).clip(bioma), {}, '1-5-7 Window');
+
 
