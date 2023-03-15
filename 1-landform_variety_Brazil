@@ -489,11 +489,11 @@ ui.root.add(splitPanel);
 
 var imagem = ee.Image("projects/ee-resilience/assets/Landforms_Assets/Landforms_types_7-11-15");
 
-leftMap.addLayer(imagem.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {}, 'Landform 7-11-15');
+leftMap.addLayer(imagem.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals).clip(bioma), {}, 'Landform 7-11-15');
 
 
 
 //adding TNC classification on the right
-rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {}, '1-5-7 Window');
+rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals).clip(bioma), {}, '1-5-7 Window');
 
 
