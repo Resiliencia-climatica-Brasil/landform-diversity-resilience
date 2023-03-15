@@ -494,6 +494,6 @@ leftMap.addLayer(imagem.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_inte
 
 
 //adding TNC classification on the right
-rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals).clip(bioma), {}, '1-5-7 Window');
+rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals), {}, '1-5-7 Window');
 
 
