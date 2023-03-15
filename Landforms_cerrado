@@ -131,7 +131,7 @@ enhance local variation, classifying peaks in plain areas.
 
 //var window_size = [1, 5, 10, 30, 50]; //13 zoom level scale// window sizes
 
-var window_size = [1, 5, 7]; //90 meters scale window sizes
+var window_size = [7, 11, 15]; //90 meters scale window sizes
 
 var TPI = ee.ImageCollection(window_size.map(calculate_TPI))
           .toBands()
@@ -171,8 +171,8 @@ var aspect_classes = aspect
 var TPI_classes = TPI
       .where(TPI.lte(-15), 1) // summits
       .where(TPI.gt(-15).and(TPI.lt(-1)), 2) // Hilltops and Sideslopes
-      .where(TPI.gte(-1).and(TPI.lte(6)), 3) //Valleys and Toeslopes
-      .where(TPI.gt(6).and(TPI.lte(975)), 4) // Footslopes
+      .where(TPI.gte(-1).and(TPI.lte(12)), 3) //Valleys and Toeslopes
+      .where(TPI.gt(12).and(TPI.lte(975)), 4) //6 Footslopes
       .where(TPI.gt(975), 5); // Flat at the bottom steep slope
 
 // We defined the moisture values creating a mask of moisture raster. We chose values 
@@ -311,7 +311,7 @@ var sld_intervals =
 //Map.setCenter(-47.20997, -14.05082); //Summits
 
 //Map.setCenter(-46.96556, -13.96459); //hilltops
-Map.setCenter(-72.8119, 44.5461, 11); //wetlands
+Map.setCenter(-47.2225, -14.121, 11); //wetlands
 
 //Map.setCenter(-46.87646, -13.89561, 11); //13 better zoom//flat areas
 
@@ -322,7 +322,7 @@ print(Map.getScale())
 //Map.addLayer(landform_types)
 
 //Map.addLayer(landform_combination)
-//Map.addLayer(TPI)
+Map.addLayer(TPI)
 //Map.addLayer(slope)
 //Map.addLayer(bioma)
 //Map.addLayer(moisture_classes)
