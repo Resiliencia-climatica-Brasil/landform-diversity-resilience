@@ -333,7 +333,7 @@ Map.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624), {}, 'Landfor
 
 Map.addLayer(water, {min: 0, max: 1}, 'water')
 
-Map.addLayer(landform_variety, {}, 'Landform Variety')
+Map.addLayer(landform_variety.reproject('EPSG:4326', null, 92.76624), {}, 'Landform Variety')
 
 /* Print plot scale*/
 print(Map.getScale())
