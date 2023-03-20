@@ -292,11 +292,13 @@ r = (A/pi)^1/2
 r = (404686/3.14)^1/2
 */
 
-var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+//var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
-var image_resolution = DEM.projection().nominalScale()
+//var image_resolution = DEM.projection().nominalScale()
 
-var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
+//var radius_pixels = r.divide(ee.Number(image_resolution)).round() // 4 cells
+
+var radius_pixels = 5;
 
 var landform_variety = landform_types.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.countDistinct())
 
@@ -463,7 +465,7 @@ Export.table.toDrive({collection:points,
 //creating a center for the maps
 
 //var center = {lon:-59.971332,lat:-3.076426, zoom:11}; // Manaus showning problems with wetlands classifications
-
+/*
 var center = {lon:-60.736,lat:5.2204, zoom:12}; // Mount Roraima 
 
 // Create two maps.
@@ -495,5 +497,5 @@ leftMap.addLayer(imagem.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_inte
 
 //adding TNC classification on the right
 rightMap.addLayer(landform_types.reproject('EPSG:4326', null, 92.76624).sldStyle(sld_intervals).clip(bioma), {}, '1-5-7 Window');
-
+*/
 
