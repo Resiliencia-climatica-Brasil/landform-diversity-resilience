@@ -1,0 +1,6 @@
+var mapbiomas  = ee.Image("projects/mapbiomas-workspace/public/collection7/mapbiomas_collection70_integration_v2")
+                 .select("classification_2020");
+
+var mapbiomas90 = mapbiomas.reproject({crs: "EPSG:4326",
+                           scale: 92.76624});
+
