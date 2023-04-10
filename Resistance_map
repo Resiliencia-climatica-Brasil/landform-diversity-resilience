@@ -47,5 +47,5 @@ var sld_intervals =
 '</RasterSymbolizer>';
 
                            
-Map.addLayer(mapbiomas90);
+Map.addLayer(mapbiomas90.sldStyle(sld_intervals), {});
 
