@@ -3,4 +3,49 @@ var mapbiomas  = ee.Image("projects/mapbiomas-workspace/public/collection7/mapbi
 
 var mapbiomas90 = mapbiomas.reproject({crs: "EPSG:4326",
                            scale: 92.76624});
+                           
+var sld_intervals =
+'<RasterSymbolizer>' +
+  '<ColorMap type="intervals" extended="false">' +
+    '<ColorMapEntry color="#129912" quantity="1" label="Forest"/>' +
+    '<ColorMapEntry color="#006400" quantity="3" label="Warm Steep Slope"/>' +
+    '<ColorMapEntry color="#00ff00" quantity="4" label="Cliff"/>' +
+    '<ColorMapEntry color="#687537" quantity="5" label="Summit/Ridgetop"/>' +
+    '<ColorMapEntry color="#6e4100" quantity="49" label="Slope Crest"/>' +
+    '<ColorMapEntry color="#af7b53" quantity="10" label="Flat Hilltop"/>' +
+    '<ColorMapEntry color="#c8c284" quantity="11" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#c8f6ad" quantity="12" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#83e763" quantity="32" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#ffffbe" quantity="29" label="Dry Flats"/>' +
+    '<ColorMapEntry color="#a9a800" quantity="50" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#b671f2" quantity="13" label="Moist Flats"/>' +
+    '<ColorMapEntry color="#08a702" quantity="14" label="Cool Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="15" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="18" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="19" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="39" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="20" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="40" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="62" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="41" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="36" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="46" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="47" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="48" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="9" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="21" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="22" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="23" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="24" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="30" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="25" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="26" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="33" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="31" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0a7000" quantity="27" label="Warm Footslope/Cove"/>' +
+  '</ColorMap>' +
+'</RasterSymbolizer>';
+
+                           
+Map.addLayer(mapbiomas90);
 
