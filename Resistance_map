@@ -15,34 +15,34 @@ var sld_intervals =
     '<ColorMapEntry color="#bbfcac" quantity="10" label="Flat Hilltop"/>' +
     '<ColorMapEntry color="#45c2a5" quantity="11" label="Gentle Slope Hilltop"/>' +
     '<ColorMapEntry color="#b8af4f" quantity="12" label="Cool Sideslope"/>' +
-    '<ColorMapEntry color="#b8af4f" quantity="32" label="Warm Sideslope"/>' +
-    '<ColorMapEntry color="#ffffbe" quantity="29" label="Dry Flats"/>' +
-    '<ColorMapEntry color="#968c46" quantity="50" label="Valley/Toeslope"/>' +
-    '<ColorMapEntry color="#b671f2" quantity="13" label="Moist Flats"/>' +
-    '<ColorMapEntry color="#08a702" quantity="14" label="Cool Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="15" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="18" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="19" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="39" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="20" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="40" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="62" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="41" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="36" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="46" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="47" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="48" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="9" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="21" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="22" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="23" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="24" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="30" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="25" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="26" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="33" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="31" label="Warm Footslope/Cove"/>' +
-    '<ColorMapEntry color="#0a7000" quantity="27" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#968c46" quantity="32" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#ff8C00" quantity="29" label="Dry Flats"/>' +
+    '<ColorMapEntry color="#66ffcc" quantity="50" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#bdb76b" quantity="13" label="Moist Flats"/>' +
+    '<ColorMapEntry color="#ffffb2" quantity="14" label="Cool Footslope/Cove"/>' +
+    '<ColorMapEntry color="#ffd966" quantity="15" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#e974ed" quantity="18" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#d5a6bd" quantity="19" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#c59ff4" quantity="39" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#c27ba0" quantity="20" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#982c9e" quantity="40" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#660066" quantity="62" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#e787f8" quantity="41" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#f3b4f1" quantity="36" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#cca0d4" quantity="46" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#d082de" quantity="47" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#cd49e4" quantity="48" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#935132" quantity="9" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#fff3bf" quantity="21" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#ea9999" quantity="22" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#dd7e6b" quantity="23" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#af2a2a" quantity="24" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#8a2be2" quantity="30" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#ff99ff" quantity="25" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0000ff" quantity="26" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#0000ff" quantity="33" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#29eee4" quantity="31" label="Warm Footslope/Cove"/>' +
+    '<ColorMapEntry color="#D5D5E5" quantity="27" label="Warm Footslope/Cove"/>' +
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
