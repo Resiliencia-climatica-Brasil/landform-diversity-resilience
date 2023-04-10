@@ -9,6 +9,7 @@ var mapbiomas90 = mapbiomas.reproject({crs: "EPSG:4326",
                            scale: 92.76624})
                            .clip(bioma);
                            
+                           
 var sld_intervals =
 '<RasterSymbolizer>' +
   '<ColorMap type="intervals" extended="false">' +
