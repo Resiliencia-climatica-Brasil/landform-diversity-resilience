@@ -11,13 +11,13 @@ var sld_intervals =
     '<ColorMapEntry color="#006400" quantity="3" label="Warm Steep Slope"/>' +
     '<ColorMapEntry color="#00ff00" quantity="4" label="Cliff"/>' +
     '<ColorMapEntry color="#687537" quantity="5" label="Summit/Ridgetop"/>' +
-    '<ColorMapEntry color="#6e4100" quantity="49" label="Slope Crest"/>' +
-    '<ColorMapEntry color="#af7b53" quantity="10" label="Flat Hilltop"/>' +
-    '<ColorMapEntry color="#c8c284" quantity="11" label="Gentle Slope Hilltop"/>' +
-    '<ColorMapEntry color="#c8f6ad" quantity="12" label="Cool Sideslope"/>' +
-    '<ColorMapEntry color="#83e763" quantity="32" label="Warm Sideslope"/>' +
+    '<ColorMapEntry color="#6b9932" quantity="49" label="Slope Crest"/>' +
+    '<ColorMapEntry color="#bbfcac" quantity="10" label="Flat Hilltop"/>' +
+    '<ColorMapEntry color="#45c2a5" quantity="11" label="Gentle Slope Hilltop"/>' +
+    '<ColorMapEntry color="#b8af4f" quantity="12" label="Cool Sideslope"/>' +
+    '<ColorMapEntry color="#b8af4f" quantity="32" label="Warm Sideslope"/>' +
     '<ColorMapEntry color="#ffffbe" quantity="29" label="Dry Flats"/>' +
-    '<ColorMapEntry color="#a9a800" quantity="50" label="Valley/Toeslope"/>' +
+    '<ColorMapEntry color="#968c46" quantity="50" label="Valley/Toeslope"/>' +
     '<ColorMapEntry color="#b671f2" quantity="13" label="Moist Flats"/>' +
     '<ColorMapEntry color="#08a702" quantity="14" label="Cool Footslope/Cove"/>' +
     '<ColorMapEntry color="#0a7000" quantity="15" label="Warm Footslope/Cove"/>' +
