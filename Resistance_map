@@ -52,6 +52,10 @@ var sld_intervals =
   '</ColorMap>' +
 '</RasterSymbolizer>';
 
+
+
                            
 Map.addLayer(mapbiomas90.sldStyle(sld_intervals), {});
+
+Map.addLayer(mapbiomas90)
 
