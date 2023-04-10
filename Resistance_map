@@ -2,7 +2,8 @@ var mapbiomas  = ee.Image("projects/mapbiomas-workspace/public/collection7/mapbi
                  .select("classification_2020");
                  
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-                        .select("Cerrado");
+                       .select("Bioma")
+                       .filter(ee.Filter.eq("Bioma", "Cerrado"));
 
 var mapbiomas90 = mapbiomas.reproject({crs: "EPSG:4326",
                            scale: 92.76624})
