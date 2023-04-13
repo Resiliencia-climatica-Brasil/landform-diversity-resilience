@@ -24,4 +24,70 @@ var elevation_variance = ee.Image("projects/ee-lucasljardim9/assets/elevation_va
 
 var averages = [1, 2, 3, 4, 5].map(elevation_variance_average);
 
+// Print elevation variance averages
+
 print(averages);
+
+// Map elevation variance maps
+/*
+
+Map.setCenter(-48.644, -13.078, 7);
+
+Map.addLayer(elevation_variance.select("w2"), {}, "2");
+
+Map.addLayer(elevation_variance.select("w5"), {}, "5");
+
+Map.addLayer(elevation_variance.select("w7"), {}, "7");
+
+Map.addLayer(elevation_variance.select("w10"), {}, "10");
+
+Map.addLayer(elevation_variance.select("w15"), {}, "15");
+
+Map.addLayer(elevation_variance.select("w20"), {}, "20");
+*/
+
+// Create histogram of elevation variance
+var histograma = ui.Chart.image.histogram({image:elevation_variance.select(1)
+                                .subtract(elevation_variance.select(0)), 
+                         region: bioma, 
+                         scale: elevation_variance.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma)
+                         
+var histograma2 = ui.Chart.image.histogram({image:elevation_variance.select(2)
+                                .subtract(elevation_variance.select(1)), 
+                         region: bioma, 
+                         scale: elevation_variance.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma2)    
+                         
+var histograma3 = ui.Chart.image.histogram({image:elevation_variance.select(3)
+                                .subtract(elevation_variance.select(2)), 
+                         region: bioma, 
+                         scale: elevation_variance.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma3)
+                         
+var histograma4 = ui.Chart.image.histogram({image:elevation_variance.select(4)
+                                .subtract(elevation_variance.select(3)), 
+                         region: bioma, 
+                         scale: elevation_variance.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma4) 
+                         
+var histograma5 = ui.Chart.image.histogram({image:elevation_variance.select(5)
+                                .subtract(elevation_variance.select(4)), 
+                         region: bioma, 
+                         scale: elevation_variance.projection().nominalScale(), 
+                         maxPixels: 1e13});
+                         
+                         print(histograma5)    
+                         
+                         
+                         
+                         
+
