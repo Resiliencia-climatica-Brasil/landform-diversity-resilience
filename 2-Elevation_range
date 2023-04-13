@@ -86,10 +86,14 @@ Map.addLayer(residuals);
 
 /* Export image */
 
-Export.image.toDrive({
+Export.image.toAsset({
   image: residuals,
   description: 'elevation_range_residual',
+  assetId: 'projects/ee-lucasljardim9/assets/elevation_range_residual',
+  pyramidingPolicy: "mean", 
   scale: 92.76624,
   region: bioma,
-  maxPixels: 5072319225});
-  
+  maxPixels: 5072319225
+});
+
+
