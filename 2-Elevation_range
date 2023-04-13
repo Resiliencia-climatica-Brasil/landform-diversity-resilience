@@ -38,7 +38,7 @@ r = (404686/3.14)^1/2
 
 var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt(); // radius in meters
 
-var radius_pixels = r.divide(ee.Number(90)).round();
+var radius_pixels = 5
 
 var neighbor = dataset.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
 
