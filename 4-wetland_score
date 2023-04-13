@@ -79,15 +79,26 @@ Map.addLayer(wetlands_density_1000);
 
 /* Exporting wetlands patchness (number of wetlands within neighborhood) */
 
-Export.image.toDrive({
+Export.image.toAsset({
   image: wetlands_count,
-  description: 'wetlands_patchness',
+  description: 'wetlands_count',
+  assetId: "projects/ee-lucasljardim9/assets/wetlands_count",
   scale: 92.76624,
   region: bioma,
-  maxPixels: 631694567
+  maxPixels: 5072319225
 });
 
+
 // Wetlands density at 100 and 1000 acres
+
+Export.image.toAsset({
+  image: wetlands_density,
+  description: 'wetlands_density',
+  assetId: "projects/ee-lucasljardim9/assets/wetlands_density",
+  scale: 92.76624,
+  region: bioma,
+  maxPixels: 5072319225
+});
 
 Export.image.toDrive({
   image: wetlands_density,
