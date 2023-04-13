@@ -1,0 +1,27 @@
+
+var elevation_variance_average = function(i){
+  var average = elevation_variance.select(i)
+                .subtract(elevation_variance.select(i - 1))
+                .reduceRegion({reducer: ee.Reducer.mean(), 
+                              geometry: bioma, 
+                              scale: maps.projection().nominalScale(), 
+                              maxPixels: 1e13});
+
+  return average;
+}
+
+
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
+
+var elevation_variance = ee.Image("projects/ee-lucasljardim9/assets/elevation_variances");
+
+var averages = [1, 2, 3, 4, 5].map(elevation_variance_average);
+
+print(averages);
