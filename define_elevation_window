@@ -21,7 +21,8 @@ var windows = [2, 5, 7, 10, 15, 20];
 
 var elevation_variances = ee.ImageCollection(windows
                 .map(calculate_variance))
-                .toBands();
+                .toBands()
+                .rename(["w2", "w5", "w7", "w10", "w15", "w20"]);
                 
 Export.image.toAsset({image: elevation_variances, 
                       description: "elevation_variances", 
