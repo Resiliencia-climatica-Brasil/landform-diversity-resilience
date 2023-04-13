@@ -100,19 +100,14 @@ Export.image.toAsset({
   maxPixels: 5072319225
 });
 
-Export.image.toDrive({
-  image: wetlands_density,
-  description: 'wetlands_density',
+Export.image.toAsset({
+  image:  wetlands_density_1000,
+  description: 'wetlands_density_1000',
+  assetId: "projects/ee-lucasljardim9/assets/wetlands_density_1000",
   scale: 92.76624,
   region: bioma,
-  maxPixels: 631694567
+  maxPixels: 5072319225
 });
 
-Export.image.toDrive({
-  image: wetlands_density_1000,
-  description: 'wetlands_density_1000',
-  scale: 92.76624,
-  region: bioma,
-  maxPixels: 631694567
-});
+
 
