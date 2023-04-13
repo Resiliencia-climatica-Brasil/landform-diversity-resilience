@@ -4,7 +4,7 @@ var elevation_variance_average = function(i){
                 .subtract(elevation_variance.select(i - 1))
                 .reduceRegion({reducer: ee.Reducer.mean(), 
                               geometry: bioma, 
-                              scale: maps.projection().nominalScale(), 
+                              scale: elevation_variance.projection().nominalScale(), 
                               maxPixels: 1e13});
 
   return average;
