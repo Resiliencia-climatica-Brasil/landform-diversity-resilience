@@ -52,7 +52,7 @@ var soil_presence = function(code){
                                   
     var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
 
-    var radius_pixels = r.divide(ee.Number(90)).round()
+    var radius_pixels = 15
     
     /* Count soil type presence within the cell neighborhood */
     
