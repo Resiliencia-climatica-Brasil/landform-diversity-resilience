@@ -124,7 +124,7 @@ Map.addLayer(soil_diversity);
 Export.image.toAsset({
   image: soil_diversity,
   description: 'soil_diversity',
-  assetId: "projects/ee-lucasljardim9/assets/soil_diversity",
+  assetId: "projects/ee-resilience/assets/New_window_size/soil_diversity",
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
