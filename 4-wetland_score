@@ -1,8 +1,75 @@
 /**
- * This script generates and exports to Google Drive a raster of wetland score at a scale of ~ 90 m for Brazil.  
+ * This script generates and exports to Google Drive a raster of soil diversity at a scale of ~ 90 m for Brazil.  
 */
 
-/* Import biome polygons and extract their bounds */
+/* Steps to calculate soil diversity
+
+1- Import soil data
+
+2- Filter soil codes
+
+3- Calculate a raster of soil type presence within a neighborhood
+
+4- Sum the soil presence rasters to create a raster of soil diversity within the neighborhood
+
+5- Export soil diversity data
+
+*/
+
+/**
+ * Function to create a raster indicating the presence of a soil type within a circle kernel of a specific size. 
+ * @param code A character with the soil code.
+ * @results An image of presence and absence of soil type within the neighborhood.
+*/
+           
+var soil_presence = function(code){           
+    /* Filter soil type and change the value to 1 */           
+    var type = soil.filter(ee.Filter.eq("cod_simbol", code))
+              .map(
+              function(feature){
+               return feature.set("cod_simbol", 1)
+              });
+    /* Transform soil type polygon into raster */
+    
+    var soil_rast = type.reduceToImage({
+                        properties: ["cod_simbol"],
+                        reducer: ee.Reducer.first()
+                      });
+                     
+    /* Convert projection and rescale soil rasters to the same projection and scale
+       as the other variables
+    */
+    var soil_raster = soil_rast
+                      .reproject({crs: "EPSG:4326",
+                                  scale: 92.76624});   
+                                  
+    /*
+    The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
+    r = (A/pi)^1/2
+    100 acre equal to 404686 squared meters
+    r = (404686/3.14)^1/2
+    */
+                                  
+    var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt() // radius in meters
+
+    var radius_pixels = 15
+    
+    /* Count soil type presence within the cell neighborhood */
+    
+    var soil_count = soil_raster.neighborhoodToBands(ee.Kernel.circle(radius_pixels)).reduce(ee.Reducer.count())
+    
+    /* Create a presence-absence raster. 
+    Counts higher than zero are transformed into one (presence).
+    */
+    
+    var soil_diversity = soil_count.where(soil_count.gt(0), 1);    
+    
+    return soil_diversity;
+
+}
+
+/* Import biome polygons*/
+
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .map(function(feature){
                              return feature.bounds()
@@ -11,103 +78,54 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .dissolve({'maxError': 1})
                         .bounds();
                         
-/* Import wetland raster from CIFOR database*/                        
-/* Reproject to the same projection as the other variables */
+/* Filter soil codes */
 
-var wetlands = ee.Image("projects/ee-lucasljardim9/assets/Cifor_wetlands")
-               .reproject({crs: "EPSG:4326",
-                           scale: 92.76624});
-/* Transform wetland raster into a binary raster of wetland presence */
+var soil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/soil_IBGE")
+           .select("cod_simbol");
 
-var wetlands_binary = wetlands.where(wetlands.gt(0), 1);
+/* Create a list of unique soil codes */
 
-//Wetland density 100 acres
-/*
-The circle radius was defined by the TNC area, calculating 100 acre backwards to squared meters, than to meters.
+var soil_codes = ["AR", "EKg", "LAd", "LVAd",  "RQo", "EKgu", "GXbd", "PVAd",
+                  "RYbd", "RLd", "RYve", "GXve", "GXa", "GXbe", "ESKg", "FFc",
+                  "FTd", "LAw", "GJo", "SXd", "TCp", "PAa", "RQg", "FXd",
+                  "FXva", "NVd",  "Dn", "NVe", "LVd", "LVe", "PAd", "PACd", "PAva",  
+                  "PVAe", "PVd", "SNo", "RYbe", "SXe", "GMbe", "GMve", "PVe", "FTa",
+                  "FXa", "GXva", "PVAa", "PVAva", "FTva", "CXbd", "NVef", "GZn", "PAe",
+                  "TXo", "FTe", "MTo", "RLe", "GXvd", "ESKo", "RRd", "SNz", "TCo", "VEo",
+                  "VXo", "CXva", "LVAa", "LAa", "SXa", "CXbe", "CXve", "LBd", "FFlf", "FXe",
+                  "LAe", "LVAe", "MDo", "MXo", "OXfi", "EKo", "RRe", "TCk", "PAdx", "LAdx", 
+                  "ESKgu", "NVdf", "LVdf", "LVwf", "CXk", "GMbd", "OXs", "RLh", "VEk", "CXbef",
+                  "MTk", "RLk", "CXvd", "VXk", "CXa", "LVAw", "RLm", "LVw", "VGk", "LVef", "GMa",
+                  "TXp", "LAdf", "VGo", "VGz", "CYbe", "CXj", "LVj", "PVa", "LVaf", "PBACva",
+                  "CHd", "GXn", "GZo", "OJy", "NXd", "OXy", "CXvef", "CHa", "LBa", "CYbd", "LBdf",
+                  "NBd", "NBa", "NBaf", "NBdf", "NVa", "CYve", "MEk", "MEo", "PVva", "SXk", "ESo",
+                  "MTf"];
+                  
+/* Create a raster for each soil type */
+/* A binary raster indicating if there is that soil type within the cell neighborhood*/
 
-r = (A/pi)^1/2
+var soil_list = soil_codes.map(soil_presence);
 
-100 acre equal to 404686 squared meters
+/* Sum all binary raster to create the soil diversity within cell neighborhood */
 
-r = (404686/3.14)^1/2
-*/
+var soil_diversity = ee.ImageCollection.fromImages(soil_list)
+                     .toBands()
+                     .reduce("sum")
+                     .toDouble()
 
-var r = ee.Number(404686).divide(ee.Number(Math.PI)).sqrt(); // radius in meters
+/* Mapping soil diversity */
 
-var radius_pixels = 5
+Map.setCenter(-50, -16, 11);
 
-var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
+Map.addLayer(soil_diversity);                     
 
-/* Count the amount of wetlands within a cell neighborhood */
-
-var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
-
-/* Calculate the number of cells within neighborhood */
-
-var neighbors_amount = neighbors.bandNames().length();
-
-/* Calculate wetland density */
-/* Number of wetlands divided by the number of cells */
-
-var wetlands_density = wetlands_count.divide(ee.Number(neighbors_amount));
-
-/* Replicate the same procedure to a neighborhood of 1000 acres */
-
-// Wetland density 1000 acre
-
-var r = ee.Number(4046860).divide(ee.Number(Math.PI)).sqrt() // radius in meters
-
-var radius_pixels = r.divide(ee.Number(90)).round();
-
-var neighbors = wetlands_binary.neighborhoodToBands(ee.Kernel.circle(ee.Number(radius_pixels)));
-
-var wetlands_count = neighbors.reduce(ee.Reducer.sum()).toDouble();
-
-var neighbors_amount = neighbors.bandNames().length();
-
-var wetlands_density_1000 = wetlands_count.divide(ee.Number(neighbors_amount));
-
-/* Mapping wetland density and patchness */
-
-Map.setCenter(-50, -15, 11);
-
-Map.addLayer(wetlands_count);
-
-Map.addLayer(wetlands_density);
-
-Map.addLayer(wetlands_density_1000);
-
-/* Exporting wetlands patchness (number of wetlands within neighborhood) */
+/* Export soil diversity */
 
 Export.image.toAsset({
-  image: wetlands_count,
-  description: 'wetlands_count',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_count",
+  image: soil_diversity,
+  description: 'soil_diversity',
+  assetId: "projects/ee-resilience/assets/New_window_size/soil_diversity",
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
 });
-
-
-// Wetlands density at 100 and 1000 acres
-
-Export.image.toAsset({
-  image: wetlands_density,
-  description: 'wetlands_density',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_density",
-  scale: 92.76624,
-  region: bioma,
-  maxPixels: 5072319225
-});
-
-Export.image.toAsset({
-  image:  wetlands_density_1000,
-  description: 'wetlands_density_1000',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_density_1000",
-  scale: 92.76624,
-  region: bioma,
-  maxPixels: 5072319225
-});
-
-
-
