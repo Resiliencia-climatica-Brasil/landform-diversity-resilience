@@ -79,10 +79,11 @@ Map.addLayer(wetlands_density_1000);
 
 /* Exporting wetlands patchness (number of wetlands within neighborhood) */
 
+
 Export.image.toAsset({
   image: wetlands_count,
   description: 'wetlands_count',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_count",
+  assetId: "projects/ee-resilience/assets/New_window_size/wetlands_count",
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
@@ -94,7 +95,7 @@ Export.image.toAsset({
 Export.image.toAsset({
   image: wetlands_density,
   description: 'wetlands_density',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_density",
+  assetId: "projects/ee-resilience/assets/New_window_size/wetlands_density",
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
@@ -103,11 +104,13 @@ Export.image.toAsset({
 Export.image.toAsset({
   image:  wetlands_density_1000,
   description: 'wetlands_density_1000',
-  assetId: "projects/ee-lucasljardim9/assets/wetlands_density_1000",
+  assetId: "projects/ee-resilience/assets/New_window_size/wetlands_density_1000",
   scale: 92.76624,
   region: bioma,
   maxPixels: 5072319225
 });
+
+
 
 
 
