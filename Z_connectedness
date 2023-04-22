@@ -1,0 +1,19 @@
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
+
+var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
+
+var mean_connectedness = connectedness.reduceRegion({reducer: ee.Reducer.mean(), 
+                                                     geometry: bioma, 
+                                                     scale: connectedness.projection().nominalScale(), 
+                                                     maxPixels:1e13});
+                                                     
+var sd_connectedness = connectedness.reduceRegion({reducer: ee.Reducer.stdDev(), 
+                                                     geometry: bioma, 
+                                                     scale: connectedness.projection().nominalScale(), 
+                                                     maxPixels:1e13});
+
+
+var Z_connectedness = connectedness.subtract(mean_connectedness).divide(sd_connectedness)
+
+Map.addLayer(Z_connectedness)
+
