@@ -1,12 +1,8 @@
-var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-            .geometry().dissolve();
+var bioma = ee.FeatureCollection(ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+            .geometry().dissolve());
+            
 
-Export.image.toAsset({
-  image: landform_variety,
-  description: 'landform_variety',
-  assetId: "projects/ee-lucasljardim9/assets/landform_variety",
-  pyramidingPolicy: "mode", 
-  scale: 92.76624,
-  region: bioma,
-  maxPixels: 5072319225
-});
+Export.table.toAsset({collection: bioma, 
+                      description: "Brazil_map", 
+                      assetId: "projects/ee-lucasljardim9/assets/Brazil"
+                      });
