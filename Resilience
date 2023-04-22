@@ -10,6 +10,6 @@ var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness")
 
 var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity");
 
-var resilience = landscape_diversity.add(connectedness)
+var resilience = landscape_diversity.add(connectedness).divide(2);
 
 Map.addLayer(resilience)
