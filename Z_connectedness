@@ -1,8 +1,14 @@
 var Biome = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
 
-//"Cerrado", "Mata Atlântica", "Amazônia", 
+var export_BBox = Biome
+                  .map(function(feature){
+                         return feature.bounds()
+                      })
+                  .geometry()
+                  .dissolve({'maxError': 1})
+                  .bounds();
 
-var biome_names = ["Caatinga", "Pantanal", "Pampa"];
+var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
 
@@ -19,21 +25,34 @@ var mean_biome = function(i){
   return statistics_connectedness.get("b1");                            
 }
 
-var mean_connectedness_biome = biome_names.map(mean_biome);
+var std_biome = function(i){
+  
+  var statistics_connectedness = connectedness
+                                 .reduceRegion({reducer: ee.Reducer.stdDev(), 
+                                                geometry: Biome.filter(ee.Filter.eq("Bioma", i)), 
+                                                scale: scale,
+                                                maxPixels:1e13});
+                                              
+  return statistics_connectedness.get("b1");                            
+}
 
-print(ee.List(mean_connectedness_biome).reduce(ee.Reducer.mean()));
+var mean_connectedness_biome = ee.List(biome_names.map(mean_biome))
+                               .reduce(ee.Reducer.mean());
 
+var std_connectedness_biome = ee.List(biome_names.map(std_biome))
+                               .reduce(ee.Reducer.mean());
+                               
+                                                     
+var Z_connectedness = connectedness.subtract(ee.Number(mean_connectedness_biome))
+                      .divide(ee.Number(std_connectedness_biome))
+                      .multiply(-1);
 
-/*                                                     
-var Z_connectedness = connectedness.subtract(ee.Number(statistics_connectedness.get("b1_mean")))
-                      .divide(ee.Number(statistics_connectedness.get("stdDev")));
 
 Export.image.toAsset({image: Z_connectedness, 
                      description:"Z_connectedness",
                      assetId: "projects/ee-lucasljardim9/assets/Z_connectedness", 
                      pyramidingPolicy: "median", 
-                     region: Biome, 
+                     region: export_BBox, 
                      scale: scale,
                      maxPixels: 1e13});
 
-*/
