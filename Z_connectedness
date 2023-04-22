@@ -2,17 +2,23 @@ var Brazil = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Brazil");
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
 
+var scale = connectedness.projection().nominalScale();
+
 var statistics_connectedness = connectedness
                                .reduceRegion({reducer: ee.Reducer.mean()
                                                        .combine({reducer2: ee.Reducer.stdDev(), sharedInputs: true}), 
                                               geometry: Brazil, 
-                                              scale: connectedness.projection().nominalScale(), 
+                                              scale: scale,
                                               maxPixels:1e13});
                                                      
-print(statistics_connectedness)
+var Z_connectedness = connectedness.subtract(ee.Number(statistics_connectedness.get("b1_mean")))
+                      .divide(ee.Number(statistics_connectedness.get("stdDev")));
 
-/*
-var Z_connectedness = connectedness.subtract(mean_connectedness).divide(sd_connectedness)
+Export.image.toAsset({image: Z_connectedness, 
+                     description:"Z_connectedness",
+                     assetId: "projects/ee-lucasljardim9/assets/Z_connectedness", 
+                     pyramidingPolicy: "median", 
+                     region: Brazil, 
+                     scale: scale,
+                     maxPixels: 1e13});
 
-Map.addLayer(Z_connectedness)
-*/
