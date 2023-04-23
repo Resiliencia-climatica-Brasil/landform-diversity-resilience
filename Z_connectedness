@@ -25,7 +25,7 @@ var mean_biome = function(i){
   return statistics_connectedness.get("b1");                            
 }
 
-var std_biome = function(i){
+var var_biome = function(i){
   
   var statistics_connectedness = connectedness
                                  .reduceRegion({reducer: ee.Reducer.stdDev(), 
@@ -41,7 +41,7 @@ var std_biome = function(i){
 var mean_connectedness_biome = ee.Number(ee.List(biome_names.map(mean_biome))
                                .reduce(ee.Reducer.mean()));
 
-var std_connectedness_biome = ee.Number(ee.List(biome_names.map(std_biome))
+var std_connectedness_biome = ee.Number(ee.List(biome_names.map(var_biome))
                               .reduce(ee.Reducer.mean()))
                               .sqrt();
                              
