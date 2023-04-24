@@ -12,6 +12,11 @@ var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_d
 
 var resilience = landscape_diversity.add(connectedness).divide(2);
 
+Map.setCenter(-49.714, -14.189);
+
+Map.addLayer(resilience, {min:-1.98, max:2.14})
+
+/*
 Export.image.toAsset({image: resilience, 
                       description: "resilience", 
                       assetId: "resilience", 
@@ -19,3 +24,5 @@ Export.image.toAsset({image: resilience,
                       region:bioma,
                       scale: resilience.projection().nominalScale(),
                       maxPixels: 1e13});
+                      
+*/                      
