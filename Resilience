@@ -1,10 +1,13 @@
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+            .filter(ee.Filter.eq("Bioma", "Cerrado"));
+/*
                         .map(function(feature){
                              return feature.bounds()
                              })
                         .geometry()
                         .dissolve({'maxError': 1})
                         .bounds();
+*/
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness");
 
@@ -12,4 +15,10 @@ var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_d
 
 var resilience = landscape_diversity.add(connectedness).divide(2);
 
-Map.addLayer(resilience)
+Export.image.toAsset({image: landscape_diversity, 
+                      description: "Landscape_Diversity", 
+                      assetId: "landscape_diversity_test_3", 
+                      pyramidingPolicy:"median",
+                      region:bioma,
+                      scale: landform_Z.projection().nominalScale(),
+                      maxPixels: 1e13});
