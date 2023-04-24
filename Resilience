@@ -1,13 +1,10 @@
 var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-            .filter(ee.Filter.eq("Bioma", "Cerrado"));
-/*
                         .map(function(feature){
                              return feature.bounds()
                              })
                         .geometry()
                         .dissolve({'maxError': 1})
                         .bounds();
-*/
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness");
 
