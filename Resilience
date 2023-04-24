@@ -15,10 +15,10 @@ var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_d
 
 var resilience = landscape_diversity.add(connectedness).divide(2);
 
-Export.image.toAsset({image: landscape_diversity, 
-                      description: "Landscape_Diversity", 
-                      assetId: "landscape_diversity_test_3", 
+Export.image.toAsset({image: resilience, 
+                      description: "resilience", 
+                      assetId: "resilience", 
                       pyramidingPolicy:"median",
                       region:bioma,
-                      scale: landform_Z.projection().nominalScale(),
+                      scale: resilience.projection().nominalScale(),
                       maxPixels: 1e13});
