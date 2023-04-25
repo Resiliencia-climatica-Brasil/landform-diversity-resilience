@@ -14,7 +14,11 @@ var resilience = landscape_diversity.add(connectedness).divide(2);
 
 Map.setCenter(-49.714, -14.189);
 
-Map.addLayer(resilience, {min:-1.98, max:2.14})
+Map.addLayer(connectedness, {min:-1.98, max:2.14}, "connectedness")
+
+Map.addLayer(landscape_diversity, {min:-1.98, max:2.14}, "landscape")
+
+Map.addLayer(resilience, {min:-1.98, max:2.14}, "resilience")
 
 /*
 Export.image.toAsset({image: resilience, 
