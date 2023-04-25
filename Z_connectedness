@@ -50,7 +50,9 @@ var Z_connectedness = connectedness.subtract(mean_connectedness_biome)
                       .divide(std_connectedness_biome)
                       .multiply(-1);
 
+Map.addLayer(connectedness)
 
+/*
 Export.image.toAsset({image: Z_connectedness, 
                      description:"Z_connectedness",
                      assetId: "projects/ee-lucasljardim9/assets/Z_connectedness", 
@@ -58,3 +60,4 @@ Export.image.toAsset({image: Z_connectedness,
                      region: export_BBox, 
                      scale: scale,
                      maxPixels: 1e13});
+*/
