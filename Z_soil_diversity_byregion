@@ -1,0 +1,75 @@
+var geophysical_setting = ee.Image("projects/ee-lucasljardim9/assets/ecoregions_geology");
+
+var soil_diversity = ee.Image('projects/ee-resilience/assets/New_window_size/soil_diversity');
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
+
+var histogram = geophysical_setting.reduceRegion({reducer:ee.Reducer.frequencyHistogram(), 
+                                  geometry: bioma, 
+                                  scale: 92.76624, 
+                                  maxPixels:1e13
+                                  });
+                                  
+var classes = ee.Dictionary(histogram.get("b1")).keys();
+
+
+//var classes = ["1001", "1003", "101", "1347", "1430", "145", "205"]
+
+var calculate_Z = function(code){
+  
+  var mask = geophysical_setting
+             .where(geophysical_setting.eq(ee.Number.parse(code)), 1)
+             .where(geophysical_setting.neq(ee.Number.parse(code)), 0);
+
+  var map1 = soil_diversity.mask(mask).rename("b1");           
+     
+  var mean = map1
+             .reduceRegion({reducer:ee.Reducer.mean(),
+                            geometry:bioma,
+                            scale:92.76624,
+                            maxPixels:1e13
+                            })
+             .get("b1");  
+           
+  var sd = map1
+           .reduceRegion({reducer:ee.Reducer.stdDev(),
+                          geometry:bioma,
+                          scale:92.76624,
+                          maxPixels:1e13
+                          })
+           .get("b1");   
+           
+  var Z = map1.subtract(ee.Number(mean)).divide(ee.Number(sd));
+
+  return Z
+}
+
+var Z_map = ee.ImageCollection(classes.map(calculate_Z))
+            .toBands()
+            .reduce("sum");
+
+
+Export.image.toAsset({image:Z_map, 
+                      description: "Z_soil_diversity_byregion", 
+                      assetId:"projects/ee-lucasljardim9/assets/Z_soil_diversity_byregion", 
+                      pyramidingPolicy:"median", 
+                      region:bioma, 
+                      scale: soil_diversity.projection().nominalScale(), 
+                      maxPixels:1e13});
+
+
+
+           
+
+
+
+
+
+
+
