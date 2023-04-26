@@ -32,7 +32,7 @@ var calculate_Z = function(code){
                             scale:92.76624,
                             maxPixels:1e13
                             })
-             .get("count");  
+             .get("residuals");  
            
   var sd = map1
            .reduceRegion({reducer:ee.Reducer.stdDev(),
@@ -40,7 +40,7 @@ var calculate_Z = function(code){
                           scale:92.76624,
                           maxPixels:1e13
                           })
-           .get("count");   
+           .get("residuals");   
            
   var Z = map1.subtract(ee.Number(mean)).divide(ee.Number(sd));
 
