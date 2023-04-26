@@ -24,7 +24,7 @@ var calculate_Z = function(code){
              .where(geophysical_setting.eq(ee.Number.parse(code)), 1)
              .where(geophysical_setting.neq(ee.Number.parse(code)), 0);
 
-  var map1 = connectedness.mask(mask);           
+  var map1 = connectedness.mask(mask).rename("b1");           
      
   var mean = map1
              .reduceRegion({reducer:ee.Reducer.mean(),
@@ -32,7 +32,7 @@ var calculate_Z = function(code){
                             scale:92.76624,
                             maxPixels:1e13
                             })
-             .get("residuals");  
+             .get("b1");  
            
   var sd = map1
            .reduceRegion({reducer:ee.Reducer.stdDev(),
@@ -40,7 +40,7 @@ var calculate_Z = function(code){
                           scale:92.76624,
                           maxPixels:1e13
                           })
-           .get("residuals");   
+           .get("b1");   
            
   var Z = map1.subtract(ee.Number(mean)).divide(ee.Number(sd));
 
