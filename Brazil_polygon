@@ -1,7 +1,0 @@
-var bioma = ee.FeatureCollection(ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
-            .geometry().dissolve().simplify(1));
-
-Export.table.toAsset({collection: bioma, 
-                      description: "Brazil_map", 
-                      assetId: "projects/ee-lucasljardim9/assets/Brazil"
-                      });
