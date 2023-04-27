@@ -6,22 +6,23 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .dissolve({'maxError': 1})
                         .bounds();
 
-var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness_byregion");
+var connectedness_byregion = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness_byregion");
 
-var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
+var landscape_diversity_byregion = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
 
-var resilience = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
+var resilience = ee.Image("projects/ee-lucasljardim9/assets/resilience");
 
-
-var resilience_byregion = landscape_diversity.add(connectedness).divide(2);
+var resilience_byregion = landscape_diversity_byregion.add(connectedness_byregion).divide(2);
 
 Map.setCenter(-49.714, -14.189);
 
-Map.addLayer(connectedness, {min:-1.98, max:2.14}, "connectedness")
+//Map.addLayer(connectedness_byregion, {min:-1.98, max:2.14}, "connectedness")
 
-Map.addLayer(landscape_diversity, {min:-1.98, max:2.14}, "landscape")
+//Map.addLayer(landscape_diversity_byregion, {min:-1.98, max:2.14}, "landscape")
 
-Map.addLayer(resilience, {min:-1.98, max:2.14}, "resilience_byregion")
+Map.addLayer(resilience_byregion, {min:-2.44, max:1.46}, "resilience_byregion")
+
+Map.addLayer(resilience, {min:-2.36, max:1.48}, "resilience")
 
 
 
