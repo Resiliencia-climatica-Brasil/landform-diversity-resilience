@@ -1,0 +1,172 @@
+// Based on the script 08_landscape_diversity.R by Lucas Jardim
+
+// Importing data ----------------------------------------------------------
+
+
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                       .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
+
+
+var landform_Z = ee.Image('projects/ee-lucasljardim9/assets/Z_landform_variety_byregion');
+
+var elevation_range_Z = ee.Image('projects/ee-lucasljardim9/assets/Z_elevation_range_byregion');
+
+var wetland_score = ee.Image('projects/ee-lucasljardim9/assets/Z_wetlands_score_byregion');
+
+var soil_diversity =  ee.Image('projects/ee-lucasljardim9/assets/Z_soil_diversity_byregion');
+
+
+// Step 1 ------------------------------------------------------------------
+// Take the average of landform and elevation range only if elevantion range is higher than landform--------
+
+// Test if elevation range is greater than landscape diversity
+
+var landscape_diversity = landform_Z;
+
+
+var test_1 = elevation_range_Z.gt(landscape_diversity);
+
+
+// Compute the average elevation
+var average_elevation = landform_Z.multiply(2).add(elevation_range_Z).divide(3);
+
+// Update landscape diversity where test_1 is true
+
+var landscape_diversity = landscape_diversity.where(test_1, average_elevation);
+
+
+// Step 2 ------------------------------------------------------------------
+// Take the average of landform, elevation range, and wetland score only if wetland score is higher than Step 1
+
+var test_2 = wetland_score.gt(landscape_diversity);
+
+
+// Calculate average -------------------------------------------------------
+// Elevation range higher than landform ------------------------------------
+
+var average_wetland_1 = landform_Z.multiply(2).add(elevation_range_Z).add(wetland_score).divide(4);
+
+var average_wetland_2 = landform_Z.multiply(2).add(wetland_score).divide(3);
+
+
+// Assigning new landform diversity values ---------------------------------
+
+
+
+//IF values of landscape_diversity are < elevation Z Score AND Wetland Z score we will calculate the diversity as landforms*2 + elevation + wetland / 4  
+
+landscape_diversity = landscape_diversity.where(test_1.and(test_2), average_wetland_1); 
+
+//IF the values of diversity are < elevation but > wetland; then the diversity will be calculated by landforms*2 + wetlands / 3 
+
+landscape_diversity = landscape_diversity.where(test_1.not().and(test_2), average_wetland_2); 
+
+
+// Step 3 ------------------------------------------------------------------
+// Take the average of soil diversity only if it is higher than Step 2
+
+var test_3 = soil_diversity.gt(landscape_diversity);
+
+
+// Averages ----------------------------------------------------------------
+
+var average_soil_1 = landform_Z.multiply(2).add(elevation_range_Z).add(wetland_score).add(soil_diversity).divide(5);
+
+var average_soil_2 = landform_Z.multiply(2).add(elevation_range_Z).add(soil_diversity).divide(4);
+
+var average_soil_3 = landform_Z.multiply(2).add(wetland_score).add(soil_diversity).divide(4);
+
+var average_soil_4 = landform_Z.multiply(2).add(soil_diversity).divide(3);
+
+
+// Assigning new landscape diversity values  -------------------------------
+
+//1) IF values of Diversity are SMALLER than elevation AND Wetlands AND Soil Diversity:
+// Landscape diversity = landforms*2 + elevation + wetland + soil /5
+
+//2) IF diversity is SMALER then elevation AND Soil but BIGGER then Wetlands:
+// Landscape diversity = landforms*2 + elevation + soil /4
+
+//3) IF diversity is SMALLER than Wetlands AND soil but bigger than Elevation:
+// Landscape diversity = landforms*2 + wetland + soil /4
+
+//4) IF diversity is SMALLER than soil but bigger than Elevation AND Wetlands:
+// Landscape diversity = landforms*2 + soil /3
+
+
+landscape_diversity = landscape_diversity.where(test_1.and(test_2).and(test_3), average_soil_1); // 1)
+
+landscape_diversity = landscape_diversity.where(test_1.and(test_2.not()).and(test_3), average_soil_2); // 2)
+
+landscape_diversity = landscape_diversity.where(test_1.not().and(test_2).and(test_3), average_soil_3); // 3)
+
+landscape_diversity = landscape_diversity.where(test_1.not().and(test_2.not()).and(test_3), average_soil_4); // 4)
+
+// Step 3 ------------------------------------------------------------------
+// Exporting to Asset
+
+
+Export.image.toAsset({image: landscape_diversity, 
+                      description: "Landscape_Diversity_byregion", 
+                      assetId: "landscape_diversity_byregion", 
+                      pyramidingPolicy:"median",
+                      region:bioma,
+                      scale: landform_Z.projection().nominalScale(),
+                      maxPixels: 1e13});
+
+//Step 4 ------------------------------------------------------------------
+/*
+// Visualization
+//Images
+var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
+var landscape_test1 = ee.Image('projects/ee-resilience/assets/Z-Scores/landscape_diversity_test_1').clip(bioma);
+var landscape_test2 = ee.Image('projects/ee-resilience/assets/Z-Scores/landscape_diversity_test_2').clip(bioma);
+var landscape_test3 = ee.Image('projects/ee-resilience/assets/Z-Scores/landscape_diversity_test_3').clip(bioma);
+
+
+// Palette
+//var paleta = ['011301','023B01','207401','66A000','FCD163','CE7E45'];
+
+var paleta = ['011301','011D01','012E01','023B01','004C00','056201','207401','3E8601','529400','66A000','74A901','99B718','FCD163','F1B555','DF923D','CE7E45','FFFFFF'];
+
+//Ploting map
+// Create two maps.
+var center = {lon:-60, lat:-1.8, zoom:8};
+var leftMap = ui.Map(center);
+var rightMap = ui.Map(center);
+
+// Create a split panel with the two maps.
+var splitPanel = ui.SplitPanel({
+  firstPanel: leftMap,
+  secondPanel: rightMap,
+  orientation: 'horizontal',
+  wipe: true
+});
+
+// Remove the default map from the root panel.
+ui.root.clear();
+
+// Add our split panel to the root panel.
+ui.root.add(splitPanel);
+
+// Add the layers to the maps
+rightMap.addLayer(landform_Z.clip(bioma), {min:-1, max:6, palette:paleta}, 'Landforms Z Score');
+
+rightMap.addLayer(landscape_test2.clip(bioma), {min:-1, max: 6, palette:paleta}, 'Landscape Diversity teste 2');
+//leftMap.addLayer(landscape_diversity.clip(bioma), {min:-1, max: 6, palette:paleta}, 'Landscape Diversity teste 3');
+leftMap.addLayer(landscape_test3.clip(bioma), {min:-1, max:6, palette: paleta}, 'Landscaep Diversity teste 3')
+*/
+
+
+//leftMap.addLayer(landscape_test1, {/*min:-0.7, max:6,*/ palette:paleta}, 'Landscape Diversity teste 1');
+//leftMap.addLayer(test_1.selfMask().clip(bioma),  {min:0, max:1, palette:['red', 'red']}, 'elevation > Land.Div.');
+//leftMap.addLayer(test_2.selfMask().clip(bioma),  {min:0, max:1, palette:['red', 'green']}, 'wetlands > Land.Div.');
+//leftMap.addLayer(test_3.selfMask().clip(bioma),  {min:0, max:1, palette:['red', 'blue']}, 'soil > Land.Div.');
+
+
+
