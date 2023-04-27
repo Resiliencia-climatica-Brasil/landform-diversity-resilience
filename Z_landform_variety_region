@@ -1,4 +1,5 @@
-var geophysical_setting = ee.Image("projects/ee-lucasljardim9/assets/ecoregions_geology");
+var geophysical_setting = ee.Image("projects/ee-lucasljardim9/assets/ecoregions_geology")
+                          .unmask();
 
 var landform_variety = ee.Image("projects/ee-lucasljardim9/assets/landform_variety");
 
@@ -17,9 +18,6 @@ var histogram = geophysical_setting.reduceRegion({reducer:ee.Reducer.frequencyHi
                                   });
                                   
 var classes = ee.Dictionary(histogram.get("b1")).keys();
-
-
-//var classes = ["1001", "1003", "101", "1347", "1430", "145", "205"]
 
 var calculate_Z = function(code){
   
