@@ -10,7 +10,10 @@ var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness_b
 
 var landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
 
-var resilience = landscape_diversity.add(connectedness).divide(2);
+var resilience = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
+
+
+var resilience_byregion = landscape_diversity.add(connectedness).divide(2);
 
 Map.setCenter(-49.714, -14.189);
 
@@ -18,7 +21,9 @@ Map.addLayer(connectedness, {min:-1.98, max:2.14}, "connectedness")
 
 Map.addLayer(landscape_diversity, {min:-1.98, max:2.14}, "landscape")
 
-Map.addLayer(resilience, {min:-1.98, max:2.14}, "resilience")
+Map.addLayer(resilience, {min:-1.98, max:2.14}, "resilience_byregion")
+
+
 
 /*
 Export.image.toAsset({image: resilience, 
