@@ -19,9 +19,7 @@ var histogram = geophysical_setting.reduceRegion({reducer:ee.Reducer.frequencyHi
                                   scale: 92.76624, 
                                   maxPixels:1e13
                                   });
-
-var classes = ["1001", "1003", "101", "1347", "1430", "145", "205"]                                  
-//var classes = ee.Dictionary(histogram.get("b1")).keys();
+var classes = ee.Dictionary(histogram.get("b1")).keys();
 
 var calculate_Z = function(code, image){
 
