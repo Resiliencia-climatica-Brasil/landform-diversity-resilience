@@ -12,7 +12,7 @@ var image = ee.Image("projects/ee-resilience/assets/Landforms_Assets/Landforms_t
 
 3- Transform slopes, aspect, TPI and moisture index into classes
 
-4- Combine slopes, aspect, TPI and moisture classes into a code string
+- Combine slopes, aspect, TPI and moisture classes into a code string
 
 5- Re-classify landform string into landform types
 
