@@ -6,33 +6,18 @@ var bioma = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
                         .dissolve({'maxError': 1})
                         .bounds();
 
-var connectedness_byregion = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness_byregion");
+var Z_connectedness = ee.Image("projects/ee-lucasljardim9/assets/Z_connectedness_byregion");
 
-var landscape_diversity_byregion = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
+var Z_landscape_diversity = ee.Image("projects/ee-lucasljardim9/assets/landscape_diversity_byregion");
 
-var resilience = ee.Image("projects/ee-lucasljardim9/assets/resilience");
+var resilience = Z_connectedness.add(Z_landscape_diversity).divide(2);
 
-var resilience_byregion = landscape_diversity_byregion.add(connectedness_byregion).divide(2);
-
-Map.setCenter(-49.714, -14.189);
-
-//Map.addLayer(connectedness_byregion, {min:-1.98, max:2.14}, "connectedness")
-
-//Map.addLayer(landscape_diversity_byregion, {min:-1.98, max:2.14}, "landscape")
-
-Map.addLayer(resilience_byregion, {min:-2.44, max:1.46}, "resilience_byregion")
-
-Map.addLayer(resilience, {min:-2.36, max:1.48}, "resilience")
-
-
-
-/*
-Export.image.toAsset({image: resilience, 
-                      description: "resilience", 
-                      assetId: "resilience", 
-                      pyramidingPolicy:"median",
-                      region:bioma,
-                      scale: resilience.projection().nominalScale(),
-                      maxPixels: 1e13});
-                      
-*/                      
+Export.image.toAsset({
+  image: resilience,
+  description: 'resilience_byregion',
+  assetId: "projects/ee-lucasljardim9/assets/resilience_byregion",
+  pyramidingPolicy: "median", 
+  scale: 92.76624,
+  region: bioma,
+  maxPixels: 1e13
+});
