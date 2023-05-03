@@ -1,5 +1,5 @@
-var Biome = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
-
+var region = ee.FeatureCollection("projects/ee-lucasljardim9/assets/BR_Pais_2022");
+/*
 var export_BBox = Biome
                   .map(function(feature){
                          return feature.bounds()
@@ -7,8 +7,9 @@ var export_BBox = Biome
                   .geometry()
                   .dissolve({'maxError': 1})
                   .bounds();
-                  
-var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
+*/
+
+//var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
 
