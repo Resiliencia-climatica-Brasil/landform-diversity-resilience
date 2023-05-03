@@ -8,12 +8,12 @@ var export_BBox = Biome
                   .dissolve({'maxError': 1})
                   .bounds();
 
-//var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
+var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
 
 var scale = connectedness.projection().nominalScale();
-/*
+
 var mean_biome = function(i, image){
   
   var statistics = image.rename("b1")
@@ -76,7 +76,6 @@ var calculate_Z_scores = function(image){
                       
   return Z                      
 }
-*/ 
 
 var calculate_Z_scores = function(image) {
   // Calculate mean and standard deviation
