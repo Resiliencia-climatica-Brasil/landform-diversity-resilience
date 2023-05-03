@@ -1,5 +1,5 @@
-var region = ee.FeatureCollection("projects/ee-lucasljardim9/assets/BR_Pais_2022");
-/*
+var Biome = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
+
 var export_BBox = Biome
                   .map(function(feature){
                          return feature.bounds()
@@ -7,15 +7,13 @@ var export_BBox = Biome
                   .geometry()
                   .dissolve({'maxError': 1})
                   .bounds();
-*/
 
 //var biome_names = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"];
 
 var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
 
 var scale = connectedness.projection().nominalScale();
-
-
+/*
 var mean_biome = function(i, image){
   
   var statistics = image.rename("b1")
@@ -78,11 +76,41 @@ var calculate_Z_scores = function(image){
                       
   return Z                      
 }
+*/ 
 
-// Landforms, Elevation Range and Soil Diversity Z scores --------------------------
+var calculate_Z_scores = function(image) {
+  // Calculate mean and standard deviation
+  var mean = image.reduceRegion({
+    reducer: ee.Reducer.mean(),
+    scale: scale,
+    bestEffort: true
+  });//print('Global Mean', mean);
+
+  var sd = image.reduceRegion({
+    reducer: ee.Reducer.stdDev(),
+    scale: scale,
+    bestEffort: true
+  });// print('Global sd', sd)
+
+  // Extract the mean and standard deviation values from the dictionaries into a raster
+var meanValue = ee.Image.constant(mean
+                                  .values()
+                                  .get(0));
+                                  //print('mean Dictionary', meanValue);
+                                  
+  var sdValue = ee.Image.constant(sd
+                                  .values()
+                                  .get(0));
+                                  //print('sd dictionary', sdValue);
+
+  // Calculate z for the current image
+  var z = image.subtract(meanValue).divide(sdValue);
+
+  // Return the z image
+  return z.rename('z');
+};
 
 var Z_connectedness = calculate_Z_scores(connectedness).multiply(-1);
-                               
 
 Export.image.toAsset({image: Z_connectedness, 
                      description:"Z_connectedness",
