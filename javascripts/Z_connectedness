@@ -14,45 +14,75 @@ var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistenci
 
 var scale = connectedness.projection().nominalScale();
 
-var mean_biome = function(i){
+
+var mean_biome = function(i, image){
   
-  var statistics_connectedness = connectedness
-                                 .reduceRegion({reducer: ee.Reducer.mean(), 
-                                                geometry: Biome.filter(ee.Filter.eq("Bioma", i)), 
-                                                scale: scale,
-                                                maxPixels:1e13});
+  var statistics = image.rename("b1")
+                   .reduceRegion({reducer: ee.Reducer.mean(), 
+                                  geometry: Biome.filter(ee.Filter.eq("Bioma", i)), 
+                                  scale: scale,
+                                  maxPixels:1e13});
                                               
-  return statistics_connectedness.get("b1");                            
+  return ee.Number(statistics.get("b1"));                            
 }
 
-var var_biome = function(i){
+var sq_sum_biome = function(i, image){
   
-  var statistics_connectedness = connectedness
-                                 .reduceRegion({reducer: ee.Reducer.stdDev(), 
-                                                geometry: Biome.filter(ee.Filter.eq("Bioma", i)), 
-                                                scale: scale,
-                                                maxPixels:1e13});
-                                                
-  var sd = statistics_connectedness.get("b1");                                          
-                                              
-  return  ee.Number(sd).multiply(ee.Number(sd));                           
+  var mean = image.reduceRegion({reducer:ee.Reducer.mean(), 
+                                 geometry:Biome.filter(ee.Filter.eq("Bioma", i)), 
+                                 maxPixels:1e13});
+  
+  var img_mean = ee.Image.constant(mean.get("b1"))
+  
+  var sq_dev = image.select("b1")
+               .subtract(img_mean.select("constant"))
+               .pow(2)
+               .reduceRegion({reducer:ee.Reducer.sum(),
+                              geometry:Biome.filter(ee.Filter.eq("Bioma", i)),
+                              maxPixels:1e13});
+                              
+  return sq_dev;
 }
 
-var mean_connectedness_biome = ee.Number(ee.List(biome_names.map(mean_biome))
-                               .reduce(ee.Reducer.mean()));
+var cell_number = function(i, image){
+  
+  var cells = image.reduceRegion({reducer:ee.Reducer.count(), 
+                                  geometry:Biome,
+                                  maxPixels:1e13});
+                                                              
+  var n = ee.Number(cells.get("b1"));
+  
+  return n;
+}
 
-var std_connectedness_biome = ee.Number(ee.List(biome_names.map(var_biome))
-                              .reduce(ee.Reducer.mean()))
-                              .sqrt();
-                             
+var calculate_Z_scores = function(image){
+  
+  image = image.rename("b1");
+  
+  var mean = ee.Number(ee.List(biome_names.map(function(i){return mean_biome(i, image)}))
+                       .reduce(ee.Reducer.mean())
+                       );
+  
+  var list_sq_sum = ee.List(biome_names.map(function(i){return sq_sum_biome(i, image).get("b1")}));  
+  
+  var total_sq_sum = ee.Number(list_sq_sum.reduce(ee.Reducer.sum()));
+  
+  var n = ee.List(biome_names.map(function(i){return cell_number(i, image)}))
+          .reduce(ee.Reducer.sum());  
+  
+  var std = total_sq_sum.divide(n).sqrt();
+  
+  var Z = image.subtract(mean)
+          .divide(std);   
+                      
+  return Z                      
+}
+
+// Landforms, Elevation Range and Soil Diversity Z scores --------------------------
+
+var Z_connectedness = calculate_Z_scores(connectedness).multiply(-1);
                                
-var Z_connectedness = connectedness.subtract(mean_connectedness_biome)
-                      .divide(std_connectedness_biome)
-                      .multiply(-1);
 
-Map.addLayer(connectedness)
-
-/*
 Export.image.toAsset({image: Z_connectedness, 
                      description:"Z_connectedness",
                      assetId: "projects/ee-lucasljardim9/assets/Z_connectedness", 
@@ -60,4 +90,3 @@ Export.image.toAsset({image: Z_connectedness,
                      region: export_BBox, 
                      scale: scale,
                      maxPixels: 1e13});
-*/
