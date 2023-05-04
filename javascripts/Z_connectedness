@@ -1,19 +1,18 @@
-var Biome = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome");
+var Biome = ee.FeatureCollection("projects/ee-lucasljardim9/assets/Biome")
+                        .map(function(feature){
+                             return feature.bounds()
+                             })
+                        .geometry()
+                        .dissolve({'maxError': 1})
+                        .bounds();
 
-var resistance = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
-
-print(Biome)
-
-var export_BBox = Biome
-                  .map(function(feature){
-                         return feature.bounds()
-                      })
-                  .geometry()
-                  .dissolve({'maxError': 1})
-                  .bounds();
+var brasil_raster = ee.Image("projects/ee-lucasljardim9/assets/brasil_raster");
 
 
-var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel");
+//NOVAS JANELAS ATUALIZADAS
+
+var connectedness = ee.Image("projects/ee-lucasljardim9/assets/Biomas_resistencia_kernel")
+                    .updateMask(brasil_raster);
 
 var scale = connectedness.projection().nominalScale();
 
@@ -48,17 +47,15 @@ var meanValue = ee.Image.constant(mean
   // Return the z image
   return z.rename('z');
 };
-*/
+
 
 var Z_connectedness = calculate_Z_scores(connectedness).multiply(-1);
 
-print(Z_connectedness)
-/*
+
 Export.image.toAsset({image: Z_connectedness, 
                      description:"Z_connectedness",
                      assetId: "projects/ee-lucasljardim9/assets/Z_connectedness", 
                      pyramidingPolicy: "median", 
-                     region: export_BBox, 
+                     region: Biome, 
                      scale: scale,
                      maxPixels: 1e13});
-*/
